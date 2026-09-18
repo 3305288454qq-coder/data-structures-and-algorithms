@@ -1,0 +1,29 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>B02 层序遍历</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="b02.md">Markdown 原文件</a></nav><h1>B02 层序遍历</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../code/b02.cpp">代码文件</a> · <a href="../../PRACTICE_ORDER.html">总顺序</a></p>
+<p><strong>状态：未开始｜需实操</strong>。</p>
+<h2>要求</h2>
+<p>使用队列按层从左到右访问，返回所有结点的序列。可以复用前一章队列或使用 std::queue，把重点放在遍历上。</p>
+<p>这是为本地练习编写的任务说明；在线题链接用于追加提交验证，不表示两个入口的接口完全相同。</p>
+<h2>接口与已有内容</h2>
+<pre><code>std::vector&lt;int&gt; level_order(TreeNode* root);</code></pre>
+<p>所需结构体在 <a href="../../templates/common.hpp">common.hpp</a> 中。代码文件已经准备好上述接口和一个 main 自测入口；只需实现 TODO，先不要删除异常去假装完成。使用 0 基下标还是 1 基位序，以本页为准。</p>
+<h2>输入输出示例（用于理解）</h2>
+<p>下面保留原来的演示调用，便于理解输入输出；当前 main 已升级为多组自动断言，不再逐行打印这些示例：</p>
+<pre><code>TreeNode a{4}, b{5}, left{2, &amp;a, &amp;b}, right{3}, root{1, &amp;left, &amp;right};
+print_range(level_order(&amp;root));</code></pre>
+<p>如果单独使用上面的演示调用，预期输出为：</p>
+<pre><code>1 2 3 4 5</code></pre>
+<h2>还要自己补的边界情况</h2>
+<p>空树；单结点；链状树；不完全二叉树。</p>
+<h2>新版自动自测</h2>
+<p>实际 main 现在自动核对普通与边界用例，输出 PASS / FAIL / TODO，而不是上方示例的逐行结果。详细含义见 <a href="../../TESTING.html">测试指南</a>。有限测试通过不等于已掌握或已通过在线判题。</p>
+<h2>完成检查</h2>
+<ul>
+<li><span class="box" aria-label="未完成">☐</span> 自己实现目标算法，能解释关键变量与更新顺序。</li>
+<li><span class="box" aria-label="未完成">☐</span> 编译无错误，检查并处理有依据的警告。</li>
+<li><span class="box" aria-label="未完成">☐</span> 上方自测通过，补充边界情况通过。</li>
+<li><span class="box" aria-label="未完成">☐</span> 写下时间复杂度、额外空间复杂度和适用条件。</li>
+</ul>
+<p>本题以本地自测为主；完成代码不自动等于已掌握。</p>
+<h2>实现参考</h2>
+<p><a href="https://oi-wiki.org/graph/tree-basic/">本章算法资料</a> · <a href="../../references/README.html">参考资料与模板使用说明</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

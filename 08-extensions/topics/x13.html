@@ -1,0 +1,17 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>X13 强连通分量、割点与桥</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="x13.md">Markdown 原文件</a></nav><h1>X13 强连通分量、割点与桥</h1>
+<p><a href="../../index.html">练习导航</a></p>
+<p><strong>扩展｜阅读与手推｜学习状态由实操确认</strong></p>
+<p>强连通分量用于有向图：同一分量中任意两点互相可达。割点与桥常用于无向图：删除它会增加连通分量数量。三者不能混用定义。</p>
+<h2>三个具体任务</h2>
+<ul>
+<li>有向边0→1、1→0、1→2、2→3、3→2：列出强连通分量，并画缩点后的有向图。</li>
+<li>无向边0—1、1—2、2—0、1—3：找割点与桥，逐一用删除后连通性验证。</li>
+<li>在无向图中再加第二条1—3平行边：桥的结论是否变化？为什么DFS只跳过“父顶点”可能错，应该区分边编号？</li>
+</ul>
+<details>
+<summary>核对划分与关键边</summary>
+<p>第一题分量为{0,1}与{2,3}，前者指向后者。第二题割点是1，桥是1—3。第三题两条平行边都不是桥，删掉一条仍连接1与3。</p>
+</details>
+<h2>进阶实现选择</h2>
+<p>强连通可以选择Kosaraju或Tarjan作为一个完整专题，不要求一次都写。无向割点/桥要分别处理DFS根与非根、平行边、非连通图及孤点。</p>
+<p>测试分量编号可以不同，应比较“哪些顶点属于同一分量”，而不是强制一组固定编号。用小图逐条删边/删点作为独立核对办法。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

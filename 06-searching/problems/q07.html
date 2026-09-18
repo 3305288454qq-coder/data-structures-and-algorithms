@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Q07 开放定址：线性探测与删除标记</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="q07.md">Markdown 原文件</a></nav><h1>Q07 开放定址：线性探测与删除标记</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a> · <a href="../code/q07.cpp">C++ 框架</a></p>
+<p><strong>基础｜编码｜王道主线。学习状态：未开始；材料建立不表示掌握。</strong></p>
+<h2>为什么练</h2>
+<p>删除不能把槽位直接当作从未使用；墓碑保证碰撞链仍可继续查找。</p>
+<p>前置：Q04。定长表，无自动扩容；整数集合，不保留重复键。槽状态 Empty/Occupied/Deleted；容量 0 允许但不能插入。</p>
+<h2>接口</h2>
+<p><code>hash_find(table,key)</code> 返回槽位或 -1；<code>hash_insert</code> 仅新插入成功返回 true（已存在或满表 false）；<code>hash_erase</code> 仅实际删除成功 true。哈希起点取数学意义的非负 key mod capacity，负数也可用；最多检查 capacity 个槽，不能无限绕圈。</p>
+<p>查找遇到 Empty 可停止，遇到 Deleted 要继续。插入可记住第一个 Deleted，但还得确认后面是否已有相同 key，不能立即造成重复。</p>
+<h2>手推</h2>
+<p>容量 5，依次插入 1、6、11，占用 1、2、3。删除 6 后，下标 2 记 Deleted；查 11 仍须找到 3。此时再次插 11 应 false，插 16 可复用下标 2。</p>
+<h2>已准备测试</h2>
+<p>同余碰撞、越过墓碑、墓碑后重复、复用、满表、删除不存在、负数/INT_MIN、容量 0。这个定长教学版本允许装满，但高负载时性能下降；期望 O(1) 依赖散列和负载条件，最坏 O(m)。</p>
+<h2>验收</h2>
+<p>main 自动核对：0 表示已准备的测试通过，1 表示断言失败，2 表示尚有 TODO。随后解释复杂度、边界和不变量；自测不是全部正确性证明。</p>
+<p><a href="https://opendatastructures.org/newhtml/ods/latex/hashing.html">主题参考</a> · <a href="../../references/README.html">资料使用说明</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

@@ -1,0 +1,38 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>外排序 04：最佳归并树与合并次序</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="04-optimal-merge.md">Markdown 原文件</a></nav><h1>外排序 04：最佳归并树与合并次序</h1>
+<p><a href="README.html">专题目录</a> · <a href="03-loser-tree.html">上一页：败者树</a></p>
+<p><strong>基础：计算与画树；进阶 <a href="../problems/r17.html">R17 二路/k 路最佳归并</a> 已有 C++ 框架与自动核对。未确认掌握。</strong></p>
+<h2>为什么归并次序也影响代价</h2>
+<p>假设每个有序段的长度是权值，一次归并的代价先按“被合并段的长度之和”计。</p>
+<p>一个较早参与合并的原始段，之后可能又经过多次归并，因此它的长度会被反复计入代价。</p>
+<p>最佳归并树安排的是“哪些段先合并”。在这个加和模型下，二路最优归并与哈夫曼构造有同样的贪心结构：每次合并当前最短的两段。</p>
+<p>因此现有 <a href="../../04-trees/problems/b06.html">B06 WPL 练习</a> 可以作为前置，但只算 WPL 并不意味着已经理解外排序中的归并安排。</p>
+<h2>二路手推题</h2>
+<p>四段长度为 2、3、7、10。分别计算：</p>
+<ul>
+<li>方案甲：先合并 2 与 3，再按“当前最短两段”继续。</li>
+<li>方案乙：先合并 2 与 10，同时合并 3 与 7，最后合并两段。</li>
+</ul>
+<details>
+<summary>展开核对代价</summary>
+<p>方案甲：2+3=5；5+7=12；10+12=22。累计代价 5+12+22=39。</p>
+<p>方案乙：2+10=12；3+7=10；12+10=22。累计代价 12+10+22=44。</p>
+<p>两种方案最后的总长度都是 22，但累计参与归并的长度不同。不要只比较根结点的 22。</p>
+<p>若题目把每次归并全部读入、全部写出都计为 I/O，则相应读写代价再乘 2；初始段生成代价另算。这个模型不直接预测真实磁盘秒数。</p>
+</details>
+<h2>k 路时为什么要补虚段</h2>
+<p>对于每个内部结点都有 k 个孩子的满 k 叉归并树，叶子数 r 应满足：</p>
+<p><code>(r - 1) % (k - 1) == 0</code>，其中 k≥2，r≥1。</p>
+<p>若不满足，可补最少数量的零长度虚段，使条件成立，再每次合并最短的 k 个权值。</p>
+<p>虚段只是构造中的占位，不是真的额外数据文件；这样也能表示最开始一次不足 k 条实际段的合并。</p>
+<details>
+<summary>三路小例子：4 条段为什么不能直接每次取 3 条到最后</summary>
+<p>长度 2、3、4、8，k=3。r=4 不满足 (r−1) 能被 2 整除；补 1 条长度 0 的虚段。</p>
+<p>先合并 0、2、3 得到 5，再合并 4、5、8 得到 17；总长度代价为 5+17=22。</p>
+<p>这等价于先对实际的 2、3 做一次两路归并，再做一次三路归并。</p>
+<p>如果先将 2、3、4 合成 9，再将 9 与 8 合成 17，总代价为 26，比前一种大。</p>
+</details>
+<h2>自己练什么</h2>
+<p>先用新权值 1、2、5、9、12 画一棵二路归并树，分别计算各次合并长度之和与叶子加权深度之和，检查它们是否相同。</p>
+<p>进阶再写“段长度 + 归并路数 → 最小加和代价”的模拟，处理单段、空输入、相同长度和累计长度溢出；空输入按接口约定返回 0，不代入前面的叶子公式。</p>
+<p>不要混淆：败者树决定一次合并中哪个记录先输出；最佳归并树决定不同段的合并次序。</p>
+<p>这里的最优性限于约定的加和代价与允许重排归并的模型，实际工程还可能受缓冲、并行和文件布局约束。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

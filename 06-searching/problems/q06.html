@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Q06 分块查找与块索引</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="q06.md">Markdown 原文件</a></nav><h1>Q06 分块查找与块索引</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a> · <a href="../code/q06.cpp">C++ 框架</a></p>
+<p><strong>基础｜编码｜王道主线。学习状态：未开始；材料建立不表示掌握。</strong></p>
+<h2>为什么练</h2>
+<p>块内可以无序，但相邻块之间有序；先定位可能的块，再在块内找，理解索引怎样缩小查找范围。</p>
+<p>前置：Q01、Q02。各块非空且相邻块严格分隔，前块所有值小于后块所有值；块内允许重复。找不到返回 -1，找到返回最早下标。</p>
+<h2>数据与接口</h2>
+<p>BlockIndex 包含 max_key、begin、end；区间是左闭右开 [begin,end)，索引按 max_key 升序。<code>block_search(values,index,key)</code> 先在索引中二分，再在选中块顺序查找。</p>
+<p>values 为 <code>[7,2,5, 16,11,13, 24,21,23]</code>，索引为 <code>(7,0,3),(16,3,6),(24,6,9)</code>。找 13 应返回 5；找 8 应定位第二块但最终失败；找 25 可直接排除全部块。</p>
+<h2>要解释</h2>
+<p>“块间有序”不等于只给每块随便记一个最大值：如果前后两块的值域重叠，二分选一块就可能漏掉答案。若 b 个块、每块约 s 项，当前实现 O(log b+s)，额外空间 O(1)；建立索引代价另计。</p>
+<p>main 包含空表、首尾、跨块间隙、不存在和块内重复。</p>
+<h2>验收</h2>
+<p>main 自动核对：0 表示已准备的测试通过，1 表示断言失败，2 表示尚有 TODO。随后解释复杂度、边界和不变量；自测不是全部正确性证明。</p>
+<p><a href="../../06-searching/problems/q06.html">主题参考</a> · <a href="../../references/README.html">资料使用说明</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

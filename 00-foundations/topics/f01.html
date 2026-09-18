@@ -1,0 +1,20 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>F01 复杂度与递归空间自检</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="f01.md">Markdown 原文件</a></nav><h1>F01 复杂度与递归空间自检</h1>
+<p><a href="../../index.html">练习导航</a></p>
+<p><strong>基础｜阅读与手推｜学习状态由实操确认</strong></p>
+<p>你已经听完课程，这页用于碰到复杂度问题时自检，不要求先重学理论才写题。</p>
+<p>时间复杂度描述输入规模增长时的操作数量级；实测秒数还受数据、编译与机器影响。空间分析要说明是否包含输入、输出和递归栈。</p>
+<h2>三道短题</h2>
+<ul>
+<li>外层 i 从 0 到 n−1，内层 j 从 0 到 i−1，累计执行多少次？能否只因“有两个循环”就判断任何代码都是 O(n²)？</li>
+<li>每次把 n 除以 2，直到 n≤1，循环多少次？</li>
+<li>对二叉树做递归遍历，访问 n 个结点。平衡树和单链形树的最大递归深度是否相同？</li>
+</ul>
+<details>
+<summary>展开核对</summary>
+<p>第一题次数 n(n−1)/2，增长量级 O(n²)。嵌套循环的边界、步长和依赖关系必须实际分析。</p>
+<p>第二题为对数级；不能因为只有一个循环就写 O(n)。</p>
+<p>第三题时间都是 O(n)，调用栈是 O(h)；平衡时 h 为对数级，单链时可为 n。输出数组若保存所有结点，另外占 O(n)。</p>
+</details>
+<h2>与现有练习关联</h2>
+<p>顺序表插入看移动多少元素；二分查找看每轮剩余范围；树遍历看每个结点访问次数；外排序还要计读写，而不只是比较。</p>
+<p>完成标准：挑一份你自己的函数，说明基本操作、最坏输入、额外空间，并指出递归空间在哪里。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

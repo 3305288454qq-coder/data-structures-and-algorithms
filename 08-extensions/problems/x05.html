@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>X05 单调队列：窗口最大值</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="x05.md">Markdown 原文件</a></nav><h1>X05 单调队列：窗口最大值</h1>
+<p><a href="../../index.html">练习导航</a> · <a href="../code/x05.cpp">C++ 框架</a> · <a href="../../TESTING.html">测试说明</a></p>
+<p><strong>扩展｜编码｜已有框架与自动自测｜未开始，不计入基础完成率。</strong></p>
+<h2>为什么练</h2>
+<p>输出每个固定长度连续窗口中的最大值，避免逐窗重新扫描。</p>
+<h2>约定与目标</h2>
+<p>window≥1；window&gt;n 或空输入返回空。窗口长度为1时返回原序列。目标 O(n)。</p>
+<h2>先想清楚</h2>
+<p>队列保存候选下标：队首可能过期，队尾可能被新元素淘汰。两种移除原因要分别解释。</p>
+<h2>具体例子</h2>
+<p>窗口1,3,-1的最大值为3；右移后3,-1,-3仍为3。</p>
+<h2>函数接口</h2>
+<pre><code>std::vector&lt;int&gt; sliding_maximum(const std::vector&lt;int&gt;&amp; values, int window);</code></pre>
+<p>结构与测试已准备，函数中的 TODO 留给你实现。首次运行应为“未完成”，不能仅删除 TODO 来伪装成功。</p>
+<p>main 已含普通和边界断言；失败会报告用例标签。有限用例通过以后，仍要自己解释复杂度、关键不变量与适用条件。</p>
+<p>这里只做本地验证，没有虚构一个不对应的在线题链接。需要提交时，再按平台题面转换接口。</p>
+<h2>完成检查</h2>
+<ul>
+<li><span class="box" aria-label="未完成">☐</span> 自己实现并解释各参数、下标和返回值。</li>
+<li><span class="box" aria-label="未完成">☐</span> 自动测试通过，补充自己设计的一例反例或退化输入。</li>
+<li><span class="box" aria-label="未完成">☐</span> 能说明条件改变时，当前方法是否仍适用。</li>
+</ul><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

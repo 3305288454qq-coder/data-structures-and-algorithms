@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>S11 中缀转后缀：优先级与括号</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="s11.md">Markdown 原文件</a></nav><h1>S11 中缀转后缀：优先级与括号</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../code/s11.cpp">代码框架</a> · <a href="../topics/supplement-guide.html">补充专题</a></p>
+<p><strong>基础｜编码｜已有框架｜学习状态：未开始</strong></p>
+<h2>目标与前置</h2>
+<p>把中缀表达式转换为可交给后缀求值程序的 token 序列。</p>
+<p>前置：S01、S05、S06。</p>
+<h2>接口约定与任务</h2>
+<p>输入保证是合法表达式，仅含非负十进制整数、+ - * /、圆括号和任意空白；不支持一元负号、浮点数、指数运算。返回 vector&lt;string&gt;，整数一个 token，运算符一个 token。+ - * / 都左结合。解析多位整数是词法处理；运算符栈决定输出次序。不要把数字计算结果当作本题输出。非法语法检测可后续扩展，不计本题自测。</p>
+<p>数据结构、待填接口与自动断言已在代码中准备。先手推一个完整操作序列，再逐个实现函数。</p>
+<h2>已备边界测试</h2>
+<p>空白、整数多位数、嵌套括号、同级运算符左结合、无空格输入。</p>
+<p>main 自动核对结果与结构约定；阅读输出中的测试标签可定位失败。仍应补充自己发现的边界。</p>
+<h2>复杂度目标</h2>
+<p>时间 O(n)，辅助空间 O(n)。</p>
+<h2>验证与记录</h2>
+<p>保留 TODO 直到真实实现，保留断言。返回 0=本地测试通过，1=失败，2=未实现。通过测试后解释复杂度和关键不变量；没有自动认定掌握，也没有在线提交记录。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

@@ -1,0 +1,28 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>T06 串的存储与基本操作契约</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="t06.md">Markdown 原文件</a></nav><h1>T06 串的存储与基本操作契约</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../topics/supplement-guide.html">KMP 下标专题</a></p>
+<p><strong>基础｜手推｜已有阅读页｜学习状态：未开始</strong>。前置 T01、T02。</p>
+<h2>串不是随便一个 char 数组</h2>
+<p>串是有限字符序列；这里区分“逻辑长度”和“用来存储它的空间”。C 风格字符串通过终止字符 '\0' 判断结束，必须为终止符额外留空间；带长度字段的顺序串由 length 标明有效长度。C++ std::string 维护长度并可以包含 '\0'，处理二进制内容时不要默认 C 接口也会读取同样长度。</p>
+<p>任务 A：一个 char 数组有 5 格，要存字符 abcde 并作为 C 字符串使用，够不够。若是独立 length=5 的顺序串，又是什么情况。</p>
+<details>
+<summary>核对 A</summary>
+<p>C 字符串需要 6 格，包括最后的 '\0'；独立长度顺序串只保存这五个字符时可以正好使用 5 格，但必须另有长度信息。两种约定不能混用。</p>
+</details>
+<h2>连接、子串和比较都要先规定失败行为</h2>
+<p>任务 B：固定容量串容量 6，已有 abcd，要连接 xyz。给出三种可能的接口设计：返回失败且不变；截断并报告；扩容。判断哪种才是“正确”，并说明理由。</p>
+<p>任务 C：按 0 基 start 和 length 取子串，字符串 abcde 中 start=3,length=2；start=5,length=0；start=4,length=2 分别如何处理。此任务采用“不合法则返回失败，不截断”的契约。</p>
+<details>
+<summary>核对 B/C</summary>
+<p>B 没有脱离契约的唯一行为，关键是调用者知道会发生什么；不能静默越界。C 依次为 de、空串、失败。负长度与负起点同样非法。</p>
+</details>
+<h2>堆分配顺序串</h2>
+<p>“堆分配”在这里指运行时动态申请存储空间，不是排序章节的二叉堆结构。常见表示保存 data 指针、length、capacity，空间不足时另申请较大区域并复制原字符；释放旧空间后，原来的字符地址可能失效。任务：若 length=4、capacity=8，连接 3 个字符是否必然需要扩容？再根据是否预留终止符分别说明依据。</p>
+<details>
+<summary>核对动态容量</summary>
+<p>如果 capacity 表示可用字符格数，7≤8 不需要扩容；若 C 字符串容量 8 包括终止符，7 个数据字符加 1 格终止符也正好够。必须先读清 capacity 的定义，而不是把一种库的细节当成所有顺序串共同约定。</p>
+</details>
+<h2>链式串与比较</h2>
+<p>链式串可一结点一字符，也可一结点一块字符。任务 D：比较长度 1000 的串用“每字符一个指针”和“每块 20 字符一个指针”的额外空间；说明为什么链式插入可能方便，而随机访问某字符仍需顺链查找。</p>
+<p>字典序按第一个不同字符确定大小；若前面完全相同，较短串更小。比较的结果不等于长度差，也不等于整串转成数字后的大小。扩展时再研究 Unicode 编码与用户可见字符，这不属于本页简单 ASCII 练习的默认接口。</p>
+<h2>完成依据</h2>
+<p>用自己的话写出一种串表示及其长度、容量、越界行为；手推上述四项。此页没有新增实现文件，也没有宣称串的全部工业实现已覆盖。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

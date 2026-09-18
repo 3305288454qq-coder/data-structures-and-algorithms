@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>理论与实现覆盖清单</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../index.html">← 练习导航</a> · <a href="COVERAGE.md">Markdown 原文件</a></nav><h1>理论与实现覆盖清单</h1>
+<p><a href="../README.html">首页</a> · <a href="IMPLEMENTATION_REPORT.html">实施报告</a> · <a href="../index.html">练习导航</a></p>
+<p>本轮补充后共有119个入口，其中95个编码框架、24个阅读/手推/实验入口。原49题保留，新旧题共同组成按章节推进的路线。下表区分能直接编码的框架和当前主要采用手推的主题。</p>
+<div class="table"><table><thead><tr><th>章节</th><th>可编码覆盖</th><th>阅读、手推或实验</th></tr></thead><tbody>
+<tr><td>线性表</td><td>固定/动态顺序表、按位/按值查找、链表增删、合并/去重/交集、双向链表、环与相交、回文</td><td>循环/静态链表表示和结点约定</td></tr>
+<tr><td>栈队列数组</td><td>顺序/链栈、共享栈、循环/链队列、双端队列、括号、后缀求值、中缀转换、特殊矩阵、普通/快速转置</td><td>递归调用栈</td></tr>
+<tr><td>串</td><td>基本操作、朴素匹配、KMP、不同next约定、nextval</td><td>存储契约与边界</td></tr>
+<tr><td>树</td><td>递归/非递归遍历、层次、树高/重建、线索基础、森林转换、哈夫曼WPL及编解码、并查集优化</td><td>线索前驱/后继等具体推演</td></tr>
+<tr><td>图</td><td>邻接表/矩阵、全图DFS/BFS、分量、Prim/Kruskal、Dijkstra/Floyd及路径、拓扑、关键路径、DAG表达式</td><td>十字链表/邻接多重表、负权/强连通/割点与桥</td></tr>
+<tr><td>查找</td><td>顺序、二分、BST、链地址/开放定址散列、分块查找、AVL旋转及完整插入</td><td>ASL、AVL删除、红黑树、B树、B+树</td></tr>
+<tr><td>排序</td><td>原内部排序、计数、堆操作、稳定性、迭代归并、k路归并、置换—选择、败者树、k路最佳归并、快速选择</td><td>外排序流程、复杂度/适用条件、受限内存文件实验</td></tr>
+<tr><td>扩展</td><td>前缀和、窗口、答案二分、单调结构、Trie、树状数组、线段树、动态规划、回溯</td><td>哈希碰撞、Bellman-Ford、连通性、桶排序等</td></tr>
+</tbody></table></div>
+<p><strong>分层是推进建议，不是考试范围裁剪。</strong> 复杂但属于主线的主题仍有明确入口；目前采用手推，不等于已经完成完整数据结构实现。具体文件、接口边界与验证结果见实施报告。</p>
+<p><a href="CURRICULUM_AUDIT.html">原始覆盖审查</a>保留为改进前的历史记录，其中的旧数量和缺口不能当成当前状态。本页不推断学习者已经掌握任何新增内容。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

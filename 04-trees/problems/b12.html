@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>B12 并查集：按大小合并与路径压缩</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="b12.md">Markdown 原文件</a></nav><h1>B12 并查集：按大小合并与路径压缩</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../code/b12.cpp">代码框架</a> · <a href="../topics/supplement-guide.html">表示、线索与编码专题</a></p>
+<p><strong>进阶｜编码｜已有框架｜学习状态：未开始</strong></p>
+<h2>目标与前置</h2>
+<p>给基本并查集增加集合大小和合并成功标志，比较树高与查询代价。</p>
+<p>前置：B07。</p>
+<h2>接口约定与层次</h2>
+<p>WeightedDsu.parent 初始为自身，size 初始为 1。find_compress 使用路径压缩；unite_by_size 把较小集合根接到较大根上，相同大小任选方向。成功连接两个集合返回 true，原本同集合返回 false。只有根的 size 必须反映集合实际大小。非法编号抛 out_of_range。没有要求使用负根值表示；可在扩展时比较两种存储。</p>
+<h2>已备测试</h2>
+<p>同集合重复合并、单元素、偏序合并链、大小累计、非法结点。</p>
+<p>main 使用自动断言检查值和关键结构；多解题检验合法性而非固定一种树形。一次实现一个接口并逐步运行，当前 TODO 返回 2 不是正确答案。</p>
+<h2>复杂度目标</h2>
+<p>按大小合并保证未压缩树高 O(log n)；配合路径压缩，一批操作具有近似常数的摊还代价，严格表达为反 Ackermann 量级。不要说每次操作最坏都 O(1)。</p>
+<h2>完成依据</h2>
+<p>C++17 编译通过且处理有依据的警告；本地断言通过；能解释栈状态、结点关系或集合不变量。返回 0=测试通过，1=失败，2=未实现；无在线提交和已掌握推断。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

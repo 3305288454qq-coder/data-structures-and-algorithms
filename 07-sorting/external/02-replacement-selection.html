@@ -1,0 +1,34 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>外排序 02：置换—选择生成初始归并段</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="02-replacement-selection.md">Markdown 原文件</a></nav><h1>外排序 02：置换—选择生成初始归并段</h1>
+<p><a href="README.html">专题目录</a> · <a href="01-flow.html">上一页</a> · <a href="03-loser-tree.html">下一页：败者树</a></p>
+<p><strong>基础：理解与手推；进阶 <a href="../problems/r15.html">R15 固定容量置换—选择</a> 已有 C++ 框架与自动核对。未确认掌握。</strong></p>
+<h2>核心问题与规则</h2>
+<p>它解决的是“内存工作区容量固定，怎样生成较长的初始有序段”，不是简单选择排序的另一个名字。</p>
+<p>在当前可参与输出的记录中选最小者。输出之后读取下一条：</p>
+<ul>
+<li>若新值不小于当前段最后输出值，它还能参加这一段的后续输出。</li>
+<li>若新值更小，先标记为属于下一段，暂时“冻结”。</li>
+<li>当前段没有可用记录时结束这一段，把冻结记录变为新段的候选。</li>
+</ul>
+<p>“冻结”是逻辑分组，不要求把它们放进第二份无限大的内存。固定容量实现可用标记、段号或堆内分区管理。</p>
+<p>这是标准置换—选择的基本思路；平均初始段长度与数据分布有关，不能保证每个段都等于工作区容量的两倍。<a href="https://arxiv.org/html/2207.12713v1">外排序研究中的生成阶段说明</a></p>
+<h2>具体手推题</h2>
+<p>可容纳 3 条记录，输入依次为：</p>
+<pre><code>4 1 7 2 6 3 5 0</code></pre>
+<p>先放入 4、1、7。每次记录以下四项：</p>
+<div class="table"><table><thead><tr><th>本次输出</th><th>新读入</th><th>当前段仍可选的值</th><th>冻结到下一段的值</th></tr></thead><tbody>
+<tr><td>先自己填写</td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p>先走前三次输出，回答：读到 3 的时候，为什么不能把它继续放进当前段？</p>
+<details>
+<summary>展开核对完整段结果与关键一步</summary>
+<p>第一段：1、2、4、6、7。</p>
+<p>第二段：0、3、5。</p>
+<p>开始输出 1 后读入 2，它仍可参与；输出 2 后读入 6，也能参与。</p>
+<p>输出 4 后读入 3，3 小于已输出的 4，应冻结到下一段。后面读到 5、0 时也分别根据当前段最后输出值判断。</p>
+<p>输入结束不表示所有记录已输出，还要把当前候选和冻结记录正确排完。</p>
+</details>
+<h2>R15 编码时的目标</h2>
+<p>接口可以约定“输入序列 + 工作区容量 → 多个有序段”，但第一次用小规模数据模拟，不读取大文件。</p>
+<p>检查每段非递减、所有记录恰好出现一次、工作区占用不超过约定容量。输出收集在数组中只是教学观察用，不算完成了磁盘外排序。</p>
+<p>边界包括：输入少于容量、恰好容量、全相等、升序、降序、容量为 1、最后一段不满；容量为 0 要明确拒绝。</p>
+<p>升序输入可能形成很长的一段；降序输入通常不能产生同样的延长效果。因此“段长更长”是能力和分布相关现象，不是每个输入的保证。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

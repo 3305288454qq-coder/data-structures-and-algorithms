@@ -1,0 +1,47 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>怎样运行自测、看结果、记录证据</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="index.html">← 练习导航</a> · <a href="TESTING.md">Markdown 原文件</a></nav><h1>怎样运行自测、看结果、记录证据</h1>
+<p><a href="README.html">首页</a> · <a href="index.html">练习导航</a></p>
+<h2>平时只运行正在练的那一题</h2>
+<p>在 VS Code 打开并保存目标 .cpp，例如计数排序 R10。</p>
+<p>按 Ctrl+Shift+P 打开命令面板，输入“运行任务”，选择 Tasks: Run Task，再选 <strong>Run active C++ file</strong>。</p>
+<p>它会先编译当前保存的源文件，成功后运行其中的 main。main 已经放入自动核对，不要求你先学会编写测试工具。</p>
+<p>不要把其他练习的 main 一起编译；每题都是独立程序。</p>
+<h2>三种结果严格分开</h2>
+<div class="table"><table><thead><tr><th>提示 / 状态</th><th>意思</th><th>下一步</th></tr></thead><tbody>
+<tr><td>TODO: implement ... / pending / 退出2</td><td>至少一个目标函数仍未实现</td><td>根据题目完成该函数；不是编译器坏了</td></tr>
+<tr><td>FAIL: 用例标签 / failed / 退出1</td><td>已运行，但某条断言失败或出现异常/超时</td><td>从标签对应的输入、边界和预期检查</td></tr>
+<tr><td>PASS: n checks / passed / 退出0</td><td>该 main 中的 n 条核对通过</td><td>补自己的测试、解释复杂度，再决定是否记录已核对</td></tr>
+<tr><td>compile-failed</td><td>编译未成功，还没进入自测</td><td>先看编译错误位置与类型</td></tr>
+</tbody></table></div>
+<p>一个练习可能还有其他边界没有覆盖。测试通过不等于数学证明、所有在线测试通过或已经掌握。</p>
+<p>不允许只删 TODO、打印 PASS 或绕过断言来获得通过。测试 main 可以阅读与增加用例，但不要删掉失败用例来掩盖问题。</p>
+<h2>原有示例输出怎么理解</h2>
+<p>原49题的问题页仍保留原来的演示调用及相应输出，用于看懂函数行为。</p>
+<p>现在实际 main 改为多组自动核对，通常输出 PASS / FAIL / TODO，不再逐行打印那些演示结果。它们不是相互矛盾的两份标准答案。</p>
+<h2>自动核对在看什么</h2>
+<ul>
+<li>普通数组题比较返回值、逻辑长度和应当保留的内容。</li>
+<li>排序题与标准库排序结果对照；稳定性使用关键字和原序号，不能只看重复整数。</li>
+<li>链表与树检查关键连接、结点身份和不变量；这不等于完成了专门的内存泄漏检测。</li>
+<li>拓扑等多解题检查合法性，不强制唯一排列。MST权值测试不要求固定的一组边。</li>
+<li>新外排序模拟检查输出段、记录数量或归并代价；时间/空间约束仍要结合实现分析。</li>
+<li>原49题的断言标签可以查看 <a href="tests/original-coverage.json">测试覆盖记录</a>，新增题以各自 main 与问题页为准。</li>
+</ul>
+<h2>可选：批量检查工具</h2>
+<p>批量检查会编译和运行选定练习，生成物只写入本目录 build/checks，不提交或推送 Git。</p>
+<p>PowerShell 与当前目录的概念仍适用：编辑器打开了文件，不代表终端就在本目录。</p>
+<p>先切换目录。<code>cd</code> 改变当前终端位置；双引号把包含空格的完整路径作为一个参数：</p>
+<pre><code>cd &quot;D:\Data Structures and Algorithms&quot;</code></pre>
+<p>只检查计数排序：<code>.\</code> 从当前目录开始；<code>tools\check_practice.ps1</code> 是这里的检查脚本；<code>-Ids R10</code> 指定只检查编号 R10：</p>
+<pre><code>.\tools\check_practice.ps1 -Ids R10</code></pre>
+<p>若要同时检查多题，<code>-Ids</code> 后用逗号列出编号。例如下面只检查 R10 与 R15：</p>
+<pre><code>.\tools\check_practice.ps1 -Ids R10,R15</code></pre>
+<p>只有想检查整个资料库时才省略 <code>-Ids</code>。大批 TODO 被标为 pending 是正常的，不要求你先做完它们：</p>
+<pre><code>.\tools\check_practice.ps1</code></pre>
+<p>默认每个程序超过10秒会被终止并记为失败，避免错误循环一直占用。按需使用 <code>-TimeoutSeconds 30</code> 可将单题上限调到30秒；它不是放宽在线题的时间要求。</p>
+<p>报告在 <a href="build/checks/latest-results.json">build/checks/latest-results.json</a>，后一次检查会更新这份报告。总结果中只要还有 pending，脚本退出2；不能据此认定所有题运行失败。</p>
+<h2>导航记录与备份</h2>
+<p>“未开始、进行中、卡住了、已核对、待复习”由你按实际情况选择。笔记可记录具体测试、理解或卡点。</p>
+<p>旧版勾选会带说明迁移为已核对，不升级为“已掌握”。基础、进阶、扩展分开统计。</p>
+<p><strong>JSON 是完整备份</strong>，能保留状态、笔记与时间；导入前会显示数量，默认保留同编号的本地记录，只有主动勾选覆盖才采用导入版本。</p>
+<p>Markdown 是方便阅读的清单；旧版 Markdown 导入只恢复勾选，不承诺恢复所有新式状态与笔记。</p>
+<p>数据存在当前浏览器，不能自动同步手机、Notion或另一浏览器；跨设备使用导出/导入。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

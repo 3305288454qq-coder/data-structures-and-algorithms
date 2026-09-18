@@ -1,0 +1,641 @@
+{
+  "schemaVersion": 1,
+  "scope": "Original 49 exercises; bounded local tests, not proof of complexity, memory safety, online acceptance or mastery.",
+  "cases": [
+    {
+      "id": "L01",
+      "assertionLabels": [
+        "empty get",
+        "empty erase",
+        "zero position rejected",
+        "insert empty",
+        "insert tail",
+        "insert middle",
+        "length after insertion",
+        "get middle",
+        "middle value",
+        "past end rejected",
+        "invalid erase rejected",
+        "invalid operation preserves data",
+        "invalid operation preserves length",
+        "erase head",
+        "removed head",
+        "erase tail",
+        "removed tail",
+        "erase singleton",
+        "empty again",
+        "fill capacity",
+        "full insert rejected",
+        "full insert preserves data",
+        "full length"
+      ]
+    },
+    {
+      "id": "L02",
+      "assertionLabels": [
+        "logical length",
+        "storage holds logical prefix",
+        "stable retained prefix"
+      ]
+    },
+    {
+      "id": "L03",
+      "assertionLabels": [
+        "merge keeps all values"
+      ]
+    },
+    {
+      "id": "L04",
+      "assertionLabels": [
+        "empty lookup",
+        "empty erase",
+        "invalid insertion",
+        "insert head",
+        "insert tail",
+        "insert middle",
+        "insert links",
+        "lookup returns actual node",
+        "invalid lookup",
+        "past-end insertion",
+        "past-end erase",
+        "invalid calls preserve list",
+        "erase head",
+        "removed value",
+        "erase tail",
+        "tail value",
+        "erase only node",
+        "empty after erase",
+        "reuse",
+        "destroy nulls head",
+        "destroy empty"
+      ]
+    },
+    {
+      "id": "L05",
+      "assertionLabels": [
+        "empty",
+        "singleton identity",
+        "two nodes preserve identity",
+        "three pointer directions",
+        "reversed values",
+        "reverse twice restores head",
+        "reverse twice values"
+      ]
+    },
+    {
+      "id": "L06",
+      "assertionLabels": [
+        "empty",
+        "last",
+        "middle",
+        "first",
+        "zero k",
+        "negative k",
+        "too large k",
+        "read-only list"
+      ]
+    },
+    {
+      "id": "L07",
+      "assertionLabels": [
+        "forward length",
+        "forward value",
+        "back link",
+        "tail returns to sentinel",
+        "backward length",
+        "backward value",
+        "forward link",
+        "head returns to sentinel",
+        "erase empty",
+        "erase singleton",
+        "erase first duplicate",
+        "erase tail",
+        "missing value"
+      ]
+    },
+    {
+      "id": "L08",
+      "assertionLabels": [
+        "unique length",
+        "storage holds prefix",
+        "unique prefix"
+      ]
+    },
+    {
+      "id": "S01",
+      "assertionLabels": [
+        "empty operations",
+        "fill stack",
+        "full top",
+        "full stack rejects",
+        "peek full",
+        "peek value",
+        "peek does not remove",
+        "pop full",
+        "LIFO",
+        "empty after drain",
+        "empty top",
+        "reuse",
+        "reuse value"
+      ]
+    },
+    {
+      "id": "S02",
+      "assertionLabels": [
+        "empty",
+        "stack links",
+        "pop two",
+        "LIFO",
+        "pop one",
+        "bottom",
+        "last pop nulls top",
+        "empty again",
+        "clear",
+        "repeat clear"
+      ]
+    },
+    {
+      "id": "S03",
+      "assertionLabels": [
+        "empty size",
+        "empty dequeue",
+        "fill queue",
+        "usable capacity",
+        "reject full",
+        "partial drain",
+        "FIFO first half",
+        "wrap enqueue",
+        "wrapped full size",
+        "wrapped drain",
+        "FIFO after wrap",
+        "drained",
+        "empty after wrap"
+      ]
+    },
+    {
+      "id": "S04",
+      "assertionLabels": [
+        "empty",
+        "singleton endpoints",
+        "queue links",
+        "tail endpoint",
+        "dequeue first",
+        "FIFO",
+        "dequeue last",
+        "last value",
+        "both endpoints empty",
+        "clear endpoints",
+        "reuse after clear",
+        "reuse"
+      ]
+    },
+    {
+      "id": "S05",
+      "assertionLabels": [
+        ", ",
+        ", ",
+        ", ",
+        ", ",
+        "})\n    require(brackets_match(text), ",
+        " + text);\nfor (const auto& text : std::vector<std::string>{",
+        ", ",
+        ", ",
+        ", ",
+        ", ",
+        ", ",
+        ", ",
+        "})\n    require(!brackets_match(text), "
+      ]
+    },
+    {
+      "id": "S06",
+      "assertionLabels": [
+        "noncommutative sequence",
+        "single negative",
+        "division truncates toward zero",
+        "subtraction operand order",
+        "nested expression",
+        "long long result"
+      ]
+    },
+    {
+      "id": "S07",
+      "assertionLabels": [
+        "singleton index",
+        "singleton value",
+        "symmetric cell",
+        "mirror shares storage",
+        "upper right",
+        "last diagonal"
+      ]
+    },
+    {
+      "id": "S08",
+      "assertionLabels": [
+        "sample",
+        "zero matrix",
+        "single row",
+        "empty rows and columns",
+        "transpose twice"
+      ]
+    },
+    {
+      "id": "T01",
+      "assertionLabels": [
+        "abcdef",
+        "bcd",
+        "middle substring",
+        ",0,0), std::string(), ",
+        ");\nequal(take_substring(",
+        ",3,0), std::string(), ",
+        ");\nequal(take_substring(",
+        ",0,3), std::string(",
+        "), ",
+        ");\nfor (const auto& pair : std::vector<std::pair<std::string,std::string>>{{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "}}) {\n    const int expected = pair.first < pair.second ? -1 : pair.first > pair.second ? 1 : 0;\n    equal(compare_strings(pair.first,pair.second),expected,"
+      ]
+    },
+    {
+      "id": "T02",
+      "assertionLabels": [
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "},{",
+        ",",
+        "}};\nfor (const auto& pair : cases) {\n    const auto position = pair.first.find(pair.second);\n    const int expected = position == std::string::npos ? -1 : static_cast<int>(position);\n    equal(naive_find(pair.first,pair.second),expected,",
+        "+pair.first+"
+      ]
+    },
+    {
+      "id": "T03",
+      "assertionLabels": [
+        "a",
+        "single prefix",
+        "ababa",
+        "alternating prefix",
+        "aaaa",
+        "repeated prefix",
+        "ababcabab",
+        "fallback prefix",
+        "abababa",
+        "aba",
+        "overlap",
+        "aaaaa",
+        "aaa",
+        "repeated overlap",
+        ",",
+        "),std::vector<int>{},",
+        ");\nequal(kmp_all(",
+        ",",
+        "),std::vector<int>{},",
+        ");\nequal(kmp_all(",
+        ",",
+        "),std::vector<int>{},",
+        ");\nequal(kmp_all(",
+        ",",
+        "),std::vector<int>({0,3}),"
+      ]
+    },
+    {
+      "id": "B01",
+      "assertionLabels": [
+        "empty preorder",
+        "empty inorder",
+        "empty postorder",
+        "single preorder",
+        "single inorder",
+        "single postorder",
+        "preorder",
+        "inorder",
+        "postorder",
+        "right chain",
+        "right chain postorder"
+      ]
+    },
+    {
+      "id": "B02",
+      "assertionLabels": [
+        "empty",
+        "singleton",
+        "level order",
+        "mixed chain",
+        "incomplete tree"
+      ]
+    },
+    {
+      "id": "B03",
+      "assertionLabels": [
+        "empty height",
+        "empty count",
+        "empty leaves",
+        "single height",
+        "single count",
+        "single leaf",
+        "unbalanced height",
+        "node count",
+        "leaf count",
+        "chain height",
+        "chain count",
+        "chain leaf"
+      ]
+    },
+    {
+      "id": "B04",
+      "assertionLabels": [
+        "empty build",
+        "singleton root",
+        "singleton children",
+        "destroy nulls",
+        "root",
+        "reconstructed inorder",
+        "root children",
+        "child values",
+        "grandchildren",
+        "grandchild values",
+        "destroy full",
+        "right chain root",
+        "right chain",
+        "destroy chain"
+      ]
+    },
+    {
+      "id": "B05",
+      "assertionLabels": [
+        "empty",
+        "singleton threads",
+        "singleton traversal",
+        "preserve children",
+        "left predecessor/successor",
+        "right predecessor/successor",
+        "thread traversal",
+        "left chain threads",
+        "left chain"
+      ]
+    },
+    {
+      "id": "B06",
+      "assertionLabels": [
+        "sample",
+        "singleton depth zero",
+        "two weights",
+        "equal weights",
+        "unequal weights",
+        "sum exceeds int"
+      ]
+    },
+    {
+      "id": "B07",
+      "assertionLabels": [
+        "initial roots",
+        "transitive union",
+        "separate components",
+        "repeat union",
+        "self union",
+        "connected",
+        "chain root",
+        "parent remains valid"
+      ]
+    },
+    {
+      "id": "G01",
+      "assertionLabels": [
+        "vertex count",
+        "directed outgoing edges"
+      ]
+    },
+    {
+      "id": "G02",
+      "assertionLabels": [
+        "DFS neighbor order",
+        "BFS neighbor order",
+        "DFS skips repeats and loop",
+        "BFS skips repeats and loop",
+        "isolated start",
+        "isolated BFS",
+        "singleton",
+        "singleton BFS"
+      ]
+    },
+    {
+      "id": "G03",
+      "assertionLabels": [
+        "single vertex",
+        "sample weight",
+        "disconnected",
+        "zero weight edge",
+        "multiple valid MSTs",
+        "long long sum"
+      ]
+    },
+    {
+      "id": "G04",
+      "assertionLabels": [
+        "single vertex",
+        "sample",
+        "disconnected",
+        "ties: weight independent of chosen MST",
+        "parallel edges and self loop",
+        "long long sum"
+      ]
+    },
+    {
+      "id": "G05",
+      "assertionLabels": [
+        "single vertex",
+        "indirect improvement",
+        "zero edge and unreachable",
+        "nonzero source",
+        "long long distance"
+      ]
+    },
+    {
+      "id": "G06",
+      "assertionLabels": [
+        "singleton",
+        "all pairs sample",
+        "negative edge and INF guard",
+        "zero edge",
+        "k outer loop dependence"
+      ]
+    },
+    {
+      "id": "G07",
+      "assertionLabels": [
+        "two-vertex cycle",
+        "self loop",
+        "cycle in disconnected component"
+      ]
+    },
+    {
+      "id": "G08",
+      "assertionLabels": [
+        "one critical route",
+        "two critical routes",
+        "zero duration activity",
+        "original input edge indices",
+        "large duration"
+      ]
+    },
+    {
+      "id": "G09",
+      "assertionLabels": [
+        "singleton",
+        "sample",
+        "outdated heap item and unreachable",
+        "zero edge and parallel edges",
+        "nonzero source",
+        "long long distances"
+      ]
+    },
+    {
+      "id": "Q01",
+      "assertionLabels": [
+        "first occurrence"
+      ]
+    },
+    {
+      "id": "Q02",
+      "assertionLabels": [
+        "first matching position",
+        "long duplicate span",
+        "last position"
+      ]
+    },
+    {
+      "id": "Q03",
+      "assertionLabels": [
+        "empty operations",
+        "ordered unique nodes",
+        "find inserted",
+        "find missing",
+        "delete leaf",
+        "leaf deletion links",
+        "delete one child",
+        "one-child links",
+        "delete root with two children",
+        "two-child links",
+        "missing deletion",
+        "destroy",
+        "delete singleton",
+        "last deletion nulls root"
+      ]
+    },
+    {
+      "id": "Q04",
+      "assertionLabels": [
+        "empty buckets",
+        "duplicate insertion ignored",
+        "find key",
+        "missing key",
+        "erase collision",
+        "removed",
+        "other keys survive",
+        "delete missing",
+        "one bucket",
+        "one bucket removal"
+      ]
+    },
+    {
+      "id": "Q05",
+      "assertionLabels": [
+        "rotation must not create cycle/shared node",
+        "updated height",
+        "balanced result",
+        "BST order and no lost node",
+        "LL node identity",
+        "RR node identity",
+        "right rotation transfers middle subtree",
+        "left rotation transfers middle subtree",
+        "LR middle subtrees",
+        "RL middle subtrees"
+      ]
+    },
+    {
+      "id": "R01",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    },
+    {
+      "id": "R02",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    },
+    {
+      "id": "R03",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    },
+    {
+      "id": "R04",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    },
+    {
+      "id": "R05",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    },
+    {
+      "id": "R06",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    },
+    {
+      "id": "R07",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    },
+    {
+      "id": "R08",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    },
+    {
+      "id": "R09",
+      "assertionLabels": [
+        "sort case ",
+        ": order and multiset"
+      ]
+    }
+  ]
+}

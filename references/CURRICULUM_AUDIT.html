@@ -1,0 +1,105 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>算法覆盖审查与分层补充建议</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../index.html">← 练习导航</a> · <a href="CURRICULUM_AUDIT.md">Markdown 原文件</a></nav><h1>算法覆盖审查与分层补充建议</h1>
+<h2>改进后的当前状态</h2>
+<p>本页保留修改前的审查依据；其中“待补、49项”等描述属于当时状态。按本报告进行的实际改进与当前数量见 <a href="IMPLEMENTATION_REPORT.html">实施对照报告</a>，学习入口见 <a href="../index.html">分层导航</a>。</p>
+<p>审查日期：2026-09-18。<a href="../index.html">练习导航</a> · <a href="../PRACTICE_ORDER.html">现有 49 项</a> · <a href="../07-sorting/external/README.html">外部排序专题</a></p>
+<h2>结论</h2>
+<p>目前这套目录适合作为第一轮核心实现练习，<strong>尚不能称为覆盖王道主要算法的完整练习库</strong>。问题不只是少了几个排序名称：有些主题只有覆盖清单中的一行，有些题目包含两种要求但只准备了一套接口，还有些测试不足以检查题目宣称的能力。</p>
+<p>本次逐项检查了导航中的 49 项、对应问题页、C++ 框架的接口与自测入口、公共模板、覆盖清单和学习记录。核对结果：7 个章节，49 个代码练习，47 项普通条目、2 项“选做”；18 项附在线题链接，其余以本地练习为主。在线链接不等于已提交通过，也不一定与本地题完全同接口。</p>
+<p>这次的外部参照是电子工业出版社发布的 2027 版目录，搜索索引可读取完整目录，页面直连多次超时。因此能按公开章节目核对主题，<strong>没有逐页核对你手中书的全部例题、课后算法题或约 2022 年课程的每一段视频</strong>。不报告“百分之百覆盖”或未经计算的覆盖率。<a href="https://cbjj.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851">出版社目录</a></p>
+<h2>覆盖状态应该怎样记</h2>
+<ul>
+<li><strong>已有练习框架</strong>：有问题、接口与样例；仍不表示学习者实现过。</li>
+<li><strong>部分覆盖</strong>：一个主题只准备了部分算法、变体或验证。</li>
+<li><strong>只有名称</strong>：仅出现在旧 COVERAGE 清单中，没有专门讲解和练习。</li>
+<li><strong>待补</strong>：本次建议新增，尚无相应可运行练习。</li>
+<li><strong>已有讲解与推演</strong>：本次外部排序专题的状态；还没有独立 C++ 框架。</li>
+</ul>
+<p>“未掌握”描述学习状态，“待补”描述资料建设状态，两者不能混用。不能把根本没有材料的项目写成仿佛等着你去完成的现成代码题。</p>
+<h2>建议用三层难度，加一种练习方式</h2>
+<div class="table"><table><thead><tr><th>层级</th><th>目的</th><th>完成要求</th></tr></thead><tbody>
+<tr><td>基础</td><td>形成贯穿全书的知识和核心实现能力</td><td>主要结构基本操作、典型算法、边界与复杂度；复杂专题至少能解释用途并走通小例子</td></tr>
+<tr><td>进阶</td><td>补齐实现细节和综合应用</td><td>非递归遍历、nextval、开放定址、平衡维护、外排序模拟等，逐项选择</td></tr>
+<tr><td>扩展</td><td>根据兴趣深入实际工程或课外算法</td><td>大文件外排序、复杂树完整实现、进阶图算法和综合项目，不计入第一轮必做总数</td></tr>
+</tbody></table></div>
+<p>每个主题再标“阅读 / 手推 / 编码 / 综合实验”。<strong>王道范围内的主题都应该有入口；不要求每个主题都在第一轮完整手写。</strong></p>
+<p>例如败者树：基础层认识作用、手推一次更新；进阶层写核心调整函数；扩展层接入文件缓冲外排序。这是同一主题不同深度，不是把它从主线删掉。</p>
+<h2>按章节发现的缺口</h2>
+<p>下表的“建议补法”是本次判断，不代表这些新增条目已经全部建好。课后题类举例用于练习设计，不声称是 2027 版逐题目录。</p>
+<div class="table"><table><thead><tr><th>章节</th><th>实际已有范围</th><th>缺少或覆盖不足</th><th>建议补法</th></tr></thead><tbody>
+<tr><td>算法基础</td><td>每题要求说明复杂度</td><td>没有集中练习循环计数、递归代价、辅助空间与调用栈；容器和指针前置说明较薄</td><td>基础：按需插入短题，不让你重听整章理论</td></tr>
+<tr><td>线性表</td><td>L01–L08：固定容量顺序表、单链表、双向循环表及若干应用</td><td>按值查找、动态扩容；带头结点版本、头插/尾插建表；单向循环链表、静态链表；有序链表合并及结构比较</td><td>基础补常用操作和两种头结点约定；静态链表先手推，完整内存池管理选做</td></tr>
+<tr><td>线性表综合应用</td><td>删除、反转、倒数第 k 个、去重</td><td>缺少算法题训练梯度，例如有序表交集、区间删除、循环移位、主元素、链表交点/环/回文</td><td>进阶：按双指针、原地变换、快慢指针分组，避免一个方法刷很多同型题</td></tr>
+<tr><td>栈、队列、数组</td><td>S01–S08：基本结构、括号、后缀求值、对称矩阵、稀疏转置</td><td>共享栈、双端队列、中缀转后缀、递归调用过程；三角/三对角矩阵；快速转置只写在目标里</td><td>基础补表达式转换和地址推演；进阶补共享栈/双端队列/快速转置独立测试</td></tr>
+<tr><td>串</td><td>T01–T03：子串、比较、朴素匹配、0 基 pi 版 KMP</td><td>王道 next 定义的具体对照、nextval 优化；串存储和其他基本操作未成专题</td><td>基础明确 pi 与书中 next 的失配含义；进阶做 nextval，不把 pi 错判为算法错误</td></tr>
+<tr><td>树与二叉树</td><td>B01–B07：三遍历、层序、统计、先中重建、中序线索、WPL、并查集</td><td>非递归版本没有独立接口；树/森林表示与转换、哈夫曼编码；线索前驱/后继分类；按秩/大小合并未展开</td><td>基础补非递归先中序、森林转换手推和编码；非递归后序、完整表示转换与线索变体进阶</td></tr>
+<tr><td>图</td><td>G01–G09：邻接表、遍历、MST、最短路、拓扑、关键路径</td><td>G01 说要矩阵但只有邻接表接口；遍历默认单起点；缺 BFS 最短路径及路径恢复、DAG 表达式；复杂存储仅有名称</td><td>基础补矩阵、非连通遍历和路径输出；十字链表/邻接多重表先画结构；其他变体进阶</td></tr>
+<tr><td>查找</td><td>Q01–Q05：顺序、二分、完整 BST 操作接口、拉链法、AVL 旋转</td><td>分块查找、开放定址与删除标记、成功/失败 ASL；AVL 插删维护；红黑树、B/B+ 树只有名称</td><td>基础补查找分析和开放定址；复杂树基础层手推，完整 AVL 插入进阶，完整删除及 B+/红黑树工程实现扩展</td></tr>
+<tr><td>内部排序</td><td>R01–R09：九种常见内部排序</td><td>2027 目录中的计数排序；堆插入/删除；稳定性没有可区分同键记录的样例；归并迭代版与排序应用未展开</td><td>计数排序进阶；基础补堆操作与稳定性验证；其他变体按需</td></tr>
+<tr><td>外部排序</td><td>旧覆盖清单仅列名称</td><td>原来没有初始段、多路归并、败者树、置换—选择、最佳归并树的专题内容、推演或代码</td><td>本次先建立四页讲解/推演和专题入口；核心模拟列为进阶，文件系统实验列为扩展</td></tr>
+</tbody></table></div>
+<p>出处范围：上述教材主题按<a href="https://cbjj.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851">2027 出版社目录</a>核对；具体文件缺口来自本地审查；难度、顺序和练习方式是教学建议。目录中的计数排序带星号，但它仍是这一版的内容，不应完全消失。</p>
+<h2>需要先修正的“部分覆盖”</h2>
+<ul>
+<li><strong>G01 邻接表与邻接矩阵</strong>：问题要求两者，实际只有 <code>build_adjacency</code>。应为矩阵另设接口和样例，否则完成一个函数就容易误以为做完两种表示。</li>
+<li><strong>B01 三种遍历</strong>：有三种递归/通用接口，但“再写非递归”没有独立位置。应给递归、栈模拟不同的文件或函数名，避免覆盖原实现后无法比较。</li>
+<li><strong>S08 稀疏矩阵转置</strong>：普通与快速转置写在同一目标中，只给 <code>transpose_sparse</code>；应分开，并测试大量空列与转置两次。</li>
+<li><strong>B06 哈夫曼树与 WPL</strong>：当前只要求返回 WPL，不能检验是否构建树，更不覆盖编码/解码。</li>
+<li><strong>Q05 AVL</strong>：已有左右单旋接口，只运行一例右旋；没有完整 LR/RL 和携带中间子树的测试，更没有插删回溯维护。</li>
+<li><strong>T03 KMP</strong>：pi 版是有效的实现，不需要换掉；应增加对照页说明下标、最长真前后缀、失败跳转，再设 nextval 练习。</li>
+<li><strong>排序验证</strong>：整数 <code>1,1</code> 无法区分先后身份，应使用“关键字 + 原序号”记录验证稳定性。</li>
+<li><strong>R09 基数排序</strong>：现有样例全是个位数，不能检查多轮分配。至少增加 <code>170,45,75,90,802,24,2,66,0</code>、重复数、全零与接近 int 上界的值；同时检查位权增长溢出。</li>
+<li><strong>参考链接精度</strong>：当前导航按章共用链接；Q05 的“实现参考”实际进入二分查找页。应为每题配置准确主题链接，而不是让一个章节里的所有算法共用一个泛链接。</li>
+</ul>
+<p>这些问题比单纯把题量从 49 变成很多更优先。</p>
+<h2>外部排序应作为一条完整知识线</h2>
+<p><a href="../07-sorting/external/README.html">专题入口</a>已经可阅读，以下四页有概念、例子、手推任务和未来编码目标：</p>
+<div class="table"><table><thead><tr><th>主题</th><th>优化或解决的问题</th><th>本次页面</th></tr></thead><tbody>
+<tr><td>初始归并段、两路/多路归并、I/O</td><td>数据放不进内存时，怎样分段排序并合并；怎样计算读写代价</td><td><a href="../07-sorting/external/01-flow.html">01 基本流程</a></td></tr>
+<tr><td>置换—选择</td><td>在受限工作区内生成更长的初始有序段</td><td><a href="../07-sorting/external/02-replacement-selection.html">02 生成归并段</a></td></tr>
+<tr><td>败者树</td><td>多路归并时怎样反复选出当前最小记录，减少比较</td><td><a href="../07-sorting/external/03-loser-tree.html">03 选择与更新</a></td></tr>
+<tr><td>最佳归并树</td><td>归并段长度不同时，怎样安排合并次序，降低模型中的总读写代价</td><td><a href="../07-sorting/external/04-optimal-merge.html">04 归并次序</a></td></tr>
+</tbody></table></div>
+<p>“完整最佳归并树”和“败者树”不是同一种树，也不解决同一个问题。前者决定哪些段先合并；后者决定一次多路合并时下一个输出哪个记录。</p>
+<p>外排序与数据库、大文件处理有实际联系，不能笼统称为无用知识；但初学阶段不必立即写完整磁盘排序系统。<a href="https://arxiv.org/abs/2207.12713">外排序实现研究</a></p>
+<h2>适当增加的课外扩展</h2>
+<p>先补主要缺口，再按兴趣选；以下不冒充王道目录中每项必有的内容：</p>
+<div class="table"><table><thead><tr><th>方向</th><th>建议内容</th><th>为什么值得加</th></tr></thead><tbody>
+<tr><td>常用解题方法</td><td>前缀和、双指针、滑动窗口、二分答案</td><td>把已有数组与查找知识用于综合题</td></tr>
+<tr><td>排序与选择</td><td>计数/桶的条件比较、三路快排、快速选择第 k 小</td><td>应对值域较小、重复值多、不需要全排序等场景；其中计数已属于本版补缺</td></tr>
+<tr><td>栈队列应用</td><td>单调栈、单调队列</td><td>理解有序候选如何降低重复比较</td></tr>
+<tr><td>字符串结构</td><td>Trie；字符串哈希并说明碰撞</td><td>处理前缀和大量字符串查询</td></tr>
+<tr><td>图深化</td><td>Bellman–Ford、强连通分量、割点/桥</td><td>对应负边、有向连通和网络关键位置；不塞进第一轮</td></tr>
+<tr><td>区间结构</td><td>树状数组、线段树</td><td>支持多次区间查询与更新</td></tr>
+<tr><td>算法思想</td><td>分治、贪心的适用论证、基础动态规划与回溯</td><td>避免只背孤立函数；用已学算法串联</td></tr>
+</tbody></table></div>
+<p>红黑树、B/B+ 树和外排序的基本知识属于主线覆盖，不因为实现难就都扔进“课外”。可以把它们的完整工程实现放在扩展层。</p>
+<h2>练习系统本身还应怎样提升</h2>
+<h3>优先提升正确性反馈</h3>
+<ul>
+<li>当前 main 主要打印固定样例，成功退出不等于正确；应补可运行的期望值比较，错误清楚指出哪组输入失败，TODO 保持未完成状态。</li>
+<li>除普通样例外，自动检查空、单元素、重复、极值、退化结构与不连通情况；不把全部测试工作转交给刚开始练习的你。</li>
+<li>排序可与标准库结果对照，并检查元素是否遗漏/重复；稳定性单独测。多解题例如拓扑序/MST 应检查合法性或权值，不强求唯一排列。</li>
+<li>指针结构要检查链路和释放，不能只检查打印序列；性能要求要有规模测试及复杂度说明。</li>
+</ul>
+<h3>让导航准确表达资料状态与学习状态</h3>
+<ul>
+<li>难度筛选用基础/进阶/扩展；练习方式用阅读/手推/编码/实验，二者分开。</li>
+<li>资料状态标清“已有框架、已有阅读页、待建设”；没有代码的主题不能放一个无效“C++ 框架”链接。</li>
+<li>学习状态可记录未开始、进行中、卡住、验证通过、待复习；“已掌握”必须由实际反馈确认。</li>
+<li>主线与扩展分别显示数量，选做项不拉低第一轮完成率。</li>
+<li>已有浏览器记录只有导出，没有导入；后续应支持备份恢复，保持旧编号与已有记录兼容。</li>
+<li>加前置关联，例如堆 → 多路归并/败者树、哈夫曼 → 最佳归并树、栈 → 非递归遍历。当前 G09 排在堆之前，需明确跨章前置或允许后做。</li>
+<li>算法实现练习和在线综合题分开列，注明题目是否准确对应、接口如何转换、是否需要登录；31 项没有在线链接并不代表应随便找一个题凑数，可以先建立可靠本地测试。</li>
+</ul>
+<h2>建设顺序：不按日期</h2>
+<ul>
+<li>修正标题、接口和样例不一致，明确现有覆盖边界。</li>
+<li>补自动自测与每题准确参考链接，让已有练习可靠。</li>
+<li>补主线缺口：中缀转换、nextval、森林/编码、矩阵/路径、分块/开放定址、计数与外排序基础。</li>
+<li>补进阶实现：非递归后序、完整 AVL 插入、败者树/置换选择/最佳归并树的内存模拟。</li>
+<li>按兴趣做扩展项目与课外算法，不要求前四步完成之后才能浏览难题。</li>
+</ul>
+<h2>本次实际完成与尚未完成</h2>
+<p><strong>已完成：</strong> 全目录审查、本报告、外部排序专题入口及四篇讲解/手推页、导航与相关文档入口。</p>
+<p><strong>尚未完成：</strong> 表中其他新增算法的专用 C++ 框架、自动判题设施、导航三级筛选和进度导入。这些是审查建议，不冒充已实现功能。</p>
+<p>现有 49 项代码、题目编号和学习状态保留；没有替你填写算法答案、提交在线题或认定掌握。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

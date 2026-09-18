@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>外排序 01：有序段、归并轮数与 I/O</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="01-flow.md">Markdown 原文件</a></nav><h1>外排序 01：有序段、归并轮数与 I/O</h1>
+<p><a href="README.html">专题目录</a> · <a href="02-replacement-selection.html">下一页：置换—选择</a></p>
+<p><strong>基础：阅读与手推；进阶 <a href="../problems/r14.html">R14 k 路归并</a> 已有 C++ 框架与自动核对。扩展 <a href="../problems/r19.html">R19 文件实验</a> 已有具体任务。未确认掌握。</strong></p>
+<h2>解决什么问题</h2>
+<p>内排序默认待排数据能放在内存中；外排序面对数据量超过可用内存的情况。基本做法是生成较小的有序段，再逐步归并。</p>
+<p>这里的 I/O 指数据在外部存储与内存之间的读写。分析时不仅数比较，也要考虑读写。</p>
+<p>一条常用路线：读取可容纳的一批记录 → 内排序 → 写出初始有序段 → 多轮归并 → 输出完整有序结果。</p>
+<p>这一结构来自外排序的常规两阶段方法。<a href="https://opendsa-server.cs.vt.edu/ODSA/StandaloneModules/20221129164441/html/ExternalSort.html">OpenDSA</a></p>
+<h2>两路与多路归并</h2>
+<p>两路是每次合并两个有序段；k 路是一次合并至多 k 个有序段。</p>
+<p>合并时每段只需把当前候选放在内存中，但真实文件处理通常以块为单位建立输入、输出缓冲。</p>
+<p>简单缓冲模型下，如果一共有 B 个缓冲块，留 1 块输出，就最多有 B−1 个输入缓冲，因此 k≤B−1。真实实现还要考虑额外工作空间；不能把路数无条件设得越大越好。</p>
+<h2>一道可自己推的小题</h2>
+<p>有 120 个数据块，每次能把 10 块读入内存完成初始排序。假设不做置换—选择，生成等长初始段；归并时采用 3 路平衡归并。</p>
+<p>先回答：</p>
+<ul>
+<li>初始有多少段？</li>
+<li>每轮之后还剩多少段？</li>
+<li>归并需要几轮？</li>
+<li>假设每轮把全部 120 块完整读入、完整写出，且把初始段生成也计入，总共读写多少块次？</li>
+</ul>
+<details>
+<summary>展开核对：这一题明确采用的计算模型</summary>
+<p>初始段数 120/10=12；之后 12→4→2→1，所以需要 3 轮归并。</p>
+<p>每个完整阶段读 120 块、写 120 块，即 240 块次；初始生成加 3 轮归并，共 4×240=960 块次。</p>
+<p>一般等长分段时 r=ceil(N/M)；r&gt;1 的 k 路平衡归并轮数为 ceil(log_k r)，r=1 时无需归并。空输入单独处理。</p>
+<p>2N(1+轮数) 是本题“每轮全量读写”的简化模型；若最后结果不落盘、某些段直接保留或采用不同归并计划，不能不加说明就套这个数。</p>
+</details>
+<h2>与后面三页关联</h2>
+<p>想降低代价，可以分别考虑：初始段更长、归并时选最小值更快、不同长度段的合并次序更好。它们对应置换—选择、败者树、最佳归并树，优化的环节不同。</p>
+<p>进阶练习先用数组模拟 3 路归并，检查重复值、空段、长度不等及某段先耗尽。扩展才加入真正的磁盘文件与双缓冲；不要把简单 I/O 模型误认为实际耗时测量。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

@@ -1,0 +1,16 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R10 稳定计数排序：负数偏移与值域限制</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="r10.md">Markdown 原文件</a></nav><h1>R10 稳定计数排序：负数偏移与值域限制</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a> · <a href="../code/r10.cpp">C++ 框架</a></p>
+<p><strong>进阶｜编码｜王道主线。学习状态：未开始；材料建立不表示掌握。</strong></p>
+<h2>为什么练</h2>
+<p>计数排序利用有限整数值域累计位置；不依赖元素两两比较，但空间与值域有关。它是本版王道的补缺，不应省略。</p>
+<p>前置：R01。记录包含 key 与原序号 serial。允许负数；max_range&gt;0，值域宽度超过 max_range 抛 length_error，非法上限抛 invalid_argument。</p>
+<h2>接口与关键区别</h2>
+<p><code>counting_sort(records,max_range)</code> 返回按 key 稳定升序排列的新数组。空输入返回空。输入不被修改。不要只统计每个整数出现多少次再丢掉 serial，那样没有完成“记录排序”。</p>
+<p>值域宽度为 max−min+1，先提升到 long long 再相减，避免 INT_MIN 到 INT_MAX 溢出。负数通过减去 min 映射到计数数组下标。</p>
+<h2>先推一组</h2>
+<p><code>[(2,0),(-1,1),(2,2),(0,3),(-1,4)]</code> 应得到 <code>[(-1,1),(-1,4),(0,3),(2,0),(2,2)]</code>。请先写频数、前缀累计，再决定扫描原数组的方向与位置更新方式。</p>
+<h2>已准备测试</h2>
+<p>负数、重复记录的相对顺序、空/单点、全部相等、紧挨 INT_MAX 的小值域、跨度极大时拒绝分配。O(n+K) 时间、O(n+K) 辅助空间，其中 K 为值域宽度；整数很分散时应选择别的排序。</p>
+<h2>验收</h2>
+<p>main 自动核对预期值和边界。退出状态 0：这些测试通过；1：核对失败；2：仍有 TODO。目标算法不可用 std::sort/stable_sort 或整批排序代替；测试中的标准库排序仅作独立参照。测试通过后还需解释复杂度和适用条件。</p>
+<p><a href="https://oi-wiki.org/basic/counting-sort/">主题参考</a> · <a href="../../references/README.html">资料使用说明</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

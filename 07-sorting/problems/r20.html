@@ -1,0 +1,20 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R20 排序算法怎样按数据条件选择</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="r20.md">Markdown 原文件</a></nav><h1>R20 排序算法怎样按数据条件选择</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a> · <a href="../external/README.html">外部排序专题</a></p>
+<p><strong>扩展｜手推｜课外扩展。已有任务与验收规范，没有目标算法完整实现。未确认掌握。</strong></p>
+<h2>目标与前置</h2>
+<p>把排序表格变成条件判断；同时比较计数、桶、基数、快排和快速选择，避免只追求记住更多名称。</p>
+<p>前置：R09、R10、R12、R18。这是决策与反例手推，不是所有新算法都有专用代码题。</p>
+<h2>四组任务</h2>
+<p>A：一百万个 0..100 的整数，要完整排序。B：一万个 int，接近 INT_MIN 与 INT_MAX 且分散。C：记录 key 重复很多，还必须保持相同 key 原顺序。D：一千万条记录，只要第 100 小，不需要其余全部有序。</p>
+<p>为每组选择一种方案，写时间/空间与前提，再指出至少一种不合适的方案及具体原因。</p>
+<details>
+<summary>核对思路（答案不唯一）</summary>
+<p>A 的小值域适合计数；B 不适合按全值域开计数数组，可用比较排序或固定字长的基数策略。C 需要稳定实现，如归并或稳定计数；快速排序通常不稳定，不能仅把 key 作为比较器就宣称稳定。D 可快速选择，或大小为 100 的堆处理流；不必完整排序。</p>
+</details>
+<h2>三路快排的手推</h2>
+<p><code>[3,1,3,2,3,0,3]</code> 以 3 为主元，划成小于、等于、大于三个区间。为什么全相等数组应直接结束，而不是递归处理 n−1 项？不要求区间内精确某一种排列，只核对分类、记录守恒和递归区间缩小。</p>
+<h2>桶排序不等于计数排序</h2>
+<p>把 [0,1) 的实数按区间分桶，每桶内再排序；手推 <code>0.12,0.91,0.14,0.50</code> 放进十个桶。桶内出现多项时不能只记个数就丢掉真实数值。接着改成所有数都在 [0.10,0.11)，分析负载偏斜为什么会破坏你期待的性能。</p>
+<h2>基数排序的多轮检查</h2>
+<p>用 <code>170,45,75,90,802,24,2,66,0</code> 先按个位再十位、百位进行稳定分配，最终是 <code>0,2,24,45,66,75,90,170,802</code>。每轮只看当前位，却必须保留低位已有次序；这正是稳定性在组合算法中的用途。</p>
+<p><a href="https://algs4.cs.princeton.edu/lectures/">主题参考</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

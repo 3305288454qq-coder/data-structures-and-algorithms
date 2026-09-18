@@ -1,0 +1,29 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>线性表补充：存储、头结点与综合方法</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="supplement-guide.md">Markdown 原文件</a></nav><h1>线性表补充：存储、头结点与综合方法</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../problems/l15.html">循环与静态链表手推</a></p>
+<h2>先确定三个约定</h2>
+<p>顺序表中“第 1 个元素”是位序，C++ 数组下标是 0；按位访问和按值查找是不同操作。动态顺序表还要区分逻辑长度与已分配容量，不能访问容量内但不属于有效数据的格子。<a href="../problems/l09.html">L09</a> 把这三件事单独验证。</p>
+<p>带头结点链表的 head 指向哨兵，首个数据在 head-&gt;next；不带头结点时 head 本身就是首个数据。哨兵使删除首元素时也有前驱，但不是每个链表都必须使用。旧 L04 的约定继续有效；<a href="../problems/l10.html">L10</a> 专练带头结点版本。</p>
+<h2>存储方案为何不同</h2>
+<div class="table"><table><thead><tr><th>方案</th><th>按下标访问</th><th>找到位置后的局部增删</th><th>额外问题</th></tr></thead><tbody>
+<tr><td>固定顺序表</td><td>O(1)</td><td>后续元素移动，最坏 O(n)</td><td>容量上限</td></tr>
+<tr><td>倍增动态顺序表</td><td>O(1)</td><td>最坏 O(n)</td><td>扩容会迁移元素，旧地址可能失效</td></tr>
+<tr><td>链表</td><td>O(n)</td><td>已知合适前驱时 O(1)</td><td>查找前驱仍可能 O(n)，指针和分配成本</td></tr>
+<tr><td>静态链表</td><td>逻辑访问仍需逐链 O(n)</td><td>已知前驱及空闲槽时 O(1)</td><td>用下标代替指针，维护备用链</td></tr>
+</tbody></table></div>
+<p>不要把“插入链表 O(1)”脱离“已找到前驱”的条件背诵。动态顺序表的尾插摊还 O(1) 也不意味着每一次扩容操作都是 O(1)。</p>
+<h2>综合练习按方法关联</h2>
+<div class="table"><table><thead><tr><th>任务</th><th>关键思考</th><th>入口</th></tr></thead><tbody>
+<tr><td>有序交集</td><td>比较两个当前位置，哪个应前进；重复元素怎样只保留一次</td><td><a href="../problems/l11.html">L11</a></td></tr>
+<tr><td>区间删除</td><td>读指针扫描，写指针保留；原有相对次序必须保持</td><td><a href="../problems/l11.html">L11</a></td></tr>
+<tr><td>循环移位</td><td>想清整体移动方向、k 超长和空表；比较临时数组与原地变换</td><td><a href="../problems/l11.html">L11</a></td></tr>
+<tr><td>主元素</td><td>抵消产生候选，第二遍证明是否超过一半</td><td><a href="../problems/l12.html">L12</a></td></tr>
+<tr><td>链表环与相交</td><td>比较结点地址，区分有环与无环输入前提</td><td><a href="../problems/l13.html">L13</a></td></tr>
+<tr><td>回文</td><td>中点、半段比较、恢复链路，尤其考虑提前发现不等的路径</td><td><a href="../problems/l14.html">L14</a></td></tr>
+</tbody></table></div>
+<p>手推任务：对 [1,1,3,5] 和 [1,2,5,5] 写出去重交集；对 [5,1,3,2,8,3] 删除闭区间 [2,5]；对 [1,2,3,4,5] 左移 7 位。再举一个“抵消算法产生候选，但没有主元素”的例子。</p>
+<details>
+<summary>展开核对，不含目标算法代码</summary>
+<p>交集 [1,5]；区间删除后 [1,8]，相对次序保持；左移 7 位等价于左移 2 位，结果 [3,4,5,1,2]。[1,2,3] 中候选存在但没有任何元素超过一半。</p>
+</details>
+<h2>不要求一口气完成</h2>
+<p>基础先做 L09、L10。L11–L14 是综合提升，可以先选一个方法；循环链表与静态链表先完成 <a href="../problems/l15.html">L15</a> 的表格推演，再决定是否写完整管理器。所有新增内容均为未开始。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

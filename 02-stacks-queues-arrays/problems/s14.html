@@ -1,0 +1,24 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>S14 递归调用过程与辅助空间</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="s14.md">Markdown 原文件</a></nav><h1>S14 递归调用过程与辅助空间</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../topics/supplement-guide.html">栈专题</a></p>
+<p><strong>基础｜手推｜已有阅读页｜学习状态：未开始</strong>。前置 S01。没有需要提交的完整算法答案。</p>
+<h2>任务一：返回之前，当前调用还没结束</h2>
+<p>考虑 sum(n)：当 n==0 返回 0，否则返回 n+sum(n-1)。这不是待你死背的模板，任务是逐帧记录 sum(3) 的“n、等待哪个调用、返回后还要做什么”。</p>
+<p>画一列调用栈：进入 sum(3)，进入 sum(2)，进入 sum(1)，进入 sum(0)；随后按实际顺序删除栈帧并填写返回值。回答：执行 sum(0) 时，sum(3) 的 n 还存在吗。</p>
+<details>
+<summary>核对调用栈</summary>
+<p>sum(0) 返回 0；sum(1) 得到 1；sum(2) 得到 3；sum(3) 得到 6。到达 sum(0) 时有 4 个活动调用，外层 n 仍在各自帧内。时间 O(n)，辅助栈 O(n)；不能因只声明一个 n 就说空间 O(1)。</p>
+</details>
+<h2>任务二：总调用次数和最大深度不同</h2>
+<p>设 fib(0)=0、fib(1)=1，其余 fib(n)=fib(n-1)+fib(n-2)。画 fib(4) 的完整调用树，标出重复的 fib(2) 和 fib(1)。分别数“共有多少次函数进入”和“最深一条调用链有几层”。</p>
+<details>
+<summary>核对调用树</summary>
+<p>一共 9 次调用；最深链 fib(4)→fib(3)→fib(2)→fib(1) 为 4 层。总调用数量可以指数增长，最大活动栈深仍为 O(n)。若加入记忆化会改变时间和数据存储，但不是本页已经完成的实现。</p>
+</details>
+<h2>联系后续练习</h2>
+<p>B08/B09 用显式栈保存二叉树遍历的待办结点；非递归后序还要知道当前处在哪个阶段。图 DFS 同样有这个联系。基础完成两张表即可；扩展可在 VS Code 调试器里观察“调用堆栈”，把理论帧与实际调试显示对应起来。</p>
+<h2>自查</h2>
+<ul>
+<li>能区分递归参数、返回值与恢复执行位置。</li>
+<li>能分别解释时间计数和最大栈空间。</li>
+<li>能指出基例，否则可能无限递归或栈溢出。</li>
+</ul><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

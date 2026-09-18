@@ -1,0 +1,15 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>X12 负边最短路：Bellman–Ford</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="x12.md">Markdown 原文件</a></nav><h1>X12 负边最短路：Bellman–Ford</h1>
+<p><a href="../../index.html">练习导航</a></p>
+<p><strong>扩展｜阅读与手推｜学习状态由实操确认</strong></p>
+<p>Dijkstra的常用正确性条件包含非负边。Bellman–Ford通过多轮检查边的松弛，允许负边；从源可达的负环会让部分最短距离没有有限下界。</p>
+<h2>手推数据</h2>
+<p>顶点0、1、2，源0；边为0→1权4、0→2权5、2→1权−3。</p>
+<p>先说明0到1的最短路线，再按边顺序记录每轮距离。比较“每轮使用上一轮副本”与“原地更新”：轮内结果可能不同，但都必须说明采用哪种约定。</p>
+<details>
+<summary>核对最终距离</summary>
+<p>距离为0、2、5；到1的更短路线是0→2→1。这里有负边，但没有负环。</p>
+<p>再加入1→2权1，1与2之间形成总权−2的环，而且从0可达；不能继续报告它们有普通有限最短距离。</p>
+</details>
+<h2>编码时的边界清单</h2>
+<p>不可达顶点不参与无穷大加法；负环必须区分是否从源可达；用足够宽的整数。若要标记所有受负环影响的顶点，还需把影响沿可达路径传播。</p>
+<p>验收用小图与穷举简单路径/轮数约束的独立方法核对无负环情形。本页提供专题任务，不将未建立的代码接口展示成现成框架。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

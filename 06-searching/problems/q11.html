@@ -1,0 +1,25 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Q11 B 树：分裂、借位与合并</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="q11.md">Markdown 原文件</a></nav><h1>Q11 B 树：分裂、借位与合并</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a></p>
+<p><strong>基础｜手推｜王道主线。已有具体任务与核对材料；没有专用 C++ 框架，未确认掌握。</strong></p>
+<h2>目标与约定</h2>
+<p>多关键字结点把树高降低；把搜索路径和磁盘页访问联系起来，实际手推插删而不只背阶数公式。</p>
+<p>前置：Q03。固定最小度数 t=2：每结点最多 3 个键/4 个孩子，非根至少 1 个键。采用下降前拆满孩子的插入约定。</p>
+<h2>插入任务</h2>
+<p>依次插入 <code>10,20,5,6,12,30,7,17</code>。满的 [5,10,20] 分裂时中间键 10 上移，原结点键分别留在左右孩子；根分裂使整树升高。</p>
+<details>
+<summary>核对插入后的树</summary>
+<p>根为 [10,20]，三个叶孩子依次为 [5,6,7]、[12,17]、[30]。全部叶深度相同；中间孩子的键严格在 10 与 20 之间。查 17：根选中间孩子，再在 [12,17] 内找到。</p>
+</details>
+<h2>删除任务</h2>
+<p>从上述树连续删除 6、7、5、10。先在纸上允许叶临时下溢，再向兄弟借位或合并；与“下降前预修复”写法可能中间步骤不同，本页以最终合法结构核对。</p>
+<details>
+<summary>核对借位与合并</summary>
+<p>删 6、7 后左叶为 [5]。再删 5，左叶空，中间兄弟 [12,17] 有富余；把父的 10 下移左叶，把兄弟的 12 上移父，得到根 [12,20]、孩子 [10] [17] [30]。</p>
+<p>再删 10，左空、兄弟 [17] 已到最小，不能再借；把父键 12 与这两个孩子合并成 [12,17]。最终根 [20]，左右孩子 [12,17]、[30]。</p>
+</details>
+<h2>再练内部删除与根收缩</h2>
+<p>从最终树删根键 20，选择前驱 17 替换，再从左孩子移走 17，可得到根 [17]、孩子 [12]、[30]。若继续删 12，应出现借位失败后的合并与根收缩，画出新根 [17,30]。</p>
+<p>页大小与键宽度会影响实际“阶”，不同资料对 order 的说法可能不同；读例子时先换算每页最多几个键/孩子，不直接套同一个字母。</p>
+<h2>完成记录</h2>
+<p>写下完成了哪张图/哪组输入、哪里需要提示、能否独立解释关键一步。读过核对内容不自动变为已掌握；可以先做手推，再按兴趣扩展实现。</p>
+<p><a href="https://opendsa.cs.vt.edu/ODSA/Books/CS3S26notes/html/BTrees.html">主题参考</a> · <a href="../../references/README.html">资料使用说明</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

@@ -1,0 +1,21 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据结构与算法练习指导</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="index.html">← 练习导航</a> · <a href="AGENTS.md">Markdown 原文件</a></nav><h1>数据结构与算法练习指导</h1>
+<ul>
+<li>默认中文。主教材是王道考研 2027，用户已经听完约 2022 年的王道课程；听完不等于掌握，按当前代码与学习记录判断。</li>
+<li>开始辅导前读取 notes/learning_progress.md 与当前练习文件，按 PRACTICE_ORDER.md 推进，不按日期或每日题量安排。</li>
+<li>用户自己实现算法。除非明确要求完整答案，不填好核心算法；按概念、例子、框架、定位错误的层次帮助。</li>
+<li>解释一个完整且可处理的函数级步骤，不在已熟悉的变量声明/输入后机械停顿。</li>
+<li>用户只问概念时不编辑代码；检查时先读已保存文件，必要时提醒 Ctrl+S，不静默修改。</li>
+<li>检查编译、逻辑、边界、复杂度、输出和有依据的风格问题。使用本目录 MSVC C++17 与 /W4，生成物只放 build/ 或受控临时目录。</li>
+<li>scaffold 的 TODO 异常和返回状态 2 表示未完成；编译成功不能计为做对。每题自测并不覆盖全部情况，需检查问题页中的边界。</li>
+<li>在线提交必须遵循实际题面。区分本地框架与在线接口；先解释必要的命令和每个参数，由用户完成练习提交。</li>
+<li>不自动 git init、commit 或 push，不以讲解过、生成过文件或用户允许保存来标记已掌握。</li>
+<li>练习卡点与实际验证证据写入 notes/learning_progress.md，保持简洁；用户明确保留的有效写法不再反复当作错误。</li>
+<li>原学校作业与 PTA 练习在 D:/Basic Programming Practice，遵循那里自己的 AGENTS.md，不在本目录复制或修改其源代码。</li>
+</ul>
+<ul>
+<li>修改本目录 Markdown 后，运行 node tools/render_pages.cjs 同步 HTML 阅读页；该工具只渲染本目录，保留导航页的浏览器自测记录。</li>
+</ul>
+<ul>
+<li>课程元数据以 curriculum.json 为准；新增条目保留旧ID并声明层级、形式、真实材料与先修。先运行 tools/build_navigation.cjs，再运行 tools/render_pages.cjs。不要把手推任务误写为已有代码，也不要将扩展数量计入基础进度。</li>
+<li>修改测试设施后运行 tools/test_navigation.cjs 和必要的框架检查；区分 passed / pending / failed。学习者的已保存算法不得在生成导航或更新测试时被覆盖。</li>
+</ul><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

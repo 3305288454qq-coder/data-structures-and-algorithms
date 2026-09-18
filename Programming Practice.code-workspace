@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "基础编程练习",
+      "path": "../Basic Programming Practice"
+    },
+    {
+      "name": "数据结构与算法",
+      "path": "."
+    },
+    {
+      "name": "工具练习",
+      "path": "../Developer Tools Practice"
+    }
+  ],
+  "settings": {}
+}

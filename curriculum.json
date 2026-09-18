@@ -1,0 +1,2398 @@
+[
+  {
+    "dir": "00-foundations",
+    "title": "按需补充的算法基础",
+    "route": "复杂度 → C++ 前置 → 算法思想；按需查阅，不重复已掌握内容",
+    "tasks": [
+      {
+        "id": "F01",
+        "title": "复杂度与递归空间自检",
+        "chapter": "00-foundations",
+        "goal": "用小例子区分执行次数、渐近复杂度和递归栈；按需查阅，不重听整章。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "00-foundations/topics/f01.md",
+        "codePath": null,
+        "reference": "00-foundations/topics/f01.md",
+        "prerequisites": [],
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "F02",
+        "title": "框架里的容器、引用与所有权",
+        "chapter": "00-foundations",
+        "goal": "认识 vector 的长度、下标、引用参数和测试结点所有权，避免把 C++ 前置知识误当算法难点。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "00-foundations/topics/f02.md",
+        "codePath": null,
+        "reference": "00-foundations/topics/f02.md",
+        "prerequisites": [],
+        "sourceScope": "配套深化"
+      },
+      {
+        "id": "F03",
+        "title": "算法思想与验证入口",
+        "chapter": "00-foundations",
+        "goal": "用现有题理解分治、贪心、不变量和状态转移；先说明为何成立，再比较代码长短。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "00-foundations/topics/f03.md",
+        "codePath": null,
+        "reference": "00-foundations/topics/f03.md",
+        "prerequisites": [],
+        "sourceScope": "配套深化"
+      }
+    ]
+  },
+  {
+    "dir": "01-linear-lists",
+    "title": "线性表",
+    "route": "顺序表 → 单链表 → 双向与循环链表",
+    "reference": "https://oi-wiki.org/ds/linked-list/",
+    "tasks": [
+      {
+        "id": "L01",
+        "title": "顺序表基本操作",
+        "goal": "用固定容量顺序表实现按位查找、插入、删除。位序从 1 开始；非法操作返回 false 且不改变表。删除成功时用引用参数返回被删值。",
+        "signature": "bool get_element(const SqList& list, int position, int& value);\nbool insert_element(SqList& list, int position, int value);\nbool erase_element(SqList& list, int position, int& removed);",
+        "demo": "SqList list;\nlist.length = 3;\nlist.data[0] = 10; list.data[1] = 20; list.data[2] = 30;\nstd::cout << insert_element(list, 2, 15) << '\\n';\nint removed = 0;\nstd::cout << erase_element(list, 3, removed) << ' ' << removed << '\\n';\nint value = 0;\nstd::cout << get_element(list, 2, value) << ' ' << value << '\\n';",
+        "expected": "1\\n1 20\\n1 15",
+        "boundaries": "空表；首尾插入；满表；位序 0 和 length+1 的合法性因操作而异。",
+        "url": "",
+        "extra": false,
+        "order": 1,
+        "codePath": "01-linear-lists/code/l01.cpp",
+        "problemPath": "01-linear-lists/problems/l01.md",
+        "chapter": "01-linear-lists",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/ds/linked-list/"
+      },
+      {
+        "id": "L02",
+        "title": "原地删除指定值",
+        "goal": "删除数组逻辑范围内所有等于 value 的元素，保留其余元素顺序，返回新长度；只检查数组前新长度个位置。",
+        "signature": "int remove_value(std::vector<int>& values, int value);",
+        "demo": "std::vector<int> values{3, 2, 2, 3};\nint length = remove_value(values, 3);\nstd::cout << length << '\\n';\nfor (int i = 0; i < length; ++i) std::cout << values[i] << (i + 1 == length ? '\\n' : ' ');",
+        "expected": "2\\n2 2",
+        "boundaries": "空数组；全部删除；没有目标值；连续目标值。",
+        "url": "https://leetcode.cn/problems/remove-element/",
+        "extra": false,
+        "order": 2,
+        "codePath": "01-linear-lists/code/l02.cpp",
+        "problemPath": "01-linear-lists/problems/l02.md",
+        "chapter": "01-linear-lists",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L01"
+        ],
+        "reference": "https://oi-wiki.org/ds/linked-list/"
+      },
+      {
+        "id": "L03",
+        "title": "合并有序顺序表",
+        "goal": "将两个非递减数组合并为新的非递减数组；重复值保留。要求双指针，时间 O(m+n)。",
+        "signature": "std::vector<int> merge_sorted(const std::vector<int>& a, const std::vector<int>& b);",
+        "demo": "print_range(merge_sorted({1, 3, 5}, {2, 3, 6}));",
+        "expected": "1 2 3 3 5 6",
+        "boundaries": "两者空；一方空；所有值相等；一方先耗尽。",
+        "url": "https://www.dotcpp.com/oj/problem1674.html",
+        "extra": false,
+        "order": 3,
+        "codePath": "01-linear-lists/code/l03.cpp",
+        "problemPath": "01-linear-lists/problems/l03.md",
+        "chapter": "01-linear-lists",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L01"
+        ],
+        "reference": "https://oi-wiki.org/ds/linked-list/"
+      },
+      {
+        "id": "L04",
+        "title": "单链表基本操作",
+        "goal": "使用不带头结点的单链表。实现按 1 开始的位序插入、删除、查找与销毁；非法位置返回 false；销毁后 head 必须为空。",
+        "signature": "bool list_insert(ListNode*& head, int position, int value);\nbool list_erase(ListNode*& head, int position, int& removed);\nListNode* list_at(ListNode* head, int position);\nvoid destroy_list(ListNode*& head);",
+        "demo": "ListNode* head = nullptr;\nstd::cout << list_insert(head, 1, 10) << '\\n';\nstd::cout << list_insert(head, 2, 20) << '\\n';\nstd::cout << list_at(head, 2)->value << '\\n';\nint removed = 0;\nstd::cout << list_erase(head, 1, removed) << ' ' << removed << '\\n';\ndestroy_list(head);\nstd::cout << (head == nullptr) << '\\n';",
+        "expected": "1\\n1\\n20\\n1 10\\n1",
+        "boundaries": "空链表；只有一个结点；删除头尾；非法位序；重复销毁。",
+        "url": "https://www.dotcpp.com/oj/problem1676.html",
+        "extra": false,
+        "order": 4,
+        "codePath": "01-linear-lists/code/l04.cpp",
+        "problemPath": "01-linear-lists/problems/l04.md",
+        "chapter": "01-linear-lists",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/ds/linked-list/"
+      },
+      {
+        "id": "L05",
+        "title": "原地反转单链表",
+        "goal": "改变 next 指针方向，返回新头指针；不能用新链表复制值。自测结点在栈上，不要释放它们。",
+        "signature": "ListNode* reverse_list(ListNode* head);",
+        "demo": "ListNode c{3, nullptr}, b{2, &c}, a{1, &b};\nListNode* p = reverse_list(&a);\nfor (; p; p = p->next) std::cout << p->value << (p->next ? ' ' : '\\n');",
+        "expected": "3 2 1",
+        "boundaries": "空链表；单结点；两个结点。",
+        "url": "https://leetcode.cn/problems/reverse-linked-list/",
+        "extra": false,
+        "order": 5,
+        "codePath": "01-linear-lists/code/l05.cpp",
+        "problemPath": "01-linear-lists/problems/l05.md",
+        "chapter": "01-linear-lists",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L04"
+        ],
+        "reference": "https://oi-wiki.org/ds/linked-list/"
+      },
+      {
+        "id": "L06",
+        "title": "倒数第 k 个结点",
+        "goal": "返回倒数第 k 个结点，k 从 1 开始。k<=0 或大于长度时返回 nullptr；要求只遍历一次。",
+        "signature": "ListNode* kth_from_end(ListNode* head, int k);",
+        "demo": "ListNode c{30, nullptr}, b{20, &c}, a{10, &b};\nListNode* result = kth_from_end(&a, 2);\nif (result) std::cout << result->value << '\\n';",
+        "expected": "20",
+        "boundaries": "k=1；k=长度；k=0；k>长度；空表。",
+        "url": "",
+        "extra": false,
+        "order": 6,
+        "codePath": "01-linear-lists/code/l06.cpp",
+        "problemPath": "01-linear-lists/problems/l06.md",
+        "chapter": "01-linear-lists",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L04"
+        ],
+        "reference": "https://oi-wiki.org/ds/linked-list/"
+      },
+      {
+        "id": "L07",
+        "title": "双向循环链表",
+        "goal": "使用带哨兵的双向循环链表；空表时哨兵 prev、next 都指向自身。实现尾插、删除首个匹配值、清空，清空不删除哨兵。",
+        "signature": "void append_node(DoubleNode& sentinel, int value);\nbool erase_first(DoubleNode& sentinel, int value);\nvoid clear_nodes(DoubleNode& sentinel);",
+        "demo": "DoubleNode sentinel;\nsentinel.prev = sentinel.next = &sentinel;\nappend_node(sentinel, 10); append_node(sentinel, 20);\nstd::cout << erase_first(sentinel, 10) << '\\n';\nstd::cout << sentinel.next->value << ' ' << sentinel.prev->value << '\\n';\nclear_nodes(sentinel);\nstd::cout << (sentinel.next == &sentinel && sentinel.prev == &sentinel) << '\\n';",
+        "expected": "1\\n20 20\\n1",
+        "boundaries": "空表；删除唯一结点；删除尾结点；找不到值；检查双向指针。",
+        "url": "",
+        "extra": false,
+        "order": 7,
+        "codePath": "01-linear-lists/code/l07.cpp",
+        "problemPath": "01-linear-lists/problems/l07.md",
+        "chapter": "01-linear-lists",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L04"
+        ],
+        "reference": "https://oi-wiki.org/ds/linked-list/"
+      },
+      {
+        "id": "L08",
+        "title": "有序表去重",
+        "goal": "对非递减数组原地去重，保留不同元素的原顺序，返回新逻辑长度；额外空间 O(1)。",
+        "signature": "int unique_sorted(std::vector<int>& values);",
+        "demo": "std::vector<int> values{1, 1, 2, 2, 3};\nint length = unique_sorted(values);\nstd::cout << length << '\\n';\nfor (int i = 0; i < length; ++i) std::cout << values[i] << (i + 1 == length ? '\\n' : ' ');",
+        "expected": "3\\n1 2 3",
+        "boundaries": "空数组；全相等；无重复；末尾重复。",
+        "url": "",
+        "extra": false,
+        "order": 8,
+        "codePath": "01-linear-lists/code/l08.cpp",
+        "problemPath": "01-linear-lists/problems/l08.md",
+        "chapter": "01-linear-lists",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L01"
+        ],
+        "reference": "https://oi-wiki.org/ds/linked-list/"
+      },
+      {
+        "id": "L09",
+        "title": "动态顺序表与按值查找",
+        "chapter": "01-linear-lists",
+        "goal": "区分逻辑长度与容量，实现按值查找、按位插入和自动扩容。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "01-linear-lists/problems/l09.md",
+        "codePath": "01-linear-lists/code/l09.cpp",
+        "reference": "01-linear-lists/topics/supplement-guide.md",
+        "prerequisites": [
+          "L01"
+        ],
+        "boundaries": "空表、零容量、重复值、非法位序、插入触发扩容。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "L10",
+        "title": "带头结点建表与有序链表合并",
+        "chapter": "01-linear-lists",
+        "goal": "分别使用头插法、尾插法建表，并复用原结点合并两个有序链表。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "01-linear-lists/problems/l10.md",
+        "codePath": "01-linear-lists/code/l10.cpp",
+        "reference": "01-linear-lists/topics/supplement-guide.md",
+        "prerequisites": [
+          "L03",
+          "L04"
+        ],
+        "boundaries": "空表、单结点、重复值、两个空表、合并后结点地址不丢失不重复。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "L11",
+        "title": "有序表交集、区间删除与循环移位",
+        "chapter": "01-linear-lists",
+        "goal": "用双指针和原地变换处理三种典型顺序表综合问题。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "01-linear-lists/problems/l11.md",
+        "codePath": "01-linear-lists/code/l11.cpp",
+        "reference": "01-linear-lists/topics/supplement-guide.md",
+        "prerequisites": [
+          "L02",
+          "L08"
+        ],
+        "boundaries": "空表、重复值、无交集、全删除、移动零位及超出长度。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "L12",
+        "title": "主元素：候选抵消与最终核验",
+        "chapter": "01-linear-lists",
+        "goal": "找出出现次数严格超过一半的元素，并区分候选与已证实结果。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "01-linear-lists/problems/l12.md",
+        "codePath": "01-linear-lists/code/l12.cpp",
+        "reference": "01-linear-lists/topics/supplement-guide.md",
+        "prerequisites": [
+          "L01"
+        ],
+        "boundaries": "空数组、无主元素、恰好一半、负数、单元素、极值。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "L13",
+        "title": "链表环入口与相交结点",
+        "chapter": "01-linear-lists",
+        "goal": "用指针关系判断有环链表和两个无环链表的实际结点交点。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "01-linear-lists/problems/l13.md",
+        "codePath": "01-linear-lists/code/l13.cpp",
+        "reference": "01-linear-lists/topics/supplement-guide.md",
+        "prerequisites": [
+          "L04",
+          "L06"
+        ],
+        "boundaries": "空链、单结点自环、尾部入环、同值但不同地址、不相交、相同头指针。",
+        "sourceScope": "配套深化"
+      },
+      {
+        "id": "L14",
+        "title": "回文链表与结构恢复",
+        "chapter": "01-linear-lists",
+        "goal": "判断单链表是否为回文，返回前将所有链接恢复原样。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "01-linear-lists/problems/l14.md",
+        "codePath": "01-linear-lists/code/l14.cpp",
+        "reference": "01-linear-lists/topics/supplement-guide.md",
+        "prerequisites": [
+          "L05",
+          "L13"
+        ],
+        "boundaries": "空、单结点、奇数长度、偶数长度、不相等时提前发现、检查后结构恢复。",
+        "sourceScope": "配套深化"
+      },
+      {
+        "id": "L15",
+        "title": "单向循环链表与静态链表",
+        "chapter": "01-linear-lists",
+        "goal": "理解循环结束条件、游标表示、备用链分配与回收。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "01-linear-lists/problems/l15.md",
+        "codePath": null,
+        "reference": "01-linear-lists/topics/supplement-guide.md",
+        "prerequisites": [
+          "L04",
+          "L07"
+        ],
+        "boundaries": "空循环表、删除末项、分配与回收、备用链为空。",
+        "sourceScope": "王道主线"
+      }
+    ]
+  },
+  {
+    "dir": "02-stacks-queues-arrays",
+    "title": "栈、队列和数组",
+    "route": "栈 → 队列 → 应用 → 矩阵存储",
+    "reference": "https://oi-wiki.org/ds/stack/",
+    "tasks": [
+      {
+        "id": "S01",
+        "title": "顺序栈",
+        "goal": "top 表示元素个数，初值 0；实现 push、pop、peek；满栈/空栈返回 false，不调用 std::stack 代替核心操作。",
+        "signature": "bool push(ArrayStack& stack, int value);\nbool pop(ArrayStack& stack, int& value);\nbool peek(const ArrayStack& stack, int& value);",
+        "demo": "ArrayStack stack;\npush(stack, 10); push(stack, 20);\nint value = 0;\nstd::cout << peek(stack, value) << ' ' << value << '\\n';\nstd::cout << pop(stack, value) << ' ' << value << '\\n';",
+        "expected": "1 20\\n1 20",
+        "boundaries": "空栈；满栈；出栈后再入栈。在线 B3614 数值范围需 unsigned long long，不能直接用本地 int 模板。",
+        "url": "https://www.luogu.com.cn/problem/B3614",
+        "extra": false,
+        "order": 9,
+        "codePath": "02-stacks-queues-arrays/code/s01.cpp",
+        "problemPath": "02-stacks-queues-arrays/problems/s01.md",
+        "chapter": "02-stacks-queues-arrays",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/ds/stack/"
+      },
+      {
+        "id": "S02",
+        "title": "链栈",
+        "goal": "以链表头作为栈顶，使用 new/delete 实现入栈、出栈、清空；空栈出栈返回 false。",
+        "signature": "void push_linked(ListNode*& top, int value);\nbool pop_linked(ListNode*& top, int& value);\nvoid clear_stack(ListNode*& top);",
+        "demo": "ListNode* top = nullptr;\npush_linked(top, 1); push_linked(top, 2);\nint value = 0;\npop_linked(top, value); std::cout << value << '\\n';\nclear_stack(top); std::cout << (top == nullptr) << '\\n';",
+        "expected": "2\\n1",
+        "boundaries": "空栈；唯一结点；反复入出；释放剩余结点。",
+        "url": "",
+        "extra": false,
+        "order": 10,
+        "codePath": "02-stacks-queues-arrays/code/s02.cpp",
+        "problemPath": "02-stacks-queues-arrays/problems/s02.md",
+        "chapter": "02-stacks-queues-arrays",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L04"
+        ],
+        "reference": "https://oi-wiki.org/ds/stack/"
+      },
+      {
+        "id": "S03",
+        "title": "循环队列",
+        "goal": "采用少用一个数组单元区分空满的循环队列。front 指向队首，rear 指向下一个入队位置；入队、出队返回是否成功。",
+        "signature": "bool enqueue(RingQueue& queue, int value);\nbool dequeue(RingQueue& queue, int& value);\nint queue_size(const RingQueue& queue);",
+        "demo": "RingQueue queue;\nenqueue(queue, 10); enqueue(queue, 20);\nint value = 0;\ndequeue(queue, value);\nstd::cout << value << ' ' << queue_size(queue) << '\\n';",
+        "expected": "10 1",
+        "boundaries": "空队；满队；下标回绕；交错入队出队。在线题需按操作总数选择容量。",
+        "url": "https://www.luogu.com.cn/problem/B3616",
+        "extra": false,
+        "order": 11,
+        "codePath": "02-stacks-queues-arrays/code/s03.cpp",
+        "problemPath": "02-stacks-queues-arrays/problems/s03.md",
+        "chapter": "02-stacks-queues-arrays",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/ds/stack/"
+      },
+      {
+        "id": "S04",
+        "title": "链队列",
+        "goal": "使用不带头结点的链队列，front/rear 空队时都为 nullptr。尾部入队、头部出队，删除最后一个结点时维护 rear。",
+        "signature": "void enqueue_linked(LinkedQueue& queue, int value);\nbool dequeue_linked(LinkedQueue& queue, int& value);\nvoid clear_queue(LinkedQueue& queue);",
+        "demo": "LinkedQueue queue;\nenqueue_linked(queue, 10); enqueue_linked(queue, 20);\nint value = 0;\ndequeue_linked(queue, value); std::cout << value << '\\n';\nclear_queue(queue);\nstd::cout << (queue.front == nullptr && queue.rear == nullptr) << '\\n';",
+        "expected": "10\\n1",
+        "boundaries": "空队；删除最后结点；清空后再入队。",
+        "url": "",
+        "extra": false,
+        "order": 12,
+        "codePath": "02-stacks-queues-arrays/code/s04.cpp",
+        "problemPath": "02-stacks-queues-arrays/problems/s04.md",
+        "chapter": "02-stacks-queues-arrays",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L04"
+        ],
+        "reference": "https://oi-wiki.org/ds/stack/"
+      },
+      {
+        "id": "S05",
+        "title": "括号匹配",
+        "goal": "输入只含 ()[]{} 的字符串，判断括号类型、嵌套和数量是否匹配；空串视为匹配。先手写栈，也可复用 S01。",
+        "signature": "bool brackets_match(const std::string& text);",
+        "demo": "std::cout << brackets_match(\"{[()]}\") << '\\n';\nstd::cout << brackets_match(\"([)]\") << '\\n';",
+        "expected": "1\\n0",
+        "boundaries": "空串；只有左括号；只有右括号；数量相等但次序错误。",
+        "url": "",
+        "extra": false,
+        "order": 13,
+        "codePath": "02-stacks-queues-arrays/code/s05.cpp",
+        "problemPath": "02-stacks-queues-arrays/problems/s05.md",
+        "chapter": "02-stacks-queues-arrays",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "S01"
+        ],
+        "reference": "https://oi-wiki.org/ds/stack/"
+      },
+      {
+        "id": "S06",
+        "title": "后缀表达式求值",
+        "goal": "tokens 用空格分好的字符串表示整数或 + - * /；输入保证合法，整数除法向零截断，无除零和溢出。注意两个操作数出栈顺序。",
+        "signature": "long long evaluate_postfix(const std::vector<std::string>& tokens);",
+        "demo": "std::cout << evaluate_postfix({\"8\", \"3\", \"-\", \"2\", \"*\"}) << '\\n';",
+        "expected": "10",
+        "boundaries": "单个数；负整数；减法除法；多层运算。",
+        "url": "",
+        "extra": false,
+        "order": 14,
+        "codePath": "02-stacks-queues-arrays/code/s06.cpp",
+        "problemPath": "02-stacks-queues-arrays/problems/s06.md",
+        "chapter": "02-stacks-queues-arrays",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "S01"
+        ],
+        "reference": "https://oi-wiki.org/ds/stack/"
+      },
+      {
+        "id": "S07",
+        "title": "对称矩阵压缩存储",
+        "goal": "按行存储下三角（包含主对角线），i、j 从 0 开始。实现任意位置 (i,j) 到一维数组的映射及读取；不额外建立完整矩阵。",
+        "signature": "std::size_t symmetric_index(int i, int j);\nint symmetric_get(const std::vector<int>& lower, int i, int j);",
+        "demo": "std::vector<int> lower{1, 2, 3, 4, 5, 6};\nstd::cout << symmetric_index(0, 2) << '\\n';\nstd::cout << symmetric_get(lower, 0, 2) << '\\n';",
+        "expected": "3\\n4",
+        "boundaries": "主对角线；右上角；左下角；1×1 矩阵。参数保证合法。",
+        "url": "",
+        "extra": false,
+        "order": 15,
+        "codePath": "02-stacks-queues-arrays/code/s07.cpp",
+        "problemPath": "02-stacks-queues-arrays/problems/s07.md",
+        "chapter": "02-stacks-queues-arrays",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "02-stacks-queues-arrays/problems/s07.md"
+      },
+      {
+        "id": "S08",
+        "title": "稀疏矩阵普通转置",
+        "goal": "用 (row,col,value) 三元组存储非零元素，坐标从 0 开始；输入按行列有序且无重复位置。返回转置后三元组，仍按行列有序。本项练普通转置；快速版本另设独立题。",
+        "signature": "std::vector<Triple> transpose_sparse(int rows, int cols, const std::vector<Triple>& entries);",
+        "demo": "auto result = transpose_sparse(2, 3, {{0, 1, 5}, {1, 0, 7}});\nfor (const auto& t : result) std::cout << t.row << ' ' << t.col << ' ' << t.value << '\\n';",
+        "expected": "0 1 7\\n1 0 5",
+        "boundaries": "全零矩阵；空行/空列；单行矩阵；转置两次恢复。在线坐标约定以题面为准。",
+        "url": "https://www.dotcpp.com/oj/problem1692.html",
+        "extra": false,
+        "order": 16,
+        "codePath": "02-stacks-queues-arrays/code/s08.cpp",
+        "problemPath": "02-stacks-queues-arrays/problems/s08.md",
+        "chapter": "02-stacks-queues-arrays",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "S07"
+        ],
+        "reference": "02-stacks-queues-arrays/topics/supplement-guide.md"
+      },
+      {
+        "id": "S09",
+        "title": "共享栈：两端增长与判满",
+        "chapter": "02-stacks-queues-arrays",
+        "goal": "在同一固定数组的两端实现两个独立的栈。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "02-stacks-queues-arrays/problems/s09.md",
+        "codePath": "02-stacks-queues-arrays/code/s09.cpp",
+        "reference": "02-stacks-queues-arrays/topics/supplement-guide.md",
+        "prerequisites": [
+          "S01"
+        ],
+        "boundaries": "两栈都空、单侧占满、两侧交错操作、满后入栈失败、空弹出保持输出参数。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "S10",
+        "title": "循环数组双端队列",
+        "chapter": "02-stacks-queues-arrays",
+        "goal": "理解头尾两端均可插入删除时的循环下标和长度维护。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "02-stacks-queues-arrays/problems/s10.md",
+        "codePath": "02-stacks-queues-arrays/code/s10.cpp",
+        "reference": "02-stacks-queues-arrays/topics/supplement-guide.md",
+        "prerequisites": [
+          "S03"
+        ],
+        "boundaries": "空、满、容量一、下标回绕、交替两端操作、失败时保持结构。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "S11",
+        "title": "中缀转后缀：优先级与括号",
+        "chapter": "02-stacks-queues-arrays",
+        "goal": "把中缀表达式转换为可交给后缀求值程序的 token 序列。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "02-stacks-queues-arrays/problems/s11.md",
+        "codePath": "02-stacks-queues-arrays/code/s11.cpp",
+        "reference": "02-stacks-queues-arrays/topics/supplement-guide.md",
+        "prerequisites": [
+          "S01",
+          "S05",
+          "S06"
+        ],
+        "boundaries": "空白、整数多位数、嵌套括号、同级运算符左结合、无空格输入。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "S12",
+        "title": "三角矩阵与三对角矩阵地址映射",
+        "chapter": "02-stacks-queues-arrays",
+        "goal": "先手推压缩地址，再将下标映射实现为可核对函数。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "02-stacks-queues-arrays/problems/s12.md",
+        "codePath": "02-stacks-queues-arrays/code/s12.cpp",
+        "reference": "02-stacks-queues-arrays/topics/supplement-guide.md",
+        "prerequisites": [
+          "S07"
+        ],
+        "boundaries": "0 基与 1 基不混用、首尾元素、n=1、矩阵外坐标、非存储区域。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "S13",
+        "title": "稀疏矩阵快速转置",
+        "chapter": "02-stacks-queues-arrays",
+        "goal": "独立实现按列计数和起始位置分配的快速转置，保留普通版作比较。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "02-stacks-queues-arrays/problems/s13.md",
+        "codePath": "02-stacks-queues-arrays/code/s13.cpp",
+        "reference": "02-stacks-queues-arrays/topics/supplement-guide.md",
+        "prerequisites": [
+          "S08"
+        ],
+        "boundaries": "零项、空列、矩形矩阵、负值、单项、转置两次、输入不被改变。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "S14",
+        "title": "递归调用过程与辅助空间",
+        "chapter": "02-stacks-queues-arrays",
+        "goal": "手推调用帧、返回过程与递归树，区分总时间与最大栈深。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "02-stacks-queues-arrays/problems/s14.md",
+        "codePath": null,
+        "reference": "02-stacks-queues-arrays/topics/supplement-guide.md",
+        "prerequisites": [
+          "S01"
+        ],
+        "boundaries": "基例、无限递归、重复调用、时间与空间计数不同。",
+        "sourceScope": "王道主线"
+      }
+    ]
+  },
+  {
+    "dir": "03-strings",
+    "title": "串",
+    "route": "串的基本操作 → 朴素匹配 → KMP",
+    "reference": "https://oi-wiki.org/string/kmp/",
+    "tasks": [
+      {
+        "id": "T01",
+        "title": "串的基本操作",
+        "goal": "实现子串提取和字典序比较；提取参数保证合法；比较函数统一返回 -1/0/1，不调用 substr/compare 代替目标算法。",
+        "signature": "std::string take_substring(const std::string& text, int start, int length);\nint compare_strings(const std::string& a, const std::string& b);",
+        "demo": "std::cout << take_substring(\"abcdef\", 1, 3) << '\\n';\nstd::cout << compare_strings(\"abc\", \"abd\") << '\\n';",
+        "expected": "bcd\\n-1",
+        "boundaries": "空串；一方是另一方前缀；完全相同；零长度子串。",
+        "url": "",
+        "extra": false,
+        "order": 17,
+        "codePath": "03-strings/code/t01.cpp",
+        "problemPath": "03-strings/problems/t01.md",
+        "chapter": "03-strings",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/string/kmp/"
+      },
+      {
+        "id": "T02",
+        "title": "朴素模式匹配",
+        "goal": "返回模式串第一次出现的 0 基下标，找不到返回 -1；空模式串返回 0。不得调用 find。",
+        "signature": "int naive_find(const std::string& text, const std::string& pattern);",
+        "demo": "std::cout << naive_find(\"ababcabc\", \"abc\") << '\\n';\nstd::cout << naive_find(\"abc\", \"z\") << '\\n';",
+        "expected": "2\\n-1",
+        "boundaries": "空模式；模式长于主串；末尾匹配；重复前缀。",
+        "url": "",
+        "extra": false,
+        "order": 18,
+        "codePath": "03-strings/code/t02.cpp",
+        "problemPath": "03-strings/problems/t02.md",
+        "chapter": "03-strings",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "T01"
+        ],
+        "reference": "https://oi-wiki.org/string/kmp/"
+      },
+      {
+        "id": "T03",
+        "title": "KMP",
+        "goal": "建立 0 基前缀函数 pi：pi[i] 为 pattern[0..i] 最长真前后缀长度；返回所有匹配的 0 基起点，允许重叠。这里限定模式串非空，避免与王道其他 next 约定混用。",
+        "signature": "std::vector<int> prefix_function(const std::string& pattern);\nstd::vector<int> kmp_all(const std::string& text, const std::string& pattern);",
+        "demo": "print_range(prefix_function(\"ababa\"));\nprint_range(kmp_all(\"abababa\", \"aba\"));",
+        "expected": "0 0 1 2 3\\n0 2 4",
+        "boundaries": "模式长于主串；重叠匹配；全相同字符；无匹配。洛谷要求位置从 1 开始，提交时转换。",
+        "url": "https://www.luogu.com.cn/problem/P3375",
+        "extra": false,
+        "order": 19,
+        "codePath": "03-strings/code/t03.cpp",
+        "problemPath": "03-strings/problems/t03.md",
+        "chapter": "03-strings",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "T02"
+        ],
+        "reference": "https://oi-wiki.org/string/kmp/"
+      },
+      {
+        "id": "T04",
+        "title": "KMP：pi 与 1 基 next 约定对照",
+        "chapter": "03-strings",
+        "goal": "保留已有 pi 版 KMP，理解不同数组定义并用 next 完成首次匹配。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "03-strings/problems/t04.md",
+        "codePath": "03-strings/code/t04.cpp",
+        "reference": "03-strings/topics/supplement-guide.md",
+        "prerequisites": [
+          "T03"
+        ],
+        "boundaries": "空模式、单字符、无匹配、重复前缀、模式长于文本、起始与末尾匹配。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "T05",
+        "title": "KMP nextval 优化与等价性验证",
+        "chapter": "03-strings",
+        "goal": "避免失配后立即与同一字符再比较，独立构建 nextval 并完成匹配。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "03-strings/problems/t05.md",
+        "codePath": "03-strings/code/t05.cpp",
+        "reference": "03-strings/topics/supplement-guide.md",
+        "prerequisites": [
+          "T04"
+        ],
+        "boundaries": "重复单字符、周期模式、全不相同、末尾才失配、空串、和朴素匹配对照。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "T06",
+        "title": "串的存储与基本操作契约",
+        "chapter": "03-strings",
+        "goal": "对照定长、堆分配、链式串及长度、容量和边界行为。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "03-strings/problems/t06.md",
+        "codePath": null,
+        "reference": "03-strings/topics/supplement-guide.md",
+        "prerequisites": [
+          "T01",
+          "T02"
+        ],
+        "boundaries": "终止符空间、空子串、越界、不完整连接、字符编码范围。",
+        "sourceScope": "王道主线"
+      }
+    ]
+  },
+  {
+    "dir": "04-trees",
+    "title": "树与二叉树",
+    "route": "遍历 → 层次与高度 → 建树 → 线索化 → 哈夫曼 → 并查集",
+    "reference": "https://oi-wiki.org/graph/tree-basic/",
+    "tasks": [
+      {
+        "id": "B01",
+        "title": "二叉树三种递归遍历",
+        "goal": "分别返回先序、中序、后序序列；本项练递归版；显式栈版本见 B08。结点在 main 中为栈对象，不要释放。",
+        "signature": "std::vector<int> preorder(TreeNode* root);\nstd::vector<int> inorder(TreeNode* root);\nstd::vector<int> postorder(TreeNode* root);",
+        "demo": "TreeNode left{2}, right{3}, root{1, &left, &right};\nprint_range(preorder(&root)); print_range(inorder(&root)); print_range(postorder(&root));",
+        "expected": "1 2 3\\n2 1 3\\n2 3 1",
+        "boundaries": "空树；只有左孩子；只有右孩子；单结点。力扣字段名为 val，提交时按其接口调整。",
+        "url": "https://leetcode.cn/problems/binary-tree-inorder-traversal/",
+        "extra": false,
+        "order": 20,
+        "codePath": "04-trees/code/b01.cpp",
+        "problemPath": "04-trees/problems/b01.md",
+        "chapter": "04-trees",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/graph/tree-basic/"
+      },
+      {
+        "id": "B02",
+        "title": "层序遍历",
+        "goal": "使用队列按层从左到右访问，返回所有结点的序列。可以复用前一章队列或使用 std::queue，把重点放在遍历上。",
+        "signature": "std::vector<int> level_order(TreeNode* root);",
+        "demo": "TreeNode a{4}, b{5}, left{2, &a, &b}, right{3}, root{1, &left, &right};\nprint_range(level_order(&root));",
+        "expected": "1 2 3 4 5",
+        "boundaries": "空树；单结点；链状树；不完全二叉树。",
+        "url": "",
+        "extra": false,
+        "order": 21,
+        "codePath": "04-trees/code/b02.cpp",
+        "problemPath": "04-trees/problems/b02.md",
+        "chapter": "04-trees",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "S03",
+          "B01"
+        ],
+        "reference": "https://oi-wiki.org/graph/tree-basic/"
+      },
+      {
+        "id": "B03",
+        "title": "树高与结点统计",
+        "goal": "空树高度为 0，单结点高度为 1；同时实现结点总数和叶子数。深链的大规模在线题需关注递归栈限制。",
+        "signature": "int tree_height(TreeNode* root);\nint count_nodes(TreeNode* root);\nint count_leaves(TreeNode* root);",
+        "demo": "TreeNode left{2}, right{3}, root{1, &left, &right};\nstd::cout << tree_height(&root) << ' ' << count_nodes(&root) << ' ' << count_leaves(&root) << '\\n';",
+        "expected": "2 3 2",
+        "boundaries": "空树；单结点；单支树；不平衡树。",
+        "url": "https://www.luogu.com.cn/problem/P4913",
+        "extra": false,
+        "order": 22,
+        "codePath": "04-trees/code/b03.cpp",
+        "problemPath": "04-trees/problems/b03.md",
+        "chapter": "04-trees",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "B01"
+        ],
+        "reference": "https://oi-wiki.org/graph/tree-basic/"
+      },
+      {
+        "id": "B04",
+        "title": "由先序中序重建二叉树",
+        "goal": "输入是无重复结点值的合法先序、中序序列；创建树并写释放函数。可以先用区间递归，后优化查找根的位置。",
+        "signature": "TreeNode* build_tree(const std::vector<int>& preorder, const std::vector<int>& inorder);\nvoid destroy_tree(TreeNode*& root);",
+        "demo": "TreeNode* root = build_tree({1, 2, 3}, {2, 1, 3});\nif (root) std::cout << root->value << ' ' << root->left->value << ' ' << root->right->value << '\\n';\ndestroy_tree(root); std::cout << (root == nullptr) << '\\n';",
+        "expected": "1 2 3\\n1",
+        "boundaries": "空序列；单结点；链状树；不要把有重复值的序列当作唯一可重建。",
+        "url": "",
+        "extra": false,
+        "order": 23,
+        "codePath": "04-trees/code/b04.cpp",
+        "problemPath": "04-trees/problems/b04.md",
+        "chapter": "04-trees",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "B01"
+        ],
+        "reference": "https://oi-wiki.org/graph/tree-basic/"
+      },
+      {
+        "id": "B05",
+        "title": "中序线索二叉树",
+        "goal": "ltag/rtag 为 false 时对应孩子，为 true 时对应前驱/后继线索。先中序线索化，再不使用递归/栈输出中序序列。最左前驱和最右后继为空。",
+        "signature": "void inorder_thread(ThreadNode* root);\nstd::vector<int> traverse_threaded(ThreadNode* root);",
+        "demo": "ThreadNode left{2}, right{3}, root{1, &left, &right};\ninorder_thread(&root);\nprint_range(traverse_threaded(&root));",
+        "expected": "2 1 3",
+        "boundaries": "空树；单结点；只有左/右子树；不能把线索当孩子重复递归。",
+        "url": "",
+        "extra": false,
+        "order": 24,
+        "codePath": "04-trees/code/b05.cpp",
+        "problemPath": "04-trees/problems/b05.md",
+        "chapter": "04-trees",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "B01"
+        ],
+        "reference": "04-trees/problems/b05.md"
+      },
+      {
+        "id": "B06",
+        "title": "哈夫曼合并代价与 WPL",
+        "goal": "给定正权值，计算最小带权路径长度；每次合并当前最小的两棵树。可以先用线性扫描选择，再在学完堆后优化。单个权值的 WPL 定为 0。",
+        "signature": "long long huffman_wpl(const std::vector<int>& weights);",
+        "demo": "std::cout << huffman_wpl({2, 3, 7}) << '\\n';",
+        "expected": "17",
+        "boundaries": "单权值；相同权值；权值总和超过 int 时使用 long long。输入至少一个权值。",
+        "url": "",
+        "extra": false,
+        "order": 25,
+        "codePath": "04-trees/code/b06.cpp",
+        "problemPath": "04-trees/problems/b06.md",
+        "chapter": "04-trees",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "B01"
+        ],
+        "reference": "04-trees/topics/supplement-guide.md"
+      },
+      {
+        "id": "B07",
+        "title": "并查集",
+        "goal": "parent 初始每个元素指向自身。实现查找代表与合并两个集合，再加路径压缩；为 Kruskal 做准备。",
+        "signature": "int find_root(std::vector<int>& parent, int node);\nvoid unite(std::vector<int>& parent, int a, int b);",
+        "demo": "std::vector<int> parent{0, 1, 2, 3};\nunite(parent, 0, 1); unite(parent, 1, 2);\nstd::cout << (find_root(parent, 0) == find_root(parent, 2)) << '\\n';\nstd::cout << (find_root(parent, 0) == find_root(parent, 3)) << '\\n';",
+        "expected": "1\\n0",
+        "boundaries": "重复合并；合并自身；多个连通分量；长链。",
+        "url": "",
+        "extra": false,
+        "order": 26,
+        "codePath": "04-trees/code/b07.cpp",
+        "problemPath": "04-trees/problems/b07.md",
+        "chapter": "04-trees",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/ds/dsu/"
+      },
+      {
+        "id": "B08",
+        "title": "非递归先序与中序遍历",
+        "chapter": "04-trees",
+        "goal": "用显式栈代替递归调用，保留递归版作为对照。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "04-trees/problems/b08.md",
+        "codePath": "04-trees/code/b08.cpp",
+        "reference": "04-trees/topics/supplement-guide.md",
+        "prerequisites": [
+          "B01",
+          "S01"
+        ],
+        "boundaries": "空树、单结点、只有左链、只有右链、不对称树、原指针不被修改。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "B09",
+        "title": "非递归后序：访问状态与回退",
+        "chapter": "04-trees",
+        "goal": "区分刚到结点和两棵子树都处理完，完成独立的后序遍历。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "04-trees/problems/b09.md",
+        "codePath": "04-trees/code/b09.cpp",
+        "reference": "04-trees/topics/supplement-guide.md",
+        "prerequisites": [
+          "B08"
+        ],
+        "boundaries": "空树、单结点、仅右子树、交错左右孩子、重复值不影响结点状态判断。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "B10",
+        "title": "孩子兄弟表示与森林双向转换",
+        "chapter": "04-trees",
+        "goal": "把有序森林转换为孩子兄弟二叉表示，再恢复原森林。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "04-trees/problems/b10.md",
+        "codePath": "04-trees/code/b10.cpp",
+        "reference": "04-trees/topics/supplement-guide.md",
+        "prerequisites": [
+          "B01",
+          "B02"
+        ],
+        "boundaries": "空森林、单树、多棵树、叶子、多兄弟、结点编号与遍历次序不同。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "B11",
+        "title": "哈夫曼树构建、编码与解码",
+        "chapter": "04-trees",
+        "goal": "从只计算 WPL 提升到真正构建树并生成前缀码，验证编码解码往返。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "04-trees/problems/b11.md",
+        "codePath": "04-trees/code/b11.cpp",
+        "reference": "04-trees/topics/supplement-guide.md",
+        "prerequisites": [
+          "B06",
+          "R07"
+        ],
+        "boundaries": "空字符集、单字符、等权多解、偏斜权重、树结构、码字前缀性质。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "B12",
+        "title": "并查集：按大小合并与路径压缩",
+        "chapter": "04-trees",
+        "goal": "给基本并查集增加集合大小和合并成功标志，比较树高与查询代价。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "04-trees/problems/b12.md",
+        "codePath": "04-trees/code/b12.cpp",
+        "reference": "04-trees/topics/supplement-guide.md",
+        "prerequisites": [
+          "B07"
+        ],
+        "boundaries": "同集合重复合并、单元素、偏序合并链、大小累计、非法结点。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "B13",
+        "title": "线索树前驱、后继与遍历次序",
+        "chapter": "04-trees",
+        "goal": "用具体树手推线索标记、前驱后继分类及先序/后序限制。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "04-trees/problems/b13.md",
+        "codePath": null,
+        "reference": "04-trees/topics/supplement-guide.md",
+        "prerequisites": [
+          "B01",
+          "B05"
+        ],
+        "boundaries": "首尾结点、真实孩子与线索、缺少父指针、遍历次序变化。",
+        "sourceScope": "王道主线"
+      }
+    ]
+  },
+  {
+    "dir": "05-graphs",
+    "title": "图",
+    "route": "存储 → 遍历 → 最小生成树 → 最短路 → 拓扑排序 → 关键路径",
+    "reference": "https://oi-wiki.org/graph/",
+    "tasks": [
+      {
+        "id": "G01",
+        "title": "邻接表基本构建",
+        "goal": "输入顶点数与有向边表，建立有向无权图的邻接表；矩阵版本见 G10。本地顶点从 0 编号，重复边可保留在邻接表中。",
+        "signature": "std::vector<std::vector<int>> build_adjacency(int n, const std::vector<std::pair<int, int>>& edges);",
+        "demo": "auto graph = build_adjacency(3, {{0, 1}, {0, 2}, {1, 2}});\nfor (const auto& row : graph) print_range(row);",
+        "expected": "1 2\\n2\\n（第三行为空行）",
+        "boundaries": "孤立顶点；无边；自环；有向/无向的区别；参数保证合法。",
+        "url": "",
+        "extra": false,
+        "order": 27,
+        "codePath": "05-graphs/code/g01.cpp",
+        "problemPath": "05-graphs/problems/g01.md",
+        "chapter": "05-graphs",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/graph/save/"
+      },
+      {
+        "id": "G02",
+        "title": "图的 DFS 与 BFS",
+        "goal": "从 start 出发访问可达顶点，按邻接表给出的顺序访问；visited 防止重复。扩展为遍历非连通图时，要另加外层起点循环。",
+        "signature": "std::vector<int> dfs_order(const std::vector<std::vector<int>>& graph, int start);\nstd::vector<int> bfs_order(const std::vector<std::vector<int>>& graph, int start);",
+        "demo": "std::vector<std::vector<int>> graph{{1, 2}, {3}, {3}, {}};\nprint_range(dfs_order(graph, 0)); print_range(bfs_order(graph, 0));",
+        "expected": "0 1 3 2\\n0 1 2 3",
+        "boundaries": "有环；孤立点；重复边；非连通。洛谷顶点从 1 开始并要求先访问较小编号。",
+        "url": "https://www.luogu.com.cn/problem/P5318",
+        "extra": false,
+        "order": 28,
+        "codePath": "05-graphs/code/g02.cpp",
+        "problemPath": "05-graphs/problems/g02.md",
+        "chapter": "05-graphs",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "G01",
+          "S03"
+        ],
+        "reference": "https://oi-wiki.org/graph/dfs/"
+      },
+      {
+        "id": "G03",
+        "title": "Prim 最小生成树",
+        "goal": "无向图邻接矩阵用 INF 表示无边、对角线为 0；返回最小生成树权值和，非连通返回 -1。先实现 O(V²) 版本，边权限定非负。",
+        "signature": "long long prim_weight(const std::vector<std::vector<long long>>& matrix);",
+        "demo": "std::vector<std::vector<long long>> matrix{{0, 1, 4}, {1, 0, 2}, {4, 2, 0}};\nstd::cout << prim_weight(matrix) << '\\n';",
+        "expected": "3",
+        "boundaries": "单顶点；非连通；同权边；零权边不等于无边。输入至少一个顶点。",
+        "url": "https://www.luogu.com.cn/problem/P3366",
+        "extra": false,
+        "order": 29,
+        "codePath": "05-graphs/code/g03.cpp",
+        "problemPath": "05-graphs/problems/g03.md",
+        "chapter": "05-graphs",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "G01"
+        ],
+        "reference": "https://oi-wiki.org/graph/mst/"
+      },
+      {
+        "id": "G04",
+        "title": "Kruskal 最小生成树",
+        "goal": "边表按权值排序后，用并查集判断是否成环；返回最小生成树权值和，非连通返回 -1。此处可以用 std::sort，手写排序在后续章节练。",
+        "signature": "long long kruskal_weight(int n, std::vector<Edge> edges);",
+        "demo": "std::cout << kruskal_weight(3, {{0, 1, 1}, {1, 2, 2}, {0, 2, 4}}) << '\\n';",
+        "expected": "3",
+        "boundaries": "重边；自环；同权边；非连通；只选 n-1 条边。输入至少一个顶点。",
+        "url": "https://www.luogu.com.cn/problem/P3366",
+        "extra": false,
+        "order": 30,
+        "codePath": "05-graphs/code/g04.cpp",
+        "problemPath": "05-graphs/problems/g04.md",
+        "chapter": "05-graphs",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "G01",
+          "B07"
+        ],
+        "reference": "https://oi-wiki.org/graph/mst/"
+      },
+      {
+        "id": "G05",
+        "title": "朴素 Dijkstra",
+        "goal": "有向非负权图，INF 表示无边；计算 source 到所有顶点的最短距离，不可达保留 INF。先使用 O(V²) 版本。",
+        "signature": "std::vector<long long> dijkstra_matrix(const std::vector<std::vector<long long>>& matrix, int source);",
+        "demo": "std::vector<std::vector<long long>> matrix{{0, 2, 10}, {INF, 0, 3}, {INF, INF, 0}};\nprint_range(dijkstra_matrix(matrix, 0));",
+        "expected": "0 2 5",
+        "boundaries": "不可达点；零权边；单顶点；禁止把这个版本用于含负权边的图。",
+        "url": "",
+        "extra": false,
+        "order": 31,
+        "codePath": "05-graphs/code/g05.cpp",
+        "problemPath": "05-graphs/problems/g05.md",
+        "chapter": "05-graphs",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "G01"
+        ],
+        "reference": "https://oi-wiki.org/graph/shortest-path/"
+      },
+      {
+        "id": "G06",
+        "title": "Floyd 全源最短路",
+        "goal": "在矩阵副本上计算所有点对最短距离；INF 表示不可达，不允许对 INF 直接相加。输入保证没有负环；注意 k,i,j 的循环层次。",
+        "signature": "std::vector<std::vector<long long>> floyd(std::vector<std::vector<long long>> matrix);",
+        "demo": "auto distances = floyd({{0, 2, 10}, {INF, 0, 3}, {INF, INF, 0}});\nstd::cout << distances[0][2] << '\\n';",
+        "expected": "5",
+        "boundaries": "不可达点；允许负边但无负环；零权边；单顶点。",
+        "url": "",
+        "extra": false,
+        "order": 32,
+        "codePath": "05-graphs/code/g06.cpp",
+        "problemPath": "05-graphs/problems/g06.md",
+        "chapter": "05-graphs",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "G01"
+        ],
+        "reference": "https://oi-wiki.org/graph/shortest-path/"
+      },
+      {
+        "id": "G07",
+        "title": "拓扑排序",
+        "goal": "输入有向图，返回任意合法拓扑序；存在环时返回空数组。可以用入度队列法；结点数不为 0。",
+        "signature": "std::vector<int> topological_order(const std::vector<std::vector<int>>& graph);",
+        "demo": "print_range(topological_order({{1}, {2}, {}}));",
+        "expected": "0 1 2",
+        "boundaries": "多个入度零顶点；有环；非连通；合法输出可能不唯一，按边约束验证。",
+        "url": "",
+        "extra": false,
+        "order": 33,
+        "codePath": "05-graphs/code/g07.cpp",
+        "problemPath": "05-graphs/problems/g07.md",
+        "chapter": "05-graphs",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "G01"
+        ],
+        "reference": "https://oi-wiki.org/graph/topo/"
+      },
+      {
+        "id": "G08",
+        "title": "关键路径",
+        "goal": "AOE 网：边为活动、边权为非负持续时间，顶点为事件；输入保证为从唯一源点可达、可达唯一汇点的 DAG。返回所有关键活动在输入边表中的编号，升序输出。先计算拓扑序、事件最早/最迟发生时间。",
+        "signature": "std::vector<int> critical_edges(int n, const std::vector<Edge>& activities);",
+        "demo": "print_range(critical_edges(4, {{0, 1, 3}, {0, 2, 2}, {1, 3, 2}, {2, 3, 2}}));",
+        "expected": "0 2",
+        "boundaries": "多条关键路径；同权活动；只有一条路径；顶点从 0 编号，编号对应输入边位置。",
+        "url": "",
+        "extra": false,
+        "order": 34,
+        "codePath": "05-graphs/code/g08.cpp",
+        "problemPath": "05-graphs/problems/g08.md",
+        "chapter": "05-graphs",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "G07"
+        ],
+        "reference": "05-graphs/problems/g08.md"
+      },
+      {
+        "id": "G09",
+        "title": "堆优化 Dijkstra",
+        "goal": "在掌握朴素版本、二叉堆与 priority_queue 后选做。使用邻接表与小根堆，忽略过期堆项；边权非负，不可达保留 INF。",
+        "signature": "std::vector<long long> dijkstra_heap(int n, const std::vector<Edge>& edges, int source);",
+        "demo": "print_range(dijkstra_heap(3, {{0, 1, 2}, {1, 2, 3}, {0, 2, 10}}, 0));",
+        "expected": "0 2 5",
+        "boundaries": "过期堆项；重边；零权边；不可达点。在线 P4779 数据较大，应使用高效版本。",
+        "url": "https://www.luogu.com.cn/problem/P4779",
+        "extra": true,
+        "order": 35,
+        "codePath": "05-graphs/code/g09.cpp",
+        "problemPath": "05-graphs/problems/g09.md",
+        "chapter": "05-graphs",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "配套深化",
+        "prerequisites": [
+          "G05",
+          "R07"
+        ],
+        "reference": "https://oi-wiki.org/graph/"
+      },
+      {
+        "id": "G10",
+        "title": "邻接矩阵与两种存储的转换",
+        "chapter": "05-graphs",
+        "goal": "给 G01 缺少的矩阵版本建立独立接口，比较边查询和邻接点枚举的代价。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "05-graphs/problems/g10.md",
+        "codePath": "05-graphs/code/g10.cpp",
+        "reference": "https://algs4.cs.princeton.edu/40graphs/",
+        "prerequisites": [
+          "G01"
+        ],
+        "boundaries": "顶点为 0..n-1，n≥0；输入边合法。无权有向图，重复边合并成 1，自环保留。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "G11",
+        "title": "遍历整个图与连通分量",
+        "chapter": "05-graphs",
+        "goal": "单起点 DFS/BFS 会漏掉不可达顶点；外层再选择未访问顶点，才能得到全图遍历森林。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "05-graphs/problems/g11.md",
+        "codePath": "05-graphs/code/g11.cpp",
+        "reference": "https://algs4.cs.princeton.edu/40graphs/",
+        "prerequisites": [
+          "G02"
+        ],
+        "boundaries": "仅无向图；邻接表已对称，允许自环与重复边。分量按其中最小顶点升序编号，分量内升序返回。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "G12",
+        "title": "BFS 最短距离与路径恢复",
+        "chapter": "05-graphs",
+        "goal": "无权图中按层扩展得到最少边数；保存前驱后才能回答“具体怎么走”。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "05-graphs/problems/g12.md",
+        "codePath": "05-graphs/code/g12.cpp",
+        "reference": "https://algs4.cs.princeton.edu/40graphs/",
+        "prerequisites": [
+          "G02",
+          "S03"
+        ],
+        "boundaries": "有向或无向无权图；邻接点顺序任意。有效起点；空图以 source=-1 表示。不可达距离/前驱均为 -1，起点前驱为自身。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "G13",
+        "title": "Dijkstra 的前驱与带权路径",
+        "chapter": "05-graphs",
+        "goal": "在 G05 的距离计算之上保留前驱；结果要能恢复路径并核对路径权值。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "05-graphs/problems/g13.md",
+        "codePath": "05-graphs/code/g13.cpp",
+        "reference": "https://algs4.cs.princeton.edu/40graphs/",
+        "prerequisites": [
+          "G05",
+          "G12"
+        ],
+        "boundaries": "有向带权矩阵；非负权允许 0，INF 表示无边，主对角为 0。单边≤10^12、n≤1000，距离远小于 INF。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "G14",
+        "title": "Floyd 的 next 矩阵与路径恢复",
+        "chapter": "05-graphs",
+        "goal": "Floyd 不只返回所有点对距离；同步维护第一跳能还原路径。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "05-graphs/problems/g14.md",
+        "codePath": "05-graphs/code/g14.cpp",
+        "reference": "https://algs4.cs.princeton.edu/40graphs/",
+        "prerequisites": [
+          "G06",
+          "G13"
+        ],
+        "boundaries": "允许负边，不允许负环。INF 表示无边，主对角 0；|权|≤10^12、n≤1000。不可达 next=-1，自身 next=i。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "G15",
+        "title": "DAG 表达式与公共子表达式",
+        "chapter": "05-graphs",
+        "goal": "用有向无环图共享相同子表达式，并让每个运算结点只求值一次；把图知识与编译器优化联系起来。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "05-graphs/problems/g15.md",
+        "codePath": "05-graphs/code/g15.cpp",
+        "reference": "https://algs4.cs.princeton.edu/40graphs/",
+        "prerequisites": [
+          "G07",
+          "B01"
+        ],
+        "boundaries": "结点类型限定常数、+、-、*；编号不保证拓扑有序；输入从根可达部分无环，所有中间结果适合 long long。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "G16",
+        "title": "十字链表与邻接多重表",
+        "chapter": "05-graphs",
+        "goal": "比较有向图的入/出边链与无向图共享边结点，知道复杂存储结构解决什么问题。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "05-graphs/problems/g16.md",
+        "codePath": null,
+        "reference": "05-graphs/problems/g16.md",
+        "prerequisites": [
+          "G01",
+          "G10"
+        ],
+        "boundaries": "本页以边编号连链，避免被指针语法遮住结构；同一链按边编号升序连接。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "G17",
+        "title": "负边、强连通分量与割点/桥",
+        "chapter": "05-graphs",
+        "goal": "这三类课外图题分别补充负权路径、有向互达、无向网络关键位置，按兴趣选一类深入。",
+        "level": "扩展",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "05-graphs/problems/g17.md",
+        "codePath": null,
+        "reference": "https://algs4.cs.princeton.edu/40graphs/",
+        "prerequisites": [
+          "G11",
+          "G13",
+          "G07"
+        ],
+        "boundaries": "手推任务互相独立，不要求三种代码一起写。割点/桥例子为无向简单图。",
+        "sourceScope": "课外扩展"
+      }
+    ]
+  },
+  {
+    "dir": "06-searching",
+    "title": "查找",
+    "route": "顺序查找 → 二分查找 → 二叉搜索树 → 散列表 → 平衡树",
+    "reference": "https://oi-wiki.org/basic/binary/",
+    "tasks": [
+      {
+        "id": "Q01",
+        "title": "顺序查找",
+        "goal": "返回目标第一次出现的 0 基下标，找不到返回 -1。普通查找完成后再比较哨兵实现。",
+        "signature": "int linear_search(const std::vector<int>& values, int target);",
+        "demo": "std::cout << linear_search({8, 3, 8}, 8) << '\\n';\nstd::cout << linear_search({8, 3, 8}, 9) << '\\n';",
+        "expected": "0\\n-1",
+        "boundaries": "空数组；首尾位置；重复值；不存在。",
+        "url": "",
+        "extra": false,
+        "order": 36,
+        "codePath": "06-searching/code/q01.cpp",
+        "problemPath": "06-searching/problems/q01.md",
+        "chapter": "06-searching",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "references/sequential-search.md"
+      },
+      {
+        "id": "Q02",
+        "title": "二分查找第一个匹配",
+        "goal": "输入非递减数组，返回目标首次出现的 0 基下标，不存在返回 -1。明确使用闭区间或半开区间，不混用边界更新。",
+        "signature": "int first_equal(const std::vector<int>& values, int target);",
+        "demo": "std::cout << first_equal({1, 2, 2, 4}, 2) << '\\n';\nstd::cout << first_equal({1, 2, 2, 4}, 3) << '\\n';",
+        "expected": "1\\n-1",
+        "boundaries": "空数组；单元素；重复值；目标小于最小值/大于最大值；下标溢出。",
+        "url": "https://www.luogu.com.cn/problem/P2249",
+        "extra": false,
+        "order": 37,
+        "codePath": "06-searching/code/q02.cpp",
+        "problemPath": "06-searching/problems/q02.md",
+        "chapter": "06-searching",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "Q01"
+        ],
+        "reference": "https://oi-wiki.org/basic/binary/"
+      },
+      {
+        "id": "Q03",
+        "title": "二叉搜索树基本操作",
+        "goal": "动态创建整数 BST，不存重复值；实现插入、查找、删除和销毁。删除覆盖无孩子、一个孩子、两个孩子三种情况。",
+        "signature": "void bst_insert(TreeNode*& root, int value);\nbool bst_contains(TreeNode* root, int value);\nbool bst_erase(TreeNode*& root, int value);\nvoid destroy_bst(TreeNode*& root);",
+        "demo": "TreeNode* root = nullptr;\nbst_insert(root, 5); bst_insert(root, 3); bst_insert(root, 7);\nstd::cout << bst_contains(root, 3) << '\\n';\nstd::cout << bst_erase(root, 5) << '\\n';\nstd::cout << bst_contains(root, 5) << '\\n';\ndestroy_bst(root);",
+        "expected": "1\\n1\\n0",
+        "boundaries": "空树；删除根；重复插入；删除不存在值；保持中序有序。",
+        "url": "",
+        "extra": false,
+        "order": 38,
+        "codePath": "06-searching/code/q03.cpp",
+        "problemPath": "06-searching/problems/q03.md",
+        "chapter": "06-searching",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "B01"
+        ],
+        "reference": "https://oi-wiki.org/ds/bst/"
+      },
+      {
+        "id": "Q04",
+        "title": "散列表：拉链法",
+        "goal": "给定非空桶数组，每桶用 vector 存不同的整数键；实现插入、查找、删除，不能直接用 unordered_set。负键也要映射到合法桶号。",
+        "signature": "void hash_insert(std::vector<std::vector<int>>& buckets, int key);\nbool hash_contains(const std::vector<std::vector<int>>& buckets, int key);\nbool hash_erase(std::vector<std::vector<int>>& buckets, int key);",
+        "demo": "std::vector<std::vector<int>> buckets(5);\nhash_insert(buckets, 1); hash_insert(buckets, 6); hash_insert(buckets, -4);\nstd::cout << hash_contains(buckets, 6) << '\\n';\nstd::cout << hash_erase(buckets, 1) << '\\n';\nstd::cout << hash_contains(buckets, -4) << '\\n';",
+        "expected": "1\\n1\\n1",
+        "boundaries": "多个键碰撞；负键；重复插入；删除桶头/中间键；空桶。",
+        "url": "",
+        "extra": false,
+        "order": 39,
+        "codePath": "06-searching/code/q04.cpp",
+        "problemPath": "06-searching/problems/q04.md",
+        "chapter": "06-searching",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L01"
+        ],
+        "reference": "https://oi-wiki.org/ds/hash/"
+      },
+      {
+        "id": "Q05",
+        "title": "AVL 单旋与双旋",
+        "goal": "选做代码深化：实现左右单旋并正确更新高度。组合为 LL/RR/LR/RL 调整。当前任务只检查旋转，不要求一次写完整 AVL 删除。空树高度 0，叶子高度 1。",
+        "signature": "AvlNode* rotate_left(AvlNode* root);\nAvlNode* rotate_right(AvlNode* root);",
+        "demo": "AvlNode leaf{1}, middle{2, &leaf, nullptr, 2}, root{3, &middle, nullptr, 3};\nAvlNode* balanced = rotate_right(&root);\nstd::cout << balanced->value << ' ' << balanced->left->value << ' ' << balanced->right->value << '\\n';",
+        "expected": "2 1 3",
+        "boundaries": "旋转中间子树不丢失；高度更新顺序；LR/RL 组合；函数前提是对应孩子存在。",
+        "url": "",
+        "extra": true,
+        "order": 40,
+        "codePath": "06-searching/code/q05.cpp",
+        "problemPath": "06-searching/problems/q05.md",
+        "chapter": "06-searching",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "Q03"
+        ],
+        "reference": "https://oi-wiki.org/ds/avl/"
+      },
+      {
+        "id": "Q06",
+        "title": "分块查找与块索引",
+        "chapter": "06-searching",
+        "goal": "块内可以无序，但相邻块之间有序；先定位可能的块，再在块内找，理解索引怎样缩小查找范围。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "06-searching/problems/q06.md",
+        "codePath": "06-searching/code/q06.cpp",
+        "reference": "06-searching/problems/q06.md",
+        "prerequisites": [
+          "Q01",
+          "Q02"
+        ],
+        "boundaries": "各块非空且相邻块严格分隔，前块所有值小于后块所有值；块内允许重复。找不到返回 -1，找到返回最早下标。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "Q07",
+        "title": "开放定址：线性探测与删除标记",
+        "chapter": "06-searching",
+        "goal": "删除不能把槽位直接当作从未使用；墓碑保证碰撞链仍可继续查找。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "06-searching/problems/q07.md",
+        "codePath": "06-searching/code/q07.cpp",
+        "reference": "https://opendatastructures.org/newhtml/ods/latex/hashing.html",
+        "prerequisites": [
+          "Q04"
+        ],
+        "boundaries": "定长表，无自动扩容；整数集合，不保留重复键。槽状态 Empty/Occupied/Deleted；容量 0 允许但不能插入。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "Q08",
+        "title": "完整 AVL 插入与回溯维护",
+        "chapter": "06-searching",
+        "goal": "Q05 单独旋转只是零件；本题把查找位置、插入、更新高度、LL/RR/LR/RL 重平衡连成完整操作。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "06-searching/problems/q08.md",
+        "codePath": "06-searching/code/q08.cpp",
+        "reference": "https://courses.cs.washington.edu/courses/cse332/26sp/summaries/avl.html",
+        "prerequisites": [
+          "Q03",
+          "Q05"
+        ],
+        "boundaries": "AvlNode 使用公共类型；空树高度 0，叶子高度 1。忽略重复键。结点由测试持有，算法只连指针，不 delete 或重复分配。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "Q09",
+        "title": "成功/失败 ASL 与探测次数",
+        "chapter": "06-searching",
+        "goal": "先明确等概率对象和比较计数口径，再计算平均查找长度；算法名称相同也可能因模型不同得出不同数字。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "06-searching/problems/q09.md",
+        "codePath": null,
+        "reference": "https://opendatastructures.org/newhtml/ods/latex/hashing.html",
+        "prerequisites": [
+          "Q01",
+          "Q02",
+          "Q07"
+        ],
+        "boundaries": "比较次数只数关键字与记录键的比较；散列题另计每个检查槽位（包括终止空槽）一次，不混用。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "Q10",
+        "title": "红黑树：插入修复与删除情形手推",
+        "chapter": "06-searching",
+        "goal": "认识红黑约束怎样用染色和旋转控制高度，保留主线知识；完整容器实现放到扩展。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "06-searching/problems/q10.md",
+        "codePath": null,
+        "reference": "https://opendsa.cs.vt.edu/ODSA/StandaloneModules/20231208145515/html/RedBlack.html",
+        "prerequisites": [
+          "Q03",
+          "Q05"
+        ],
+        "boundaries": "采用普通红黑树、所有 NIL 叶子为黑，根为黑；不同于左倾红黑树的附加约束。重复键本页不插入。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "Q11",
+        "title": "B 树：分裂、借位与合并",
+        "chapter": "06-searching",
+        "goal": "多关键字结点把树高降低；把搜索路径和磁盘页访问联系起来，实际手推插删而不只背阶数公式。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "06-searching/problems/q11.md",
+        "codePath": null,
+        "reference": "https://opendsa.cs.vt.edu/ODSA/Books/CS3S26notes/html/BTrees.html",
+        "prerequisites": [
+          "Q03"
+        ],
+        "boundaries": "固定最小度数 t=2：每结点最多 3 个键/4 个孩子，非根至少 1 个键。采用下降前拆满孩子的插入约定。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "Q12",
+        "title": "B+ 树：叶链范围查询与分隔键维护",
+        "chapter": "06-searching",
+        "goal": "数据记录集中在叶子、内部只用于导航；叶链使范围扫描与单点查找采用不同的访问方式。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "06-searching/problems/q12.md",
+        "codePath": null,
+        "reference": "https://opendsa-server.cs.vt.edu/ODSA/Books/cnu/cs420/spring-2017/CNU/html/BTree.html",
+        "prerequisites": [
+          "Q11"
+        ],
+        "boundaries": "内部最多 4 孩子（3 分隔键），非根至少 2 孩子；叶最多 3 记录、非根至少 2。分隔键取右孩子子树最小键，等于分隔键向右走。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "Q13",
+        "title": "AVL 删除：高度减少与继续回溯",
+        "chapter": "06-searching",
+        "goal": "删除后可能需要修复多个祖先，不能把插入时第一次重平衡后的停止条件原封不动搬来。",
+        "level": "扩展",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "06-searching/problems/q13.md",
+        "codePath": null,
+        "reference": "https://courses.cs.vt.edu/cs3114/Fall20/notes/T06_AVL.pdf",
+        "prerequisites": [
+          "Q08"
+        ],
+        "boundaries": "空树高 0，平衡因子=左高−右高；先按 BST 删除，再更新高度和重平衡。",
+        "sourceScope": "王道主线"
+      }
+    ]
+  },
+  {
+    "dir": "07-sorting",
+    "title": "排序",
+    "route": "插入 → 交换 → 选择 → 归并 → 基数",
+    "reference": "https://oi-wiki.org/basic/sort-intro/",
+    "tasks": [
+      {
+        "id": "R01",
+        "title": "直接插入排序",
+        "goal": "按已有有序前缀逐个插入；先保存待插入值，避免被移动覆盖。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "",
+        "extra": false,
+        "order": 41,
+        "codePath": "07-sorting/code/r01.cpp",
+        "problemPath": "07-sorting/problems/r01.md",
+        "chapter": "07-sorting",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/basic/insertion-sort/"
+      },
+      {
+        "id": "R02",
+        "title": "折半插入排序",
+        "goal": "二分寻找插入位置，再移动元素；分析为什么移动次数仍可达 O(n²)。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "",
+        "extra": false,
+        "order": 42,
+        "codePath": "07-sorting/code/r02.cpp",
+        "problemPath": "07-sorting/problems/r02.md",
+        "chapter": "07-sorting",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "R01",
+          "Q02"
+        ],
+        "reference": "https://oi-wiki.org/basic/insertion-sort/"
+      },
+      {
+        "id": "R03",
+        "title": "希尔排序",
+        "goal": "采用 n/2、不断减半直至 1 的增量序列，完成分组插入排序。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "",
+        "extra": false,
+        "order": 43,
+        "codePath": "07-sorting/code/r03.cpp",
+        "problemPath": "07-sorting/problems/r03.md",
+        "chapter": "07-sorting",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "R01"
+        ],
+        "reference": "https://oi-wiki.org/basic/shell-sort/"
+      },
+      {
+        "id": "R04",
+        "title": "冒泡排序",
+        "goal": "相邻逆序交换，加入本趟是否交换的标记；说明稳定性。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "",
+        "extra": false,
+        "order": 44,
+        "codePath": "07-sorting/code/r04.cpp",
+        "problemPath": "07-sorting/problems/r04.md",
+        "chapter": "07-sorting",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/basic/bubble-sort/"
+      },
+      {
+        "id": "R05",
+        "title": "快速排序",
+        "goal": "明确分区返回值和递归区间；处理大量重复值和有序输入，避免死循环或退化。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "https://www.luogu.com.cn/problem/P1177",
+        "extra": false,
+        "order": 45,
+        "codePath": "07-sorting/code/r05.cpp",
+        "problemPath": "07-sorting/problems/r05.md",
+        "chapter": "07-sorting",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "R04"
+        ],
+        "reference": "https://oi-wiki.org/basic/quick-sort/"
+      },
+      {
+        "id": "R06",
+        "title": "简单选择排序",
+        "goal": "每趟选择剩余区间最小值放到前端，比较交换次数与稳定性。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "",
+        "extra": false,
+        "order": 46,
+        "codePath": "07-sorting/code/r06.cpp",
+        "problemPath": "07-sorting/problems/r06.md",
+        "chapter": "07-sorting",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [],
+        "reference": "https://oi-wiki.org/basic/selection-sort/"
+      },
+      {
+        "id": "R07",
+        "title": "堆排序",
+        "goal": "先建大根堆，再反复将堆顶放到区间末尾；自己实现向下调整。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "https://www.luogu.com.cn/problem/P1177",
+        "extra": false,
+        "order": 47,
+        "codePath": "07-sorting/code/r07.cpp",
+        "problemPath": "07-sorting/problems/r07.md",
+        "chapter": "07-sorting",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "B01"
+        ],
+        "reference": "https://oi-wiki.org/basic/heap-sort/"
+      },
+      {
+        "id": "R11",
+        "title": "小根堆的插入与删除最小值",
+        "chapter": "07-sorting",
+        "goal": "堆排序之外，动态优先队列不断接收新记录；上浮与下沉是多路归并和调度的前置。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r11.md",
+        "codePath": "07-sorting/code/r11.cpp",
+        "reference": "https://algs4.cs.princeton.edu/24pq/",
+        "prerequisites": [
+          "R07"
+        ],
+        "boundaries": "0 基数组小根堆；允许重复、负数。空堆删除返回 nullopt，不用任意整数充当不存在标记。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "R08",
+        "title": "归并排序",
+        "goal": "递归划分并合并；辅助数组复用，合并时保持稳定性。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "https://www.luogu.com.cn/problem/P1177",
+        "extra": false,
+        "order": 48,
+        "codePath": "07-sorting/code/r08.cpp",
+        "problemPath": "07-sorting/problems/r08.md",
+        "chapter": "07-sorting",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "L03"
+        ],
+        "reference": "https://oi-wiki.org/basic/merge-sort/"
+      },
+      {
+        "id": "R13",
+        "title": "自底向上的迭代归并排序",
+        "chapter": "07-sorting",
+        "goal": "把递归拆分改成长度为 1、2、4… 的有序段逐轮合并，比较递归栈与显式轮次。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r13.md",
+        "codePath": "07-sorting/code/r13.cpp",
+        "reference": "https://algs4.cs.princeton.edu/lectures/",
+        "prerequisites": [
+          "R08",
+          "R12"
+        ],
+        "boundaries": "支持负数和重复整数；空数组合法，奇数长度与尾部不足一段必须正确。",
+        "sourceScope": "配套深化"
+      },
+      {
+        "id": "R09",
+        "title": "基数排序",
+        "goal": "限非负整数，按十进制低位到高位做稳定分配和收集；处理全零与位数不同。 不调用 std::sort 代替目标算法。",
+        "signature": "void sort_values(std::vector<int>& values);",
+        "demo": "std::vector<int> values{5, 1, 3, 1, 0};\nsort_values(values);\nprint_range(values);",
+        "expected": "0 1 1 3 5",
+        "boundaries": "空数组；单元素；全相等；已排序；逆序；多数算法还需测负值，基数排序本题除外。",
+        "url": "",
+        "extra": false,
+        "order": 49,
+        "codePath": "07-sorting/code/r09.cpp",
+        "problemPath": "07-sorting/problems/r09.md",
+        "chapter": "07-sorting",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "sourceScope": "王道主线",
+        "prerequisites": [
+          "S03"
+        ],
+        "reference": "https://oi-wiki.org/basic/radix-sort/"
+      },
+      {
+        "id": "R10",
+        "title": "稳定计数排序：负数偏移与值域限制",
+        "chapter": "07-sorting",
+        "goal": "计数排序利用有限整数值域累计位置；不依赖元素两两比较，但空间与值域有关。它是本版王道的补缺，不应省略。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r10.md",
+        "codePath": "07-sorting/code/r10.cpp",
+        "reference": "https://opendatastructures.org/ods-cpp.pdf",
+        "prerequisites": [
+          "R01"
+        ],
+        "boundaries": "记录包含 key 与原序号 serial。允许负数；max_range>0，值域宽度超过 max_range 抛 length_error，非法上限抛 invalid_argument。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "R12",
+        "title": "用原序号检验排序稳定性",
+        "chapter": "07-sorting",
+        "goal": "两个相等整数没有可区分身份；给记录加原序号，才能真的测试稳定性及记录是否丢失。",
+        "level": "基础",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r12.md",
+        "codePath": "07-sorting/code/r12.cpp",
+        "reference": "https://algs4.cs.princeton.edu/lectures/",
+        "prerequisites": [
+          "R01",
+          "R02"
+        ],
+        "boundaries": "记录按 key 排序，serial 表示原始下标。实现稳定直接插入；另外写验证器识别不稳定、未排序、丢记录三类错误。",
+        "sourceScope": "配套深化"
+      },
+      {
+        "id": "E01",
+        "title": "外排序基本流程与 I/O",
+        "chapter": "07-sorting",
+        "goal": "先读具体过程并手推例子；需要完整实现时再进入对应进阶代码题。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "07-sorting/external/01-flow.md",
+        "codePath": null,
+        "reference": "07-sorting/external/README.md",
+        "prerequisites": [
+          "R08"
+        ],
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "E02",
+        "title": "置换—选择：生成归并段",
+        "chapter": "07-sorting",
+        "goal": "先读具体过程并手推例子；需要完整实现时再进入对应进阶代码题。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "07-sorting/external/02-replacement-selection.md",
+        "codePath": null,
+        "reference": "07-sorting/external/README.md",
+        "prerequisites": [
+          "E01"
+        ],
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "E03",
+        "title": "败者树：候选比赛与更新",
+        "chapter": "07-sorting",
+        "goal": "先读具体过程并手推例子；需要完整实现时再进入对应进阶代码题。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "07-sorting/external/03-loser-tree.md",
+        "codePath": null,
+        "reference": "07-sorting/external/README.md",
+        "prerequisites": [
+          "E01",
+          "R07"
+        ],
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "E04",
+        "title": "最佳归并树：合并次序",
+        "chapter": "07-sorting",
+        "goal": "先读具体过程并手推例子；需要完整实现时再进入对应进阶代码题。",
+        "level": "基础",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "07-sorting/external/04-optimal-merge.md",
+        "codePath": null,
+        "reference": "07-sorting/external/README.md",
+        "prerequisites": [
+          "E01",
+          "B06"
+        ],
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "R14",
+        "title": "k 路归并：一条段一个候选",
+        "chapter": "07-sorting",
+        "goal": "先把“生成段”和“合并段”分开。每次只需比较各段当前头记录，而不必重新排序全部记录。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r14.md",
+        "codePath": "07-sorting/code/r14.cpp",
+        "reference": "07-sorting/external/01-flow.md",
+        "prerequisites": [
+          "E01",
+          "R11"
+        ],
+        "boundaries": "每条段已非递减；允许空段、相等记录、负数和 INT_MAX。输入和输出数组只用于模拟。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "R15",
+        "title": "置换—选择的固定工作区模拟",
+        "chapter": "07-sorting",
+        "goal": "通过当前段与冻结记录的分组，在固定候选容量下生成初始归并段。它优化段的生成，不负责最后总归并。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r15.md",
+        "codePath": "07-sorting/code/r15.cpp",
+        "reference": "07-sorting/external/02-replacement-selection.md",
+        "prerequisites": [
+          "E02",
+          "R11"
+        ],
+        "boundaries": "capacity≥1，否则 invalid_argument。输入逐项读取，不准先排序全部输入；相等新值仍属于当前段。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "R16",
+        "title": "败者树的构建与胜者替换调整",
+        "chapter": "07-sorting",
+        "goal": "保留每场比赛的败者，输出总胜者后只重走其比赛路径；减少 k 路选择时重复比较。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r16.md",
+        "codePath": "07-sorting/code/r16.cpp",
+        "reference": "07-sorting/external/03-loser-tree.md",
+        "prerequisites": [
+          "E03",
+          "R14"
+        ],
+        "boundaries": "optional<int> 的 nullopt 表示候选耗尽；真实 INT_MAX 必须可参与。相等键按较小段编号胜出。只替换当前总胜者。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "R17",
+        "title": "k 路最佳归并树与零长度虚段",
+        "chapter": "07-sorting",
+        "goal": "在加和代价模型里安排段的合并顺序；它决定先合哪些段，与败者树决定先输出哪个记录不同。",
+        "level": "进阶",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r17.md",
+        "codePath": "07-sorting/code/r17.cpp",
+        "reference": "07-sorting/external/04-optimal-merge.md",
+        "prerequisites": [
+          "E04",
+          "B06",
+          "R11"
+        ],
+        "boundaries": "k 为 2..10000，负段长或非法 k 抛 invalid_argument；n≤10000，每段≤10^12；空/单段代价 0。",
+        "sourceScope": "王道主线"
+      },
+      {
+        "id": "R18",
+        "title": "快速选择第 k 小：不必完整排序",
+        "chapter": "07-sorting",
+        "goal": "复用快排的划分，只继续处理包含目标排名的一侧；适合只需要中位数或某个次序统计量的场景。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "07-sorting/problems/r18.md",
+        "codePath": "07-sorting/code/r18.cpp",
+        "reference": "https://algs4.cs.princeton.edu/lectures/",
+        "prerequisites": [
+          "R06"
+        ],
+        "boundaries": "k 为 0 基排名；允许重复与负数，可以修改输入排列；空输入或 k 越界抛 out_of_range。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "R19",
+        "title": "受限内存文件外排序实验",
+        "chapter": "07-sorting",
+        "goal": "把内存模拟接成真正的分段文件、缓冲和多轮归并，同时测量记录守恒、内存占用与逻辑块读写。",
+        "level": "扩展",
+        "mode": "实验",
+        "material": "已有阅读页",
+        "problemPath": "07-sorting/problems/r19.md",
+        "codePath": null,
+        "reference": "07-sorting/external/01-flow.md",
+        "prerequisites": [
+          "R14",
+          "R15",
+          "R16",
+          "R17"
+        ],
+        "boundaries": "只在本章 external/lab-work/ 自建实验目录中操作；输入文件只读，输出另存，不覆盖练习源文件。",
+        "sourceScope": "配套深化"
+      },
+      {
+        "id": "R20",
+        "title": "排序算法怎样按数据条件选择",
+        "chapter": "07-sorting",
+        "goal": "把排序表格变成条件判断；同时比较计数、桶、基数、快排和快速选择，避免只追求记住更多名称。",
+        "level": "扩展",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "07-sorting/problems/r20.md",
+        "codePath": null,
+        "reference": "https://algs4.cs.princeton.edu/lectures/",
+        "prerequisites": [
+          "R09",
+          "R10",
+          "R12",
+          "R18"
+        ],
+        "boundaries": "这是决策与反例手推，不是所有新算法都有专用代码题。",
+        "sourceScope": "课外扩展"
+      }
+    ]
+  },
+  {
+    "dir": "08-extensions",
+    "title": "兴趣扩展",
+    "route": "常用解题方法 → 区间结构 → 动态规划与图深化；不计入基础完成率",
+    "tasks": [
+      {
+        "id": "X01",
+        "title": "前缀和与区间求和",
+        "chapter": "08-extensions",
+        "goal": "预处理一次，回答多个半开区间 [left,right) 的和；用 long long 保存累计值。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x01.md",
+        "codePath": "08-extensions/code/x01.cpp",
+        "reference": "08-extensions/problems/x01.md",
+        "prerequisites": [
+          "L01"
+        ],
+        "boundaries": "输入整数数组；查询满足 0≤left≤right≤n。构造返回 n+1 项，prefix[0]=0。构造 O(n)，一次查询 O(1)。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X02",
+        "title": "滑动窗口：最短达标区间",
+        "chapter": "08-extensions",
+        "goal": "在非负数组中，寻找元素和至少为 target 的最短连续区间。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x02.md",
+        "codePath": "08-extensions/code/x02.cpp",
+        "reference": "08-extensions/problems/x02.md",
+        "prerequisites": [
+          "X01"
+        ],
+        "boundaries": "target>0，元素非负；不存在返回0。目标 O(n) 时间、O(1) 额外空间。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X03",
+        "title": "二分答案：最小运输容量",
+        "chapter": "08-extensions",
+        "goal": "包裹按原顺序分批，每天一批；求在给定天数内运完的最小容量。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x03.md",
+        "codePath": "08-extensions/code/x03.cpp",
+        "reference": "08-extensions/problems/x03.md",
+        "prerequisites": [
+          "Q02"
+        ],
+        "boundaries": "重量为正，days≥1；空输入返回0；不能拆包或改变顺序。返回 long long，目标 O(n log(sum))。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X04",
+        "title": "单调栈：下一个更大元素",
+        "chapter": "08-extensions",
+        "goal": "对每个位置，返回其右侧第一个严格更大元素的下标。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x04.md",
+        "codePath": "08-extensions/code/x04.cpp",
+        "reference": "08-extensions/problems/x04.md",
+        "prerequisites": [
+          "S01"
+        ],
+        "boundaries": "下标从0开始；没有则为-1；空数组返回空。目标 O(n) 时间、O(n) 额外空间。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X05",
+        "title": "单调队列：窗口最大值",
+        "chapter": "08-extensions",
+        "goal": "输出每个固定长度连续窗口中的最大值，避免逐窗重新扫描。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x05.md",
+        "codePath": "08-extensions/code/x05.cpp",
+        "reference": "08-extensions/problems/x05.md",
+        "prerequisites": [
+          "S03"
+        ],
+        "boundaries": "window≥1；window>n 或空输入返回空。窗口长度为1时返回原序列。目标 O(n)。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X06",
+        "title": "Trie：单词与前缀查询",
+        "chapter": "08-extensions",
+        "goal": "建立小写英文字母字典树，区分完整单词出现和前缀存在。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x06.md",
+        "codePath": "08-extensions/code/x06.cpp",
+        "reference": "08-extensions/problems/x06.md",
+        "prerequisites": [
+          "T01",
+          "B01"
+        ],
+        "boundaries": "输入只含a到z；允许空串；重复插入不重复计数。Trie初始只有根。查询不得修改树。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X07",
+        "title": "树状数组：单点更新与前缀查询",
+        "chapter": "08-extensions",
+        "goal": "维护会发生更新的数组，在多次修改后查询前缀和。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x07.md",
+        "codePath": "08-extensions/code/x07.cpp",
+        "reference": "08-extensions/problems/x07.md",
+        "prerequisites": [
+          "X01"
+        ],
+        "boundaries": "tree长度n+1，初始全0；add index∈[0,n)，prefix count∈[0,n] 表示前count项。支持负增量。更新/查询目标 O(log n)。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X08",
+        "title": "线段树：点赋值与区间和",
+        "chapter": "08-extensions",
+        "goal": "实现动态区间查询，明确结点区间、递归边界和合并信息。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x08.md",
+        "codePath": "08-extensions/code/x08.cpp",
+        "reference": "08-extensions/problems/x08.md",
+        "prerequisites": [
+          "X01",
+          "B01"
+        ],
+        "boundaries": "查询为半开区间[left,right)，0≤left≤right≤n；空输入可查询[0,0)。更新位置必须合法，point_set是赋值不是累加。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X09",
+        "title": "动态规划：最少硬币数",
+        "chapter": "08-extensions",
+        "goal": "为每个金额定义最优子问题，解决贪心不总成立的兑换问题。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x09.md",
+        "codePath": "08-extensions/code/x09.cpp",
+        "reference": "08-extensions/problems/x09.md",
+        "prerequisites": [
+          "F03",
+          "L01"
+        ],
+        "boundaries": "硬币面值为正，可无限使用；target≥0。不能兑换返回-1，目标0返回0。目标O(target×币种数)。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X10",
+        "title": "回溯：组合枚举与撤销选择",
+        "chapter": "08-extensions",
+        "goal": "枚举1到n中选k个数的所有组合，保证不重复、不漏解。",
+        "level": "扩展",
+        "mode": "编码",
+        "material": "已有框架",
+        "problemPath": "08-extensions/problems/x10.md",
+        "codePath": "08-extensions/code/x10.cpp",
+        "reference": "08-extensions/problems/x10.md",
+        "prerequisites": [
+          "B01"
+        ],
+        "boundaries": "n≥0、k≥0；每个组合升序，组合之间顺序不限。k=0返回一个空组合；k>n返回空结果。",
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X11",
+        "title": "字符串哈希与碰撞边界",
+        "chapter": "08-extensions",
+        "goal": "理解如何快速比较子串候选，以及为什么哈希相等不等于字符串必然相等。",
+        "level": "扩展",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "08-extensions/topics/x11.md",
+        "codePath": null,
+        "reference": "08-extensions/topics/x11.md",
+        "prerequisites": [
+          "T01",
+          "X01"
+        ],
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X12",
+        "title": "负边最短路：Bellman–Ford",
+        "chapter": "08-extensions",
+        "goal": "区分负边与负环，按轮次推松弛，理解为什么不能直接套非负权Dijkstra。",
+        "level": "扩展",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "08-extensions/topics/x12.md",
+        "codePath": null,
+        "reference": "08-extensions/topics/x12.md",
+        "prerequisites": [
+          "G05",
+          "G06"
+        ],
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X13",
+        "title": "强连通分量、割点与桥",
+        "chapter": "08-extensions",
+        "goal": "区分有向强连通与无向连通脆弱点，理解DFS发现时间与回退信息。",
+        "level": "扩展",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "08-extensions/topics/x13.md",
+        "codePath": null,
+        "reference": "08-extensions/topics/x13.md",
+        "prerequisites": [
+          "G02",
+          "G07"
+        ],
+        "sourceScope": "课外扩展"
+      },
+      {
+        "id": "X14",
+        "title": "桶排序、三路快排与算法选择",
+        "chapter": "08-extensions",
+        "goal": "根据值域、重复程度和任务目标选择排序/选择算法，避免只比较名称。",
+        "level": "扩展",
+        "mode": "手推",
+        "material": "已有阅读页",
+        "problemPath": "08-extensions/topics/x14.md",
+        "codePath": null,
+        "reference": "08-extensions/topics/x14.md",
+        "prerequisites": [
+          "R05",
+          "R09",
+          "R10"
+        ],
+        "sourceScope": "课外扩展"
+      }
+    ]
+  }
+]

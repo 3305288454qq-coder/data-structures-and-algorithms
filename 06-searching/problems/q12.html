@@ -1,0 +1,30 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Q12 B+ 树：叶链范围查询与分隔键维护</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="q12.md">Markdown 原文件</a></nav><h1>Q12 B+ 树：叶链范围查询与分隔键维护</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a></p>
+<p><strong>基础｜手推｜王道主线。已有具体任务与核对材料；没有专用 C++ 框架，未确认掌握。</strong></p>
+<h2>目标与约定</h2>
+<p>数据记录集中在叶子、内部只用于导航；叶链使范围扫描与单点查找采用不同的访问方式。</p>
+<p>前置：Q11。内部最多 4 孩子（3 分隔键），非根至少 2 孩子；叶最多 3 记录、非根至少 2。分隔键取右孩子子树最小键，等于分隔键向右走。</p>
+<h2>建树任务</h2>
+<p>依次插入 <code>10,20,5,6,12,30,7,17,8</code>。叶出现 4 项时分为两边各 2 项，并把右叶最小键复制到父；该键仍留在叶中。画出所有叶子的 next 链。</p>
+<details>
+<summary>核对插入结果</summary>
+<p>根分隔键 [7,10,20]，四片叶依次是 [5,6] → [7,8] → [10,12,17] → [20,30]。内部的 7、10、20 是导航副本，不是从叶子移走的独占记录。</p>
+</details>
+<h2>范围查询</h2>
+<p>查询闭区间 [6,21]：先从根定位含 6 的叶，再沿叶链前进直到超过 21。列出读过哪些叶以及输出，不要每个键都重新从根搜索。</p>
+<details>
+<summary>核对范围输出</summary>
+<p>输出 6、7、8、10、12、17、20。实际页读取还取决于缓存，不能只凭逻辑访问次数推算磁盘秒数。</p>
+</details>
+<h2>删除与分隔键更新</h2>
+<p>从建树结果依次删 6、10、20。叶不足时优先向紧邻兄弟借，借不到再合并；本例可按下面核对走。</p>
+<details>
+<summary>核对删除过程</summary>
+<p>删 6 后左叶 [5] 下溢，相邻 [7,8] 只有最少两项，合并为 [5,7,8]，父删分隔 7，根变 [10,20]。</p>
+<p>删 10 后中叶为 [12,17]，容量仍合法，但父分隔 10 必须变为 12，根 [12,20]。</p>
+<p>删 20 后右叶 [30] 下溢，中叶只有 [12,17] 不能借，二者合为 [12,17,30]；根变 [12]，两个叶为 [5,7,8] → [12,17,30]。合并时还需修复叶链。</p>
+</details>
+<p>本页是一种明确的 B+ 约定，不声称所有数据库页格式都完全相同。完整实现还需内部页分裂/合并、父指针、重复键/记录定位、持久化和恢复，作为扩展工程另行选择。</p>
+<h2>完成记录</h2>
+<p>写下完成了哪张图/哪组输入、哪里需要提示、能否独立解释关键一步。读过核对内容不自动变为已掌握；可以先做手推，再按兴趣扩展实现。</p>
+<p><a href="https://opendsa-server.cs.vt.edu/ODSA/Books/cnu/cs420/spring-2017/CNU/html/BTree.html">主题参考</a> · <a href="../../references/README.html">资料使用说明</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

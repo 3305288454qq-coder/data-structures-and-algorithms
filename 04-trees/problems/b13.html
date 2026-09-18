@@ -1,0 +1,24 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>B13 线索树前驱、后继与遍历次序</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="b13.md">Markdown 原文件</a></nav><h1>B13 线索树前驱、后继与遍历次序</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../topics/supplement-guide.html">树专题</a></p>
+<p><strong>基础｜手推｜已有阅读页｜学习状态：未开始</strong>。前置 B01、B05。完整先序/后序线索化编码为后续可选深化，此页不冒充已有专用实现。</p>
+<h2>用一棵具体树判断</h2>
+<p>树形：根 A；A 左孩子 B、右孩子 C；B 右孩子 D；C 左孩子 E。其余孩子为空。先不加线索，分别写出先序、中序和后序的结点次序。</p>
+<p>任务 A：对中序线索树，列出 B、D、A、E、C 每个结点的中序前驱与后继。将所有原本空的 left/right 改为对应线索；左空用 ltag=true，右空用 rtag=true，真实孩子用 false。边界前驱/后继为空，采用 nullptr，无额外头结点。</p>
+<details>
+<summary>核对遍历与线索</summary>
+<p>先序 A,B,D,C,E；中序 B,D,A,E,C；后序 D,B,E,C,A。  </p>
+<p>B：前驱空、后继 D；D：前驱 B、后继 A；A：前驱 D、后继 E；E：前驱 A、后继 C；C：前驱 E、后继空。  </p>
+<p>B.left 是空前驱线索，B.right 仍是真孩子 D；D 的左右均为线索；A 两侧都是真孩子；E 两侧均为线索；C.left 是真孩子 E，C.right 是空后继线索。</p>
+</details>
+<h2>分类，而不是背一句“直接看右指针”</h2>
+<p>中序后继：若 rtag=true，右指针就是后继；若右边是真子树，要在该右子树找到中序第一个结点。中序前驱对称：左线索直接用，否则在左子树找最后一个结点。</p>
+<p>任务 B：根据这条规则推 A 的后继、A 的前驱、B 的后继、C 的后继。说明 B.right 指向 D 时为什么不能把 rtag 标为 true。</p>
+<details>
+<summary>核对 B</summary>
+<p>A 后继 E，前驱 D；B 后继 D，虽然刚好也是右孩子，但仍是真孩子指针；C 后继 nullptr。tag 描述链接性质，而不是目标恰好是否也是后继。</p>
+</details>
+<h2>先序和后序为什么有额外困难</h2>
+<p>任务 C：在同一棵树中，先序的 E 前驱是 C；如果只有 E 的孩子与线索，什么信息能直接帮助？后序的 B 后继是 E，它并不是 B 的孩子。为什么中序的对称规则不能直接套到“任意遍历的任意方向”？</p>
+<p>先序通常容易顺真实左孩子优先找到后继，后序通常容易找到前驱；反方向常需要父结点信息或从根寻找。结点有两个真实孩子时，可用作线索的空链接也少。具体是否 O(1) 必须结合表示和目标次序，不可笼统说“线索树查前驱后继都 O(1)”。</p>
+<h2>分层完成</h2>
+<p>基础：完成任务 A/B，能区分真实孩子和线索。进阶阅读：完成任务 C，说明父指针或栈提供什么额外信息。扩展编码：选择一种先序/后序线索表示，先写清头结点、边界和遍历方向，再自行设计接口。这个扩展没有被计作现有可运行题。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

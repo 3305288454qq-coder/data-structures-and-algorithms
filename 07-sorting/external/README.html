@@ -1,0 +1,32 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>外部排序：先理解过程，再选实现深度</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="README.md">Markdown 原文件</a></nav><h1>外部排序：先理解过程，再选实现深度</h1>
+<p><a href="../README.html">排序章节</a> · <a href="../../references/CURRICULUM_AUDIT.html">覆盖审查报告</a> · <a href="../../index.html">练习导航</a></p>
+<p><strong>资料状态：四篇讲解与手推页已保留，R14–R17 已有独立 C++ 模拟框架和自动核对；R19 为文件实验任务页。学习状态：未掌握｜待实操确认。</strong></p>
+<p>E01–E04 是基础阅读/手推入口，R14–R17 属进阶编码，R19 属扩展实验；可以先浏览感兴趣的主题，不要求立即全部实现。</p>
+<p>当记录总量放不进可用内存时，可以先生成多个有序段，再合并为整体有序的结果。</p>
+<p>每个段内部有序，并不代表多个段按文件顺序拼起来就有序。<a href="https://opendsa-server.cs.vt.edu/ODSA/StandaloneModules/20221129164441/html/ExternalSort.html">OpenDSA 外排序课程</a></p>
+<h2>学习顺序与不同深度</h2>
+<div class="table"><table><thead><tr><th>顺序</th><th>页面</th><th>基础：先会看、会推</th><th>进阶：想练时实现</th><th>扩展</th></tr></thead><tbody>
+<tr><td>1</td><td><a href="01-flow.html">初始段、归并与 I/O</a></td><td>画两阶段流程，数归并轮数与读写</td><td>多个数组模拟有序段，写 k 路归并</td><td>文件缓冲、内存上限、块读写统计</td></tr>
+<tr><td>2</td><td><a href="02-replacement-selection.html">置换—选择</a></td><td>区分当前段与冻结记录，推小例子</td><td>固定容量工作区生成初始段</td><td>与分块排序比较不同分布</td></tr>
+<tr><td>3</td><td><a href="03-loser-tree.html">败者树</a></td><td>认识胜者/败者与更新路径</td><td>构建、替换当前胜者、沿路径调整</td><td>与线性扫描和堆比较次数</td></tr>
+<tr><td>4</td><td><a href="04-optimal-merge.html">最佳归并树</a></td><td>比较不同归并次序的代价</td><td>二路与 k 路最优归并、补虚段</td><td>接入实际外排序，分析模型与测量差异</td></tr>
+</tbody></table></div>
+<p>前置知识：归并的两个有序输入、堆/优先队列、树和哈夫曼思想。</p>
+<p>不熟悉文件输入输出时，先用小数组模拟，避免把算法理解与文件 API 同时压在一起。</p>
+<h2>四个概念不要混在一起</h2>
+<ul>
+<li>多路归并：一次合并多条有序段。</li>
+<li>置换—选择：主要负责初始段的生成。</li>
+<li>败者树：帮助多路归并快速选出当前候选中的最小值。</li>
+<li>最佳归并树：决定段之间的合并安排。</li>
+</ul>
+<p>要尽量覆盖这些知识，但你可以只读、手推，或选择其中一个写代码。“暂不完整实现”不表示遗漏，也不表示不重要。</p>
+<h2>已可打开的实现与实验入口</h2>
+<div class="table"><table><thead><tr><th>主线</th><th>新的任务与框架</th></tr></thead><tbody>
+<tr><td>k 路有序段合并</td><td><a href="../problems/r14.html">R14 一条段一个候选</a></td></tr>
+<tr><td>固定工作区生成段</td><td><a href="../problems/r15.html">R15 置换—选择模拟</a></td></tr>
+<tr><td>保存比赛结果并更新</td><td><a href="../problems/r16.html">R16 败者树构建与胜者替换</a></td></tr>
+<tr><td>安排归并次序</td><td><a href="../problems/r17.html">R17 k 路最佳归并与虚段</a></td></tr>
+<tr><td>接入真正文件与缓冲</td><td><a href="../problems/r19.html">R19 受限内存外排序实验</a></td></tr>
+</tbody></table></div>
+<p>R14–R17 的核心仍为 TODO，助手建立框架和验证退出状态不代表学习者实现通过。R19 提供预算、样本和验收，没有替你写完整排序程序。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

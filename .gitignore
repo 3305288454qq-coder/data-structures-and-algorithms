@@ -1,0 +1,9 @@
+build/
+*.exe
+*.obj
+*.pdb
+*.ilk
+.vs/
+.agents/
+.codex/
+*.log

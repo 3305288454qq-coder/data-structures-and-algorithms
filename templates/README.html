@@ -1,0 +1,11 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>代码模板怎么用</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../index.html">← 练习导航</a> · <a href="README.md">Markdown 原文件</a></nav><h1>代码模板怎么用</h1>
+<p><a href="../README.html">首页</a> · <a href="../references/README.html">参考资料</a> · <a href="../TESTING.html">自测说明</a></p>
+<ul>
+<li><a href="common.hpp">common.hpp</a>：结构体、容量、INF和辅助函数。</li>
+<li><a href="test_support.hpp">test_support.hpp</a>：自动核对、异常与结果分类；不实现目标算法。</li>
+<li><a href="cpp_starter.cpp">cpp_starter.cpp</a>：独立新题的空白程序。</li>
+<li>各章节code目录中的<strong>95个专用框架</strong>：函数接口、TODO和带自动核对的main，优先使用，不用重新搭输入框架。</li>
+</ul>
+<p>每个.cpp单独编译运行。通常只填写目标函数，保留main中的测试；不能只删TODO或打印PASS冒充实现。TODO返回2，失败返回1，通过当前测试返回0，详见自测说明。</p>
+<p>框架主要采用std::vector/std::string传递输入，便于集中练核心算法；顺序表、栈、链表等目标结构仍按题目要求自己实现。不理解容器长度、引用或结点释放责任时，先看<a href="../00-foundations/topics/f02.html">F02框架前置</a>。</p>
+<p>现成参考实现请查看题目里的对应资料或<a href="https://oi-wiki.org/">OI Wiki</a>。本地模板刻意留空，先尝试再查卡点；查看完整实现不意味着已掌握。在线提交时再按平台的类、函数签名和输入输出做适配。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

@@ -1,0 +1,47 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>算法覆盖改进：已落实内容与边界</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../index.html">← 练习导航</a> · <a href="IMPLEMENTATION_REPORT.md">Markdown 原文件</a></nav><h1>算法覆盖改进：已落实内容与边界</h1>
+<p><a href="../index.html">练习导航</a> · <a href="COVERAGE.html">覆盖清单</a> · <a href="CURRICULUM_AUDIT.html">原审查报告</a></p>
+<h2>当前结果</h2>
+<p>按用户确认的审查建议实施，并补入计数排序。现在共有 <strong>119 个学习入口、95 个 C++ 练习框架</strong>，分为 <strong>基础72项、进阶28项、扩展19项</strong>。其余24项为阅读、手推或实验任务；不把“有一个名称”算作已经建好题目。</p>
+<p>原49题编号及目标算法函数保留，新增46个编码框架；原49题的 main 已从打印示例升级为多组自动核对。没有替学习者填写核心算法、提交在线题或标记掌握。</p>
+<p>这里的“基础/进阶/扩展”表示练习深度与当前优先级，不是断言某知识点是否在考试范围内。王道范围内的复杂内容仍保留在知识树里，允许先手推、以后再编码。</p>
+<h2>各章实际补充</h2>
+<div class="table"><table><thead><tr><th>章节</th><th>新增可练内容</th><th>保留的深度边界</th></tr></thead><tbody>
+<tr><td>按需基础</td><td>复杂度、递归空间、C++框架前置、算法思想与验证</td><td>按需查阅，不要求把听完的课程重学</td></tr>
+<tr><td>线性表</td><td>动态顺序表、按值查找、带头结点构建与归并、交集/区间删除/旋转、主元素、环入口/相交、回文与恢复</td><td>循环/静态链表另有手推任务</td></tr>
+<tr><td>栈队列数组</td><td>共享栈、双端队列、中缀转后缀、三角/三对角矩阵地址、快速转置</td><td>递归栈有具体跟踪练习</td></tr>
+<tr><td>串</td><td>前缀函数与1基next对照、nextval</td><td>明确下标和失败跳转约定；存储契约另有阅读任务</td></tr>
+<tr><td>树与二叉树</td><td>非递归先中后序、森林/孩子兄弟转换、哈夫曼构树与编解码、按大小合并与路径压缩</td><td>线索前驱后继另有手推，不用只会WPL冒充会编码</td></tr>
+<tr><td>图</td><td>矩阵与表示转换、全图遍历/连通分量、BFS路径、Dijkstra/Floyd路径恢复、DAG表达式</td><td>十字链表/邻接多重表、负权与连通性有实质推演</td></tr>
+<tr><td>查找</td><td>分块查找、带删除标记的开放定址、完整AVL插入</td><td>ASL、红黑树、B树、B+树、AVL删除采用具体手推；未提供这些结构的全部工程实现</td></tr>
+<tr><td>排序</td><td>计数排序、堆插删、带身份记录的稳定性、迭代归并、k路归并、置换—选择、败者树、最佳归并、快速选择</td><td>受限内存文件外排序为实验任务，附输入和验收；完整文件程序留给后续练习</td></tr>
+<tr><td>适当扩展</td><td>前缀和、滑动窗口、答案二分、单调栈/队列、Trie、树状数组、线段树、动态规划、回溯</td><td>哈希碰撞、Bellman-Ford、SCC/割点/桥、桶排序等先阅读与手推，不要求一次做完</td></tr>
+</tbody></table></div>
+<h2>你特别指出的排序缺口</h2>
+<ul>
+<li><a href="../07-sorting/problems/r10.html">R10 计数排序</a>：支持负数，限制值域，携带原始序号检查稳定性；说明 O(n+K) 的适用条件。</li>
+<li><a href="../07-sorting/problems/r14.html">R14 k路归并</a>：多段归并模拟，作为后续结构的前置。</li>
+<li><a href="../07-sorting/problems/r15.html">R15 置换—选择</a>：有限工作区生成初始段，覆盖冻结/解冻、相等键与边界容量。</li>
+<li><a href="../07-sorting/problems/r16.html">R16 败者树</a>：初始化、更新、耗尽与单路情况；将维护结构和取最小候选联系起来。</li>
+<li><a href="../07-sorting/problems/r17.html">R17 最佳归并</a>：k路归并代价、补虚段及参数约束；关联哈夫曼贪心思想。</li>
+<li><a href="../07-sorting/problems/r19.html">R19 文件外排序实验</a>：再把内存模拟接到文件、缓冲与多轮归并，记录真实预算和逻辑块读写。</li>
+<li><a href="../07-sorting/external/README.html">外排序讲解入口</a>：核心概念直接显示，例子和推导可以展开。</li>
+</ul>
+<h2>导航与进度</h2>
+<p>默认显示基础层，可按章节、难度层级、练习形式、材料和学习状态筛选；先修条目可以直接点击跳转。基础、进阶、扩展分别统计，不把扩展内容混入基础进度分母。</p>
+<p>保留原49题ID，兼容旧勾选记录。状态使用“未开始、进行中、卡住了、已核对、待复习”，每题可写卡点与验证证据。没有根据助手讲解或文件生成自动确认掌握。</p>
+<p>JSON可完整备份和导入，导入先预览，默认保留重叠的本地记录。Markdown用于阅读和兼容旧勾选。浏览器本地记录不会自动同步Notion或其他设备。详细操作见<a href="../TESTING.html">自测与备份说明</a>。</p>
+<h2>实际验证记录</h2>
+<ul>
+<li>95个C++框架全部通过MSVC C++17 /W4编译，零警告。运行：pending 95、passed 0、failed 0、compile-failed 0；符合核心算法仍留TODO的状态。</li>
+<li>测试设施6条路径检查通过：成功、断言失败、TODO、普通异常、零断言与超时；不是只验证程序能打印文字。</li>
+<li>13项导航逻辑检查通过，覆盖旧进度迁移、空备份、非法数据、导入冲突策略、筛选及各层独立统计。</li>
+<li>49个原编号全部保留；与修改前备份比较，49份原目标函数、接口与注释均保留，仅引入测试辅助文件并更新main。</li>
+<li>已生成145份HTML阅读页，43处推导/核对内容保留折叠标签；当前本地页面链接、代码入口、先修引用和无循环关系检查通过。</li>
+<li>浏览器工具被本地file地址访问策略阻止，未完成真实浏览器视觉与点击检查；上面的导航结果来自代码逻辑检查，折叠结果来自生成文件检查。</li>
+</ul>
+<p><a href="../build/checks/latest-results.json">框架运行记录</a> · <a href="../tests/curriculum-validation.json">本轮目录检查记录</a></p>
+<p>额外的完整排序参考实现探针被Windows防护拦截，未继续执行或绕过；本轮不声称已用完整参考实现验证所有断言。</p>
+<p>算法目标仍为TODO：框架编译和测试设施检查只能证明练习能够启动、状态可以区分，不能证明学习者已实现或掌握算法，也不能证明所有将来的错误实现都会被测试发现。</p>
+<h2>覆盖范围的诚实边界</h2>
+<p>以已读取的本地审查和<a href="https://cbjj.phei.com.cn/module/goods/wssd_content.jsp?bookid=68851">电子工业出版社2027版书目目录</a>为章节基线，参考实际算法接口和题目判断覆盖。没有逐页核对整本书的全部例题、课后题及历年真题，不宣称逐题百分之百覆盖。</p>
+<p>本地题为练习框架；线上题保留原站链接和适配说明，未代为提交。代码测试不能代替复杂度证明、结构不变量说明、内存泄漏检测或真实外存性能测量。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

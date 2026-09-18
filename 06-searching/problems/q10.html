@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Q10 红黑树：插入修复与删除情形手推</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="q10.md">Markdown 原文件</a></nav><h1>Q10 红黑树：插入修复与删除情形手推</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a></p>
+<p><strong>基础｜手推｜王道主线。已有具体任务与核对材料；没有专用 C++ 框架，未确认掌握。</strong></p>
+<h2>目标与约定</h2>
+<p>认识红黑约束怎样用染色和旋转控制高度，保留主线知识；完整容器实现放到扩展。</p>
+<p>前置：Q03、Q05。采用普通红黑树、所有 NIL 叶子为黑，根为黑；不同于左倾红黑树的附加约束。重复键本页不插入。</p>
+<h2>先写不变量</h2>
+<p>红结点不能有红孩子；从同一结点到任意后代 NIL 的黑结点数量相同。BST 大小关系照常保持。不要把“左右实际高度完全相同”当成红黑要求。</p>
+<h2>插入任务</h2>
+<p>从空树依次插入 10、5、1、15、20。新结点先红，每步标父、叔、祖父，判断是叔红染色还是叔黑旋转。遇 NIL 叔按黑处理。</p>
+<details>
+<summary>核对关键步骤与最终结构</summary>
+<p>插入 1 后在 10 处右旋，5 成为黑根，1 和 10 为红孩子。插入 15 时父 10 与叔 1 都红，二者染黑，祖父 5 暂红后恢复根黑。插入 20 时父 15 红、叔 NIL 黑，右右形在 10 处左旋并重染。</p>
+<p>最终为：根 5黑；左 1黑；右 15黑；15 的左右为 10红、20红。若把根与 NIL 都计入，每条根到 NIL 路径有 3 个黑结点。</p>
+</details>
+<h2>删除对比任务（两次独立，从最终树各自开始）</h2>
+<p>A 删除红叶 20，B 删除黑叶 1。哪一次产生黑高度不足？B 中不足位置的兄弟 15、近侄 10、远侄 20 分别是什么颜色？画修复后的树并逐条数黑高。</p>
+<details>
+<summary>核对删除情形</summary>
+<p>A 直接移除红叶不改变黑高。</p>
+<p>B 的左侧黑高不足，兄弟 15 黑，远侄 20 红；在父 5 处左旋并重新染色。可得根 15黑、左 5黑、右 20黑，5 的右孩子 10红，所有路径黑高再次一致。完整删除还需兄弟红、两侄黑、仅近侄红等分支，本页只先实推一个代表情形。</p>
+</details>
+<h2>扩展实现要求</h2>
+<p>若以后写完整红黑树，加入根/NIL/父指针统一约定、插删全部分支、重复键策略、旋转后的 parent 更新、随机操作与有序集合对照。没有这些不能仅凭两个旋转函数声称完成红黑树。</p>
+<h2>完成记录</h2>
+<p>写下完成了哪张图/哪组输入、哪里需要提示、能否独立解释关键一步。读过核对内容不自动变为已掌握；可以先做手推，再按兴趣扩展实现。</p>
+<p><a href="https://opendsa.cs.vt.edu/ODSA/StandaloneModules/20231208145515/html/RedBlack.html">主题参考</a> · <a href="../../references/README.html">资料使用说明</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

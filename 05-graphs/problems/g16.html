@@ -1,0 +1,27 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>G16 十字链表与邻接多重表</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="g16.md">Markdown 原文件</a></nav><h1>G16 十字链表与邻接多重表</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a></p>
+<p><strong>基础｜手推｜王道主线。已有具体任务与核对材料；没有专用 C++ 框架，未确认掌握。</strong></p>
+<h2>目标与约定</h2>
+<p>比较有向图的入/出边链与无向图共享边结点，知道复杂存储结构解决什么问题。</p>
+<p>前置：G01、G10。本页以边编号连链，避免被指针语法遮住结构；同一链按边编号升序连接。</p>
+<h2>任务一：有向图十字链表</h2>
+<p>边：e0=0→1，e1=2→1，e2=1→2，e3=0→2。每个边结点有 tail、head、tlink（下一条同尾边）、hlink（下一条同头边）；每个顶点有 firstout、firstin。</p>
+<p>先画四个边结点，再填下面六项：三个顶点的出链与入链。沿顶点 1 的 firstin 能否枚举全部指向 1 的边？若只有普通出邻接表，需要怎样找到这些入边？</p>
+<details>
+<summary>展开核对十字链表</summary>
+<p>出链：0 为 e0→e3，1 为 e2，2 为 e1。入链：0 为空，1 为 e0→e1，2 为 e2→e3。</p>
+<p>因此 e0 同时处于顶点 0 的出链和顶点 1 的入链，它不是两条不同的边。e0.tlink=e3、e0.hlink=e1；e2.hlink=e3，其余链尾为空。</p>
+</details>
+<h2>任务二：无向图邻接多重表</h2>
+<p>三条无向边 e0={0,1}、e1={1,2}、e2={0,2}。每条边只建一个边结点，保存两个端点以及分别属于两端点链的“下一条边”。沿链前进时必须先判断当前顶点对应哪一个端点。</p>
+<p>画出三个顶点的边链，然后模拟删除 e1：哪些顶点入口或链指针要更新？为什么只改顶点 1 的链还不够？</p>
+<details>
+<summary>展开核对无向边链与删除</summary>
+<p>0：e0→e2；1：e0→e1；2：e1→e2。</p>
+<p>删除 e1 后，顶点 1 链中 e0 对应端点 1 的下一条改为空；顶点 2 的首边改为 e2。释放共享边结点之前，两端引用都要拆除。相比普通无向邻接表为一条边放两份邻接记录，这种表示便于统一标记/删除一条物理边。</p>
+</details>
+<h2>深化但不必马上编码</h2>
+<p>在 e0 上放一个“已访问边”标记，模拟每条无向边只处理一次。再讨论平行边和自环需要怎样明确链结构约定。本页不把简单图画法直接当成完整支持多重边/自环的实现。</p>
+<h2>完成记录</h2>
+<p>写下完成了哪张图/哪组输入、哪里需要提示、能否独立解释关键一步。读过核对内容不自动变为已掌握；可以先做手推，再按兴趣扩展实现。</p>
+<p><a href="../../05-graphs/problems/g16.html">主题参考</a> · <a href="../../references/README.html">资料使用说明</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

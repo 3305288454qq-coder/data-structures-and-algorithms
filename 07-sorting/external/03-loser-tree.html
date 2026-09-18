@@ -1,0 +1,31 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>外排序 03：败者树怎样选出下一个记录</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="03-loser-tree.md">Markdown 原文件</a></nav><h1>外排序 03：败者树怎样选出下一个记录</h1>
+<p><a href="README.html">专题目录</a> · <a href="02-replacement-selection.html">上一页</a> · <a href="04-optimal-merge.html">下一页：最佳归并树</a></p>
+<p><strong>基础：看懂比赛与更新路径；进阶 <a href="../problems/r16.html">R16 败者树构建与胜者替换</a> 已有 C++ 框架与自动核对。未确认掌握。</strong></p>
+<h2>它负责什么</h2>
+<p>多路归并中，每条有序段提供一个当前候选，要不断找出最小值输出。</p>
+<p>最直接的方法是每次扫描所有候选。败者树用比赛关系保留比较结果；某一段换上新候选时，只重新比较相关路径。</p>
+<p>升序归并中，较小者“胜”，较大者“败”；内部结点保存该次比赛的败者，最终胜者另行记录。具体数组下标、补齐叶子的做法属于实现约定，画图前先说明。</p>
+<p>对平衡的 k 路结构，一次候选更新沿树高进行，比较次数是 O(log k) 量级，而每次重新扫描 k 个候选是 O(k)。这减少的是选取候选时的比较，不会单凭这一结构就减少归并轮数。</p>
+<h2>用四条段手推</h2>
+<pre><code>A: 1 8
+B: 3 4
+C: 2 9
+D: 5 6</code></pre>
+<p>先比较 A 对 B、C 对 D，再让两组胜者比较；在每个位置写下败者，并单独标出总胜者。</p>
+<p>输出 1 后，A 的候选改成 8。只沿 A 原来的比赛路径更新：</p>
+<ul>
+<li>A 的新值与这一层保留的对手比较。</li>
+<li>胜者继续向上，与下一层保留的对手比较。</li>
+<li>得到新的总胜者；没受影响的另一组不必重比。</li>
+</ul>
+<details>
+<summary>展开核对开头两次输出</summary>
+<p>最初 A=1 战胜 B=3，C=2 战胜 D=5，最后 1 战胜 2；第一个输出为 1。</p>
+<p>A 换成 8 后，8 与原对手 3 比，3 胜；3 再与 2 比，2 胜。因此第二个输出为 C 的 2。</p>
+<p>这次不需要重新比较 C=2 与 D=5，因为这两个候选没有变化。</p>
+</details>
+<h2>后续实现要检验什么</h2>
+<p>先支持 4 路，再处理非 2 的幂的路数；明确相等值的胜负规则。</p>
+<p>某段耗尽后应退出有效候选或使用带“无效”标记的比较。若用数值哨兵，必须保证真实数据不会与它冲突，不能无条件把 int 最大值当成永远更大的值。</p>
+<p>测试空段、重复值、一路、不同长度、非 2 的幂路数、所有段耗尽。结果应全局有序、数量与原记录一致。</p>
+<p>败者树与小根堆都能服务于多路归并；可以比较两者的比较次数，但不要因此宣称所有机器、所有输入下其中一种总更快。<a href="https://arxiv.org/abs/2207.12713">数据库外排序的对比研究</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

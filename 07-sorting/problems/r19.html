@@ -1,0 +1,40 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>R19 受限内存文件外排序实验</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="r19.md">Markdown 原文件</a></nav><h1>R19 受限内存文件外排序实验</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../../index.html">练习导航</a> · <a href="../external/README.html">外部排序专题</a></p>
+<p><strong>扩展｜实验｜配套深化。已有任务与验收规范，没有目标算法完整实现。未确认掌握。</strong></p>
+<h2>目标与前置</h2>
+<p>把内存模拟接成真正的分段文件、缓冲和多轮归并，同时测量记录守恒、内存占用与逻辑块读写。</p>
+<p>前置：R14、R15、R16、R17。只在本章 external/lab-work/ 自建实验目录中操作；输入文件只读，输出另存，不覆盖练习源文件。</p>
+<h2>固定输入与格式</h2>
+<p>文件每行一个十进制 int。先使用 <a href="../external/lab-input-small.txt">32 条小样本</a>，对应 <a href="../external/lab-expected-small.txt">排序后结果</a>。小样本包括重复、负数、INT_MIN/MAX；约定本实验不携带身份，因此不要求稳定。</p>
+<p>大样本 N=200000，第 i 条（i 从 0 开始）为 <code>(i×48271 mod 1000003)−500001</code>；乘法先使用 long long。自己写一个独立生成器，逐条写 source-data.txt。额外生成升序、降序和全相同三组输入。不要先把整份数据读进 vector 再声称做了外排序。</p>
+<h2>内存与缓冲预算</h2>
+<p>算法持有的数据结构和显式读写缓冲合计上限 <strong>64 KiB</strong>；这不是要求整个 C++ 进程只占 64 KiB。记录 vector 的容量、每项大小、堆或败者树、冻结标记、输入输出缓冲占用；库内部流缓冲与进程开销另列，不隐瞒。</p>
+<p>初始段候选容量先取 M=4096 个 int。归并先取 k=4，每条输入段缓冲 256 个 int，输出缓冲也 256 个 int。不要把初始段工作区与归并工作区无必要地同时保留。解析文本只保留当前行，拒绝畸形/超长整数；本题给定输入合法，异常处理可后补。</p>
+<h2>建设步骤（按顺序，不按时间）</h2>
+<ul>
+<li>先固定分块生成有序段，每段最多 M 个；确认所有段有序、记录数总和=N。</li>
+<li>对两个段做缓冲归并，再推广到 k 路；段多于 k 时生成下一轮文件，直到只剩一条段。</li>
+<li>接入 R15 置换—选择，比较同一输入的初始段数；不要假设总能减半。</li>
+<li>分别用小根堆与 R16 败者树选择候选，计数关键字比较；采用同一输入/缓冲/计数口径。</li>
+<li>段长度不同后，用 R17 安排归并次序；检查最优加和模型与受限实际调度的差别。</li>
+</ul>
+<h2>必须保存的实验记录</h2>
+<div class="table"><table><thead><tr><th>指标</th><th>固定分块+堆</th><th>置换选择+堆</th><th>置换选择+败者树</th></tr></thead><tbody>
+<tr><td>输入记录数、输出记录数</td><td>自己填</td><td>自己填</td><td>自己填</td></tr>
+<tr><td>初始段数、各段长度</td><td></td><td></td><td></td></tr>
+<tr><td>归并轮数/每次参与的段</td><td></td><td></td><td></td></tr>
+<tr><td>最大显式内存字节数</td><td></td><td></td><td></td></tr>
+<tr><td>候选比较次数</td><td></td><td></td><td></td></tr>
+<tr><td>逻辑输入块/输出块次数</td><td></td><td></td><td></td></tr>
+</tbody></table></div>
+<p>这里一个<strong>逻辑块</strong>指最多 256 个解析后的 int；文本字节长可变，逻辑块次数不是硬盘物理 I/O 次数。若后续改成固定长度二进制记录，再单独定义字节块，并记录文件格式/字节序。</p>
+<h2>验收</h2>
+<ul>
+<li>小样本逐行与 expected 文件一致，空输入与单记录也正确。</li>
+<li>大样本输出逐项非递减，记录数为 N；用已知生成公式统计各键频数核对守恒，或由独立验证程序用内存排序对照。<strong>验证器</strong>可占较多内存，不能把它混成受限排序算法本身。</li>
+<li>任意时刻显式内存不超过预算；峰值依据真实容器 capacity 和缓冲大小记录，不能只填配置值。</li>
+<li>临时段命名含运行编号，失败不覆盖原始输入；只有核对完成后才自行清理本轮临时段。</li>
+<li>报告每种方法适合何种输入，不以一次机器运行结果宣布某数据结构永远更快。</li>
+</ul>
+<p>完成前几步已经是有效实验进展，不必一次写完全部版本。</p>
+<p><a href="../../07-sorting/external/01-flow.html">主题参考</a></p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

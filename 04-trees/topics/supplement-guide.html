@@ -1,0 +1,23 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>树的表示、显式栈、线索与编码</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="supplement-guide.md">Markdown 原文件</a></nav><h1>树的表示、显式栈、线索与编码</h1>
+<p><a href="../README.html">本章目录</a></p>
+<h2>非递归不是把递归函数改名</h2>
+<p><a href="../problems/b08.html">B08</a> 的先序和中序要解释“栈中是什么、弹出意味着什么”；<a href="../problems/b09.html">B09</a> 后序还须保存左右子树处理状态。同值结点仍是不同结点，不能靠 value 判断是否走过。系统递归栈的作用见 <a href="../../02-stacks-queues-arrays/problems/s14.html">S14</a>。</p>
+<h2>森林的孩子兄弟表示</h2>
+<p>一般树可有多个有序孩子。孩子兄弟表示中 left 指第一个孩子，right 指下一个兄弟；一个结点的全部孩子通过 right 串联。森林中各棵树的根也串成兄弟链。</p>
+<p>手推森林：第一棵根 A，孩子 B、C，C 的孩子 D；第二棵根 E，孩子 F。写出每个结点的“第一个孩子、下一个兄弟”，再逆向恢复。不要把 E 看成 A 的普通右子树所代表的孩子。</p>
+<details>
+<summary>核对表示</summary>
+<p>A=(B,E)，B=(空,C)，C=(D,空)，D=(空,空)，E=(F,空)，F=(空,空)。从 A 开始逐个走右兄弟找出森林根；对每个结点从左孩子开始顺右兄弟找出其孩子列表。<a href="../problems/b10.html">B10</a> 将同一规则用稳定下标编码，不要求先处理动态分配。</p>
+</details>
+<h2>线索树要结合遍历次序看</h2>
+<p>线索在空指针处保存前驱或后继，但“前驱/后继”总是相对于某种遍历次序。中序线索的完整分类和先序/后序的限制见 <a href="../problems/b13.html">B13</a>。真实孩子指针与线索必须由 tag 区分，否则遍历可能循环。</p>
+<h2>哈夫曼：树、WPL 和实际码字不是一回事</h2>
+<p>旧 B06 只输出 WPL，新 <a href="../problems/b11.html">B11</a> 要求真正构树、生成码字并解码。等权时树形和 0/1 分配可不唯一，应该比较是否合法、是否达到最小代价，而非强求固定字符串。</p>
+<p>用 A:5、B:7、C:10、D:15 手推：每次取当前最小的两项合并，直到只剩一棵树；给左边标 0、右边标 1 后生成码字，再解码 DABC。先自己算带权路径长度，再展开。</p>
+<details>
+<summary>核对一组合法结果</summary>
+<p>合并 5+7=12，10+12=22，15+22=37；WPL=12+22+37=71。一种码表为 D=0、C=10、A=110、B=111，DABC 编为 011011110。左右交换可得到其他正确码表。单字符若根深度为 0，树的 WPL 是 0；为实际编码本套另约定使用码字 0，此时每次字符仍占一个比特，不能混淆两种计量。</p>
+</details>
+<p>最佳归并树与此处的“每次合并较小权值”关联，但作用是规划归并代价；参见 <a href="../../07-sorting/external/README.html">外部排序</a>。</p>
+<h2>并查集的两种优化</h2>
+<p><a href="../problems/b12.html">B12</a> 按大小决定哪棵根挂在哪棵根下面；路径压缩在查找时让途中结点更接近根。前者避免反复把大树挂到小树下，后者使后续查询更短。size 只在根上需要准确，普通结点残留的旧值不是当前分量大小。既不要重复合并时再增加 size，也不要把摊还复杂度误说成每次最坏常数。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>

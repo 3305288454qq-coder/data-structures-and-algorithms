@@ -1,0 +1,21 @@
+"use strict";
+const assert=require("node:assert/strict");
+const P=require("../assets/progress-core.js");
+const ids=["L01","R10","E01","X01"];
+let checks=0;
+function test(name,fn){fn();checks++;console.log("PASS "+name);}
+test("legacy true is migrated without claiming mastery",()=>{const r=P.parseBackup('{"L01":true}',ids);assert.equal(r.records.L01.status,"verified");assert.match(r.records.L01.note,/未重新验证/);});
+test("v2 preserves notes and status",()=>{const r=P.parseBackup(JSON.stringify({schemaVersion:2,records:{R10:{status:"blocked",note:"负数偏移不懂",updatedAt:"2026-09-18"}}}),ids);assert.equal(r.records.R10.note,"负数偏移不懂");assert.equal(r.records.R10.status,"blocked");});
+test("empty v2 backup can be loaded",()=>assert.equal(Object.keys(P.parseBackup('{"schemaVersion":2,"records":{}}',ids).records).length,0));
+test("unknown IDs ignored, prototype keys not merged",()=>{const r=P.parseBackup('{"L01":true,"__proto__":{"polluted":true},"BAD":true}',ids);assert.equal(r.unknown,2);assert.equal(Object.keys(r.records).length,1);assert.equal({}.polluted,undefined);});
+test("invalid status is rejected",()=>assert.throws(()=>P.parseBackup('{"R10":{"status":"mastered"}}',ids)));
+test("malformed JSON rejected",()=>assert.throws(()=>P.parseBackup("<script>alert(1)</script>",ids)));
+test("invalid note type rejected",()=>assert.throws(()=>P.parseBackup('{"L01":{"status":"verified","note":{}}}',ids)));
+test("unknown schema rejected",()=>assert.throws(()=>P.parseBackup('{"schemaVersion":9,"records":{"L01":true}}',ids)));
+test("old Markdown progress imports",()=>{const r=P.parseBackup("# 本地记录\n\n- [x] L01 顺序表\n- [ ] R10 计数排序\n",ids);assert.equal(r.records.L01.status,"verified");assert.equal(r.records.R10.status,"not-started");});
+test("merge preserves local by default and does not mutate input",()=>{const local={L01:{status:"blocked",note:"keep"}}, incoming={L01:{status:"verified",note:"new"},R10:{status:"in-progress"}};const r=P.mergeRecords(local,incoming,false);assert.equal(r.L01.note,"keep");assert.equal(r.R10.status,"in-progress");assert.equal(local.R10,undefined);assert.equal(P.mergeRecords(local,incoming,true).L01.note,"new");});
+const tasks=[{id:"L01",title:"顺序表",goal:"基本操作",chapter:"01",level:"基础",mode:"编码",material:"已有框架"},{id:"R10",title:"计数排序",goal:"受限值域",chapter:"07",level:"进阶",mode:"编码",material:"已有框架"},{id:"E01",title:"外部排序",goal:"归并段",chapter:"07",level:"基础",mode:"手推",material:"已有阅读页"},{id:"X01",title:"前缀和",goal:"区间和",chapter:"08",level:"扩展",mode:"编码",material:"已有框架"}];
+test("filters distinguish tier, mode and chapter",()=>{assert.deepEqual(P.filtered(tasks,{level:"基础",mode:"手推"},{}).map(t=>t.id),["E01"]);assert.deepEqual(P.filtered(tasks,{chapter:"07",query:"计数"},{}).map(t=>t.id),["R10"]);});
+test("status filter respects missing records",()=>{assert.equal(P.filtered(tasks,{status:"not-started"},{L01:{status:"blocked"}}).length,3);});
+test("extension progress never changes foundation denominator",()=>{const c=P.counts(tasks,{L01:{status:"verified"},X01:{status:"verified"}});assert.deepEqual(c[0],{level:"基础",total:2,verified:1});assert.deepEqual(c[2],{level:"扩展",total:1,verified:1});});
+console.log(checks+" navigation logic checks passed.");

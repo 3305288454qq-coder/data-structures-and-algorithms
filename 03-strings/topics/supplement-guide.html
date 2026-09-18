@@ -1,0 +1,18 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>串的下标、失败函数与存储约定</title><style>body{font:16px/1.8 system-ui,"Microsoft YaHei",sans-serif;background:#f5f8f8;color:#182a35;margin:0}main{max-width:1000px;margin:30px auto;padding:30px;background:white;border:1px solid #dce5e8;border-radius:12px}a{color:#087f73;text-underline-offset:4px}nav{border-bottom:1px solid #dce5e8;padding-bottom:16px;color:#607580;font-size:14px}h1{font-size:30px;line-height:1.35}h2{margin-top:32px;font-size:22px}pre{background:#17343b;color:#e0f4ed;padding:18px;overflow:auto;border-radius:8px;line-height:1.6}code{font-family:Consolas,monospace}p code,li code{background:#edf2f3;padding:1px 5px}th,td{border-bottom:1px solid #dce5e8;text-align:left;padding:10px;vertical-align:top}table{border-collapse:collapse;width:100%}.table{overflow:auto}.box{color:#087f73}li{margin:8px 0}footer{font-size:13px;color:#607580;margin-top:30px}details{border:1px solid #dce5e8;border-radius:8px;padding:10px 14px;margin:16px 0}summary{cursor:pointer;font-weight:600}details[open]>summary{margin-bottom:12px}a:focus-visible,summary:focus-visible{outline:3px solid #ffa64c}@media(max-width:700px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:26px}pre{font-size:13px}}</style></head><body><main><nav><a href="../../index.html">← 练习导航</a> · <a href="supplement-guide.md">Markdown 原文件</a></nav><h1>串的下标、失败函数与存储约定</h1>
+<p><a href="../README.html">本章目录</a> · <a href="../problems/t04.html">T04 对照编码</a> · <a href="../problems/t05.html">T05 nextval</a> · <a href="../problems/t06.html">T06 存储手推</a></p>
+<h2>pi 和 next 解决同一匹配问题，但不是同一张数值表</h2>
+<p>pi[i] 是 pattern[0..i] 的最长相等真前后缀长度；i 是 0 基。它描述“这一段已经匹配完以后，能留下多长的边界”。</p>
+<p>本套 next[j] 使用 1 基模式位置，表示“第 j 个字符失配时，下次尝试哪个模式位置”；next[1]=0，0 为哨兵。对于 j≥2，它基于失配字符之前的那段，即 pi[j-2]，而不是 pi[j]。返回表第 0 格只是占位。</p>
+<p>手推 ababa：先为 a、ab、aba、abab、ababa 写最长真前后缀长度，再为第 1–5 个字符分别写失配跳转位置。特别注意“长度 0”与“模式位置 1”在两个约定中的不同角色。</p>
+<details>
+<summary>展开核对三张表</summary>
+<p>0 基 pi：0,0,1,2,3。  </p>
+<p>1 基 next（不含占位格）：0,1,1,2,3。  </p>
+<p>1 基 nextval（不含占位格）：0,1,0,1,0。</p>
+<p>因此转换时 j≥2 的 next[j]=pi[j-2]+1，next[1] 单独处理。标准库字符串仍是 0 基，访问第 j 个字符用 pattern[j-1]。</p>
+</details>
+<h2>nextval 为什么能跳得更远</h2>
+<p>如果当前失配字符为 a，而 next 指向的模式字符仍为 a，那么拿同一个文本字符再次和 a 比较必定仍失败；nextval 跳过这次无效尝试。它不跳过可能成功的匹配，也不改变正确的首次匹配位置。对 aaaa 特别明显，但 next 和 nextval 都保持线性时间级别。</p>
+<p>不同教材和语言实现也可能使用 0 基、-1 哨兵、前缀长度等约定。不能只看数组名字 next 就断定数值应与本页相同。先明确下标、失配时机和跳转语义，再比较代码。</p>
+<h2>不混淆空模式的接口</h2>
+<p>T04/T05 返回首次出现位置，本套约定空模式返回 0。T03 返回全部出现位置，有自己的接口说明。实现前先读题目契约，不把一种返回类型的空模式规则机械套到另一种接口上。</p><footer>本页由同目录 Markdown 生成。更新笔记时以 Markdown 为源；页面上的方框用于阅读，实际进度请记在学习记录或导航页。</footer></main></body></html>
