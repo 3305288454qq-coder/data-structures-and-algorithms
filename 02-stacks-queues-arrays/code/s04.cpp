@@ -4,23 +4,38 @@
 #include "../../templates/test_support.hpp"
 
 void enqueue_linked(LinkedQueue& queue, int value) {
-    (void)queue; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 链队列，参见 ../problems/s04.md
-    todo("enqueue_linked");
+    ListNode* new_node = new ListNode;
+    new_node->value = value;
+    if (queue.front == nullptr)
+    {
+        queue.front = new_node;
+    }
+    else
+    {
+        queue.rear->next = new_node;
+    }
+    queue.rear = new_node;
 }
 
 bool dequeue_linked(LinkedQueue& queue, int& value) {
-    (void)queue; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 链队列，参见 ../problems/s04.md
-    todo("dequeue_linked");
+    if (queue.front == nullptr) return false;
+    value = queue.front->value;
+    ListNode* old_node = queue.front;
+    queue.front = queue.front->next;
+    delete old_node;
+    if (queue.front == nullptr) queue.rear = nullptr;
+    return true;    
 }
 
 void clear_queue(LinkedQueue& queue) {
-    (void)queue; // 实现后可移除这行占位语句。
-    // TODO: 链队列，参见 ../problems/s04.md
-    todo("clear_queue");
+    ListNode* current = queue.front;
+    while (current != nullptr)
+    {
+        queue.front = current->next;
+        delete current;
+        current = queue.front;
+    }
+    queue.rear = nullptr;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

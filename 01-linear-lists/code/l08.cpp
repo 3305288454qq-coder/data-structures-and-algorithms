@@ -4,9 +4,22 @@
 #include "../../templates/test_support.hpp"
 
 int unique_sorted(std::vector<int>& values) {
-    (void)values; // 实现后可移除这行占位语句。
-    // TODO: 有序表去重，参见 ../problems/l08.md
-    todo("unique_sorted");
+    if (values.size() == 0)
+    {
+        return 0;
+    }
+
+    int unique_count = 1;
+
+    for (size_t i = 0; i < values.size() - 1; i++)
+    {
+        if (values[i + 1] != values[i])
+        {
+            values[unique_count++] = values[i + 1];
+        }
+    }
+    
+    return unique_count;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

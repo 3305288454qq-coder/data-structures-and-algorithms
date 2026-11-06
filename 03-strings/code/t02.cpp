@@ -4,10 +4,30 @@
 #include "../../templates/test_support.hpp"
 
 int naive_find(const std::string& text, const std::string& pattern) {
-    (void)text; // 实现后可移除这行占位语句。
-    (void)pattern; // 实现后可移除这行占位语句。
-    // TODO: 朴素模式匹配，参见 ../problems/t02.md
-    todo("naive_find");
+    std::size_t n = text.size();
+    std::size_t m = pattern.size();
+    if (m == 0)
+    {
+        return 0;
+    }
+    if (m > n)
+    {
+        return -1;
+    }
+    for (size_t i = 0; i <= n - m; i++)
+    {
+        size_t j = 0;
+        while (j < m && text[i + j] == pattern[j])
+        {
+            ++j;
+        }
+        if (j == m)
+        {
+            return static_cast<int>(i);
+        }
+        
+    }
+    return -1;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

@@ -3,17 +3,45 @@
 #include "../../templates/common.hpp"
 #include "../../templates/test_support.hpp"
 
+// 两个 vector 始终是原来的完整序列，只读引用不会复制它们。
+// 本次子树对应：preorder 从 pre_begin 起的 count 项，
+//               inorder  从 in_begin 起的 count 项。
+TreeNode* build_range(const std::vector<int>& preorder,
+                      const std::vector<int>& inorder,
+                      std::size_t pre_begin,
+                      std::size_t in_begin,
+                      std::size_t count) {
+    if (count == 0)
+    {
+        return nullptr;
+    }
+    TreeNode *root = new(TreeNode);
+    root->value = preorder[pre_begin];
+    std::size_t root_pos = in_begin;
+    while (inorder[root_pos] != root->value)
+    {
+        ++root_pos;
+    }
+    
+    std::size_t left_count = root_pos - in_begin;
+    root->left = build_range(preorder, inorder, pre_begin + 1, in_begin, left_count);
+    root->right = build_range(preorder, inorder, pre_begin + 1 + left_count, root_pos + 1, count - 1 - left_count);
+    return root;
+}
+
 TreeNode* build_tree(const std::vector<int>& preorder, const std::vector<int>& inorder) {
-    (void)preorder; // 实现后可移除这行占位语句。
-    (void)inorder; // 实现后可移除这行占位语句。
-    // TODO: 由先序中序重建二叉树，参见 ../problems/b04.md
-    todo("build_tree");
+    return build_range(preorder, inorder, 0, 0, preorder.size());
 }
 
 void destroy_tree(TreeNode*& root) {
-    (void)root; // 实现后可移除这行占位语句。
-    // TODO: 由先序中序重建二叉树，参见 ../problems/b04.md
-    todo("destroy_tree");
+    if (root == nullptr)
+    {
+        return;
+    }
+    destroy_tree(root->left);
+    destroy_tree(root->right);
+    delete(root);
+    root = nullptr;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

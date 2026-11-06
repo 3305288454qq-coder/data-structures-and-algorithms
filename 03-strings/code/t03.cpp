@@ -4,16 +4,49 @@
 #include "../../templates/test_support.hpp"
 
 std::vector<int> prefix_function(const std::string& pattern) {
-    (void)pattern; // 实现后可移除这行占位语句。
-    // TODO: KMP，参见 ../problems/t03.md
-    todo("prefix_function");
+    std::vector<int> pi(pattern.size(), 0);
+
+    std::size_t j = 0;
+
+    for (size_t i = 1; i < pattern.size(); ++i)
+    {
+        while (j != 0 && pattern[i] != pattern[j])
+        {
+            j = pi[j - 1];
+        }
+        if (pattern[i] == pattern[j])
+        {
+            ++j;
+        }
+        pi[i] = static_cast<int>(j);
+    }
+
+    return pi;
 }
 
 std::vector<int> kmp_all(const std::string& text, const std::string& pattern) {
-    (void)text; // 实现后可移除这行占位语句。
-    (void)pattern; // 实现后可移除这行占位语句。
-    // TODO: KMP，参见 ../problems/t03.md
-    todo("kmp_all");
+    std::vector<int> pi = prefix_function(pattern);
+    std::vector<int> position;
+    std::size_t j = 0;
+
+    for (size_t i = 0; i < text.size(); ++i)
+    {
+        while (j != 0 && text[i] != pattern[j])
+        {
+            j = pi[j - 1];
+        }
+        if (text[i] == pattern[j])
+        {
+            ++j;
+        }
+        if (j == pattern.size())
+        {
+            position.push_back(static_cast<int>(i + 1 - pattern.size()));
+            j = pi[j - 1];
+        }
+    }
+
+    return position;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

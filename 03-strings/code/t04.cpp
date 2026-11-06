@@ -2,14 +2,37 @@
 #include "../../templates/test_support.hpp"
 
 std::vector<int> pi_to_next(const std::vector<int>& pi) {
-    (void)pi;
-    todo("pi_to_next");
+    std::vector<int> next(pi.size() + 1, 0);
+    for (std::size_t j = 2; j <= pi.size(); ++j)
+    {
+        next[j] = pi[j - 2] + 1;
+    }
+
+    return next;
 }
 int find_with_next(const std::string& text, const std::string& pattern, const std::vector<int>& next) {
-    (void)text;
-    (void)pattern;
-    (void)next;
-    todo("find_with_next");
+    if (pattern.size() == 0)
+    {
+        return 0;
+    }
+    std::size_t i = 0;
+    std::size_t j = 1;
+
+    while (i < text.size() && j <= pattern.size())
+    {
+        if (j == 0 || text[i] == pattern[j - 1])
+        {
+            ++i; ++j;
+        }else
+        {
+            j = next[j];
+        }
+        if (j > pattern.size())
+        {
+            return static_cast<int>(i - pattern.size());
+        }
+    }
+    return -1;
 }
 
 int main() { return practice_test::run([] {

@@ -4,9 +4,31 @@
 #include "../../templates/test_support.hpp"
 
 std::vector<int> level_order(TreeNode* root) {
-    (void)root; // 实现后可移除这行占位语句。
-    // TODO: 层序遍历，参见 ../problems/b02.md
-    todo("level_order");
+    std::queue<TreeNode*> pending;
+    std::vector<int> result;
+    if (root == nullptr)
+    {
+        return result;
+    }
+    pending.push(root);
+
+    while (!pending.empty())
+    {
+        TreeNode* node = pending.front();
+        pending.pop();
+        result.push_back(node->value);
+
+        if (node->left != nullptr)
+        {
+            pending.push(node->left);
+        }
+        if (node->right != nullptr)
+        {
+            pending.push(node->right);
+        }
+    }
+    
+    return result;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

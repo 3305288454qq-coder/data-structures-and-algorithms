@@ -4,10 +4,27 @@
 #include "../../templates/test_support.hpp"
 
 ListNode* kth_from_end(ListNode* head, int k) {
-    (void)head; // 实现后可移除这行占位语句。
-    (void)k; // 实现后可移除这行占位语句。
-    // TODO: 倒数第 k 个结点，参见 ../problems/l06.md
-    todo("kth_from_end");
+    if (k <= 0) return nullptr;
+
+    ListNode* ahead = head;
+    ListNode* follow = head;
+    for (int i = 0; i < k; i++)
+    {
+        if (ahead != nullptr)
+        {
+            ahead = ahead->next;
+        }
+        else return nullptr;
+    }
+
+    while (ahead != nullptr)
+    {
+        ahead = ahead->next;
+        follow = follow->next;
+    }
+
+    return follow;
+    
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

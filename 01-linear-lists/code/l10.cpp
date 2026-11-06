@@ -3,17 +3,61 @@
 #include "../../templates/test_support.hpp"
 
 ListNode* build_head(const std::vector<int>& values) {
-    (void)values;
-    todo("build_head");
+    ListNode* head = new ListNode;
+
+    for (int value : values)
+    {
+        ListNode* node = new ListNode;
+        node->value = value;
+        node->next = head->next;
+        head->next = node;
+    }
+
+    return head;    
 }
 ListNode* build_tail(const std::vector<int>& values) {
-    (void)values;
-    todo("build_tail");
+    ListNode* head = new ListNode;
+    ListNode* tail = head;
+
+    for (int value : values)
+    {
+        ListNode* node = new ListNode;
+        node->value = value;
+        tail->next = node;
+        tail = node;
+    }
+
+    return head;
 }
 void merge_sorted(ListNode& a, ListNode& b) {
-    (void)a;
-    (void)b;
-    todo("merge_sorted");
+    ListNode* node_a = a.next;
+    ListNode* node_b = b.next;
+    ListNode* tail = &a;
+    while (node_a != nullptr && node_b != nullptr)
+    {
+        if (node_a->value > node_b->value)
+        {
+            tail->next = node_b;
+            node_b = node_b->next;
+            tail = tail->next;
+        }
+        else
+        {
+            tail->next = node_a;
+            node_a = node_a->next;
+            tail = tail->next;
+        }
+    }
+    if (node_a != nullptr)
+    {
+        tail->next = node_a;
+    }
+    else
+    {
+        tail->next = node_b;
+    }
+
+    b.next = nullptr;
 }
 
 void destroy_test_list(ListNode* head) { while (head) { auto* next = head->next; delete head; head = next; } }

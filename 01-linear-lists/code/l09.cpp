@@ -4,15 +4,37 @@
 
 struct DynamicList { std::vector<int> storage; int length = 0; };
 int locate_value(const DynamicList& list, int value) {
-    (void)list;
-    (void)value;
-    todo("locate_value");
+    for (int i = 0; i < list.length; i++)
+    {
+        if (list.storage[i] == value)
+        {
+            return i + 1;
+        }
+    }
+
+    return 0;
 }
 bool insert_dynamic(DynamicList& list, int position, int value) {
-    (void)list;
-    (void)position;
-    (void)value;
-    todo("insert_dynamic");
+    if (position < 1 || position > list.length + 1) return false;
+    if (static_cast<std::size_t>(list.length) == list.storage.size())
+    {
+        if (list.storage.size() == 0)
+        {
+            list.storage.resize(1);
+        }
+        else
+        {
+            list.storage.resize(list.storage.size() * 2);
+        }
+    }
+
+    for (int i = list.length - 1; i >= position - 1; --i)
+    {
+        list.storage[i + 1] = list.storage[i];
+    }
+    list.storage[position - 1] = value;
+    ++list.length;
+    return true;
 }
 
 int main() { return practice_test::run([] {

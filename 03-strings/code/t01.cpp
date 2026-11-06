@@ -4,18 +4,43 @@
 #include "../../templates/test_support.hpp"
 
 std::string take_substring(const std::string& text, int start, int length) {
-    (void)text; // 实现后可移除这行占位语句。
-    (void)start; // 实现后可移除这行占位语句。
-    (void)length; // 实现后可移除这行占位语句。
-    // TODO: 串的基本操作，参见 ../problems/t01.md
-    todo("take_substring");
+    std::string result;
+    for (size_t offset = 0; offset < length; offset++)
+    {
+        result += text[start + offset];
+    }
+    return result;
 }
 
 int compare_strings(const std::string& a, const std::string& b) {
-    (void)a; // 实现后可移除这行占位语句。
-    (void)b; // 实现后可移除这行占位语句。
-    // TODO: 串的基本操作，参见 ../problems/t01.md
-    todo("compare_strings");
+    size_t count = 0;
+    while (count < a.size() && count < b.size())
+    {
+        if (a[count] == b[count])
+        {
+            ++count;
+        }
+        else if (a[count] > b[count])
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    if (a.size() == b.size())
+    {
+        return 0;
+    }
+    else if (a.size() < b.size())
+    {
+        return -1;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

@@ -4,11 +4,31 @@
 #include "../../templates/test_support.hpp"
 
 long long evaluate_postfix(const std::vector<std::string>& tokens) {
-    (void)tokens; // 实现后可移除这行占位语句。
-    // TODO: 后缀表达式求值，参见 ../problems/s06.md
-    todo("evaluate_postfix");
+    std::stack<long long> values;
+    for (const std::string& token : tokens)
+    {
+        if (token == "+" || token == "-" || token == "*" || token == "/")
+        {
+            long long right = values.top(); values.pop();
+            long long left = values.top(); values.pop();
+            long long result;
+            if (token == "+") result = left + right;
+            else if (token == "-") result = left - right;
+            else if (token == "*") result = left * right;
+            else result = left / right;
+            values.push(result);
+        }
+        else
+        {
+            values.push(std::stoll(token));
+        }
+    }
+    if (values.size() != 1)
+    {
+        throw std::invalid_argument("表达式求值后应剩一个结果");
+    }
+    return values.top();
 }
-
 // 自动比较普通与边界用例；目标函数仍由学习者实现。
 int main() {
     return practice_test::run([] {

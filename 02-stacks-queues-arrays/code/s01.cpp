@@ -4,24 +4,24 @@
 #include "../../templates/test_support.hpp"
 
 bool push(ArrayStack& stack, int value) {
-    (void)stack; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 顺序栈，参见 ../problems/s01.md
-    todo("push");
+    if (stack.top == CAPACITY) return false;
+    
+    stack.data[stack.top++] = value;
+    return true;
 }
 
 bool pop(ArrayStack& stack, int& value) {
-    (void)stack; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 顺序栈，参见 ../problems/s01.md
-    todo("pop");
+    if (stack.top == 0) return false;
+    
+    value = stack.data[--stack.top];
+    return true;
 }
 
 bool peek(const ArrayStack& stack, int& value) {
-    (void)stack; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 顺序栈，参见 ../problems/s01.md
-    todo("peek");
+    if (stack.top == 0) return false;
+    
+    value = stack.data[stack.top - 1];
+    return true;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

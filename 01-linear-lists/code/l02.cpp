@@ -4,10 +4,16 @@
 #include "../../templates/test_support.hpp"
 
 int remove_value(std::vector<int>& values, int value) {
-    (void)values; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 原地删除指定值，参见 ../problems/l02.md
-    todo("remove_value");
+    int kept = 0;
+
+    for (std::size_t i = 0; i < values.size(); i++){
+        if (values[i] != value){
+            values[kept] = values[i];
+            kept++;
+        }
+    }
+    
+    return kept;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

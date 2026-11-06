@@ -4,9 +4,18 @@
 #include "../../templates/test_support.hpp"
 
 ListNode* reverse_list(ListNode* head) {
-    (void)head; // 实现后可移除这行占位语句。
-    // TODO: 原地反转单链表，参见 ../problems/l05.md
-    todo("reverse_list");
+    ListNode* prev = nullptr;
+    ListNode* current = head;
+
+    while (current != nullptr)
+    {
+        ListNode* next_node = current->next;
+        current->next = prev;
+        prev = current;
+        current = next_node;
+    }
+
+    return prev;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

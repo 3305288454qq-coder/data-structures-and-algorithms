@@ -20,5 +20,6 @@ function visit(id){if(active.has(id))throw new Error("Prerequisite cycle: "+id);
 for(const id of ids)visit(id);
 const escapeJson=JSON.stringify(chapters).replace(/</g,"\\u003c");
 const template=fs.readFileSync(path.join(root,"tools/index.template.html"),"utf8");
-fs.writeFileSync(path.join(root,"index.html"),template.replace("__CURRICULUM__",escapeJson),"utf8");
+const promptJson=JSON.stringify(fs.readFileSync(path.join(root,"AGENTS.md"),"utf8")).replace(/</g,"\\u003c");
+fs.writeFileSync(path.join(root,"index.html"),template.replace("__CURRICULUM__",()=>escapeJson).replace("__TUTOR_PROMPT__",()=>promptJson),"utf8");
 console.log(JSON.stringify({chapters:chapters.length,total:tasks.length,code:tasks.filter(t=>t.codePath).length,levels:Object.fromEntries(["基础","进阶","扩展"].map(level=>[level,tasks.filter(t=>t.level===level).length]))}));

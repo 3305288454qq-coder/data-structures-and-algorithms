@@ -4,18 +4,20 @@
 #include "../../templates/test_support.hpp"
 
 std::size_t symmetric_index(int i, int j) {
-    (void)i; // 实现后可移除这行占位语句。
-    (void)j; // 实现后可移除这行占位语句。
-    // TODO: 对称矩阵压缩存储，参见 ../problems/s07.md
-    todo("symmetric_index");
+    std::size_t row = static_cast<std::size_t>(i);
+    std::size_t col = static_cast<std::size_t>(j);
+    if (i >= j)
+    {
+        return row * (row + 1) / 2 + col;
+    }
+    else
+    {
+        return col * (col + 1) / 2 + row;
+    }
 }
 
 int symmetric_get(const std::vector<int>& lower, int i, int j) {
-    (void)lower; // 实现后可移除这行占位语句。
-    (void)i; // 实现后可移除这行占位语句。
-    (void)j; // 实现后可移除这行占位语句。
-    // TODO: 对称矩阵压缩存储，参见 ../problems/s07.md
-    todo("symmetric_get");
+    return lower[symmetric_index(i, j)];
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

@@ -2,23 +2,50 @@
 // 这是可编译的练习框架；TODO 抛出异常表示尚未实现，不代表测试通过。
 #include "../../templates/common.hpp"
 #include "../../templates/test_support.hpp"
-
+void collect_preorder(TreeNode* node, std::vector<int>& result)
+    {
+        if (node == nullptr)
+        {
+            return;
+        }
+        result.push_back(node->value);
+        collect_preorder(node->left, result);
+        collect_preorder(node->right, result);
+    }
 std::vector<int> preorder(TreeNode* root) {
-    (void)root; // 实现后可移除这行占位语句。
-    // TODO: 二叉树三种遍历，参见 ../problems/b01.md
-    todo("preorder");
+    std::vector<int> result;
+    collect_preorder(root, result);
+    return result;
 }
-
+void collect_inorder(TreeNode* node, std::vector<int>& result)
+    {
+        if (node == nullptr)
+        {
+            return;
+        }
+        collect_inorder(node->left, result);
+        result.push_back(node->value);
+        collect_inorder(node->right, result);
+    }
 std::vector<int> inorder(TreeNode* root) {
-    (void)root; // 实现后可移除这行占位语句。
-    // TODO: 二叉树三种遍历，参见 ../problems/b01.md
-    todo("inorder");
+    std::vector<int> result;
+    collect_inorder(root, result);
+    return result;
 }
-
+void collect_postorder(TreeNode* node, std::vector<int>& result)
+    {
+        if (node == nullptr)
+        {
+            return;
+        }
+        collect_postorder(node->left, result);
+        collect_postorder(node->right, result);
+        result.push_back(node->value);
+    }
 std::vector<int> postorder(TreeNode* root) {
-    (void)root; // 实现后可移除这行占位语句。
-    // TODO: 二叉树三种遍历，参见 ../problems/b01.md
-    todo("postorder");
+    std::vector<int> result;
+    collect_postorder(root, result);
+    return result;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

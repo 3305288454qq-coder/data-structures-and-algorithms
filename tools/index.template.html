@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数据结构与算法 · 分层练习导航</title><link rel="stylesheet" href="assets/navigation.css"></head>
 <body><header><small>PROGRAMMING PRACTICE / 王道 2027</small><h1>数据结构与算法</h1><p>沿章节顺序，把学过的知识变成能解释、能验证的能力。默认从基础看起；进阶与扩展随时可选，不设日期，也不要求一次全部完成。</p>
+<details class="ai-start"><summary>复制这段话给新的ai对话或者工作区</summary>
+<p>每章可以开一个新对话。复制完整提示后，填写开头的章节、题号和问题；同一工作区按本章记录接续，换设备时另附最近的交接摘要。</p>
+<div class="buttons"><button id="copy-ai-prompt" type="button">复制完整辅导与 Notion 整理提示</button><a href="AGENTS.html">阅读全文</a></div>
+<p id="ai-prompt-status" role="status" aria-live="polite">包含做题、检查代码、看懂答案、章节交接和 Notion 笔记整理规则。</p>
+<label for="ai-prompt-text">完整提示（也可在这里选择复制）</label><textarea id="ai-prompt-text" rows="10" readonly spellcheck="false"></textarea>
+</details>
 <nav class="quick" aria-label="主要入口"><a href="START_HERE.html">如何练习与测试</a><a href="PRACTICE_ORDER.html">分层练习顺序</a><a href="references/IMPLEMENTATION_REPORT.html">本次补全与覆盖</a><a href="07-sorting/external/README.html">外部排序专题</a><a href="notes/learning_progress.html">学习记录</a></nav></header>
 <main><div id="stats" class="stats" aria-label="按层级分别统计"></div>
 <p class="explanation">“已核对”由你按实际结果记录：编码项核对测试，阅读/手推项核对解释与过程；它不自动等于已掌握。进阶、扩展分别统计，不影响基础进度。</p>
@@ -16,4 +22,4 @@
 <p id="save-message" role="status" aria-live="polite"></p><div id="content"></div>
 <footer>题目、代码和手推材料按资料类型分别展示。代码的核心算法留给你实现；TODO 表示尚未完成。网页记录仅存在当前浏览器，不会自动修改代码、Markdown 或 Notion。在线题的接口与范围以原题为准。</footer></main>
 <dialog id="import-dialog" aria-labelledby="import-title"><h2 id="import-title">核对要导入的记录</h2><p id="import-summary"></p><label class="checkbox"><input id="overwrite" type="checkbox">重叠条目采用导入记录（默认保留本地）</label><div class="buttons"><button id="cancel-import">取消</button><button id="apply-import" class="primary">确认合并记录</button></div></dialog>
-<script id="curriculum" type="application/json">__CURRICULUM__</script><script src="assets/progress-core.js"></script><script src="assets/navigation.js"></script></body></html>
+<script id="ai-tutor-prompt" type="application/json">__TUTOR_PROMPT__</script><script src="assets/tutor-prompt.js"></script><script id="curriculum" type="application/json">__CURRICULUM__</script><script src="assets/progress-core.js"></script><script src="assets/navigation.js"></script></body></html>

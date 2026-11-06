@@ -4,27 +4,40 @@
 #include "../../templates/test_support.hpp"
 
 bool get_element(const SqList& list, int position, int& value) {
-    (void)list; // 实现后可移除这行占位语句。
-    (void)position; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 顺序表基本操作，参见 ../problems/l01.md
-    todo("get_element");
+    if (position <= 0 || position > list.length) {
+        return false;
+    }
+    else {
+        value = list.data[position - 1];
+        return true;
+    }
 }
 
 bool insert_element(SqList& list, int position, int value) {
-    (void)list; // 实现后可移除这行占位语句。
-    (void)position; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 顺序表基本操作，参见 ../problems/l01.md
-    todo("insert_element");
+    if (list.length >= CAPACITY) {
+        return false;
+    }
+    if (position < 1 || position > list.length + 1) {
+        return false;
+    }
+    for (int i = list.length - 1; i >= position - 1; --i) {
+        list.data[i + 1] = list.data[i];
+    }
+    list.data[position - 1] = value;
+    list.length++;
+    return true;
 }
 
 bool erase_element(SqList& list, int position, int& removed) {
-    (void)list; // 实现后可移除这行占位语句。
-    (void)position; // 实现后可移除这行占位语句。
-    (void)removed; // 实现后可移除这行占位语句。
-    // TODO: 顺序表基本操作，参见 ../problems/l01.md
-    todo("erase_element");
+    if (position < 1 || position > list.length){
+        return false;
+    }
+    removed = list.data[position - 1];
+    for (int i = position - 1; i < list.length - 1; ++i) {
+        list.data[i] = list.data[i + 1];
+    }
+    list.length--;
+    return true;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

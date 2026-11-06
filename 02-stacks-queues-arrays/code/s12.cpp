@@ -1,18 +1,34 @@
-// S12 三角矩阵与三对角矩阵地址映射
+ // S12 三角矩阵与三对角矩阵地址映射
 #include "../../templates/test_support.hpp"
 
 #include <cstdlib>
 int lower_index(int row, int col, int n) {
-    (void)row;
-    (void)col;
-    (void)n;
-    todo("lower_index");
+    if (n < 1 || n > 10000)
+    {
+        throw std::out_of_range("matirx size out of range");
+    }
+    else if (row >= 0 && row < n && col >= 0 && col < n)
+    {
+        if (row >= col)
+        {
+            return row * (row + 1) / 2 + col;
+        }
+        else return -1;
+    }
+    throw std::out_of_range("over matrix");
 }
 int tri_index(int row, int col, int n) {
-    (void)row;
-    (void)col;
-    (void)n;
-    todo("tri_index");
+    if (n < 1 || n > 10000)
+        throw std::out_of_range("matirx size out of range");
+    else if (row >= 0 && row < n && col >= 0 && col < n)
+    {
+        if (std::abs(row - col) <= 1)
+        {
+            return 2 * row + col;
+        }
+        else return -1;
+    }
+    throw std::out_of_range("over matrix");
 }
 
 int main() { return practice_test::run([] {

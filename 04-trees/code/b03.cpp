@@ -4,21 +4,44 @@
 #include "../../templates/test_support.hpp"
 
 int tree_height(TreeNode* root) {
-    (void)root; // 实现后可移除这行占位语句。
-    // TODO: 树高与结点统计，参见 ../problems/b03.md
-    todo("tree_height");
+    if (root == nullptr)
+    {
+        return 0;
+    }
+    int leftl_height = tree_height(root->left);
+    int rightl_height = tree_height(root->right);
+    if (leftl_height > rightl_height)
+    {
+        return leftl_height + 1;
+    }
+    else
+    {
+        return rightl_height + 1;
+    }
 }
 
 int count_nodes(TreeNode* root) {
-    (void)root; // 实现后可移除这行占位语句。
-    // TODO: 树高与结点统计，参见 ../problems/b03.md
-    todo("count_nodes");
+    if (root == nullptr)
+    {
+        return 0;
+    }
+    int counts = count_nodes(root->left) + count_nodes(root->right) + 1;
+    return counts;
 }
 
 int count_leaves(TreeNode* root) {
-    (void)root; // 实现后可移除这行占位语句。
-    // TODO: 树高与结点统计，参见 ../problems/b03.md
-    todo("count_leaves");
+    if (root == nullptr)
+    {
+        return 0;
+    }
+    if (root->left == nullptr && root->right == nullptr)
+    {
+        return 1;
+    }
+    else
+    {
+        return count_leaves(root->left) + count_leaves(root->right);
+    }
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

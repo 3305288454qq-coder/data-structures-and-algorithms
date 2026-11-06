@@ -124,7 +124,7 @@
       {
         "id": "L04",
         "title": "单链表基本操作",
-        "goal": "使用不带头结点的单链表。实现按 1 开始的位序插入、删除、查找与销毁；非法位置返回 false；销毁后 head 必须为空。",
+        "goal": "使用不带头结点的单链表。实现按 1 开始的位序插入、删除、查找，并实现销毁；插入、删除的非法位序返回 false，查找的非法位序返回 nullptr；销毁后 head 必须为空。",
         "signature": "bool list_insert(ListNode*& head, int position, int value);\nbool list_erase(ListNode*& head, int position, int& removed);\nListNode* list_at(ListNode* head, int position);\nvoid destroy_list(ListNode*& head);",
         "demo": "ListNode* head = nullptr;\nstd::cout << list_insert(head, 1, 10) << '\\n';\nstd::cout << list_insert(head, 2, 20) << '\\n';\nstd::cout << list_at(head, 2)->value << '\\n';\nint removed = 0;\nstd::cout << list_erase(head, 1, removed) << ' ' << removed << '\\n';\ndestroy_list(head);\nstd::cout << (head == nullptr) << '\\n';",
         "expected": "1\\n1\\n20\\n1 10\\n1",
@@ -353,7 +353,7 @@
         "reference": "01-linear-lists/topics/supplement-guide.md",
         "prerequisites": [
           "L04",
-          "L07"
+          "L10"
         ],
         "boundaries": "空循环表、删除末项、分配与回收、备用链为空。",
         "sourceScope": "王道主线"

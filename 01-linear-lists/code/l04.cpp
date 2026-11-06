@@ -4,32 +4,88 @@
 #include "../../templates/test_support.hpp"
 
 bool list_insert(ListNode*& head, int position, int value) {
-    (void)head; // 实现后可移除这行占位语句。
-    (void)position; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 单链表基本操作，参见 ../problems/l04.md
-    todo("list_insert");
+    if (position < 1) return false;
+
+    if (position == 1) {
+        ListNode* node = new ListNode{value, nullptr};
+        node->next = head;
+        head = node;
+        return true;
+    }
+    else {
+        ListNode* p = head;
+
+        for (int current_position = 1; p != nullptr && current_position < position - 1; ++current_position)
+        {
+            p = p->next;
+        }
+
+        if (p == nullptr) {
+            return false;
+        }
+
+        ListNode* node = new ListNode{value, nullptr};
+        node->next = p->next;
+        p->next = node;
+
+        return true;
+    }
 }
 
 bool list_erase(ListNode*& head, int position, int& removed) {
-    (void)head; // 实现后可移除这行占位语句。
-    (void)position; // 实现后可移除这行占位语句。
-    (void)removed; // 实现后可移除这行占位语句。
-    // TODO: 单链表基本操作，参见 ../problems/l04.md
-    todo("list_erase");
+    if (head == nullptr) return false;
+    if (position < 1) return false;
+    ListNode* p = head;
+
+    if (position == 1)
+    {
+        removed = p->value;
+        head = p->next;
+        delete p;
+        return true;
+    }
+
+    for (int current_position = 1; p != nullptr && current_position < position - 1; ++current_position)
+    {
+        p = p->next;
+    }
+
+    if (p == nullptr || p->next == nullptr) return false;
+
+    ListNode* q = p->next;
+    removed = q->value;
+    p->next = q->next;
+    delete q;
+
+    return true;
 }
 
 ListNode* list_at(ListNode* head, int position) {
-    (void)head; // 实现后可移除这行占位语句。
-    (void)position; // 实现后可移除这行占位语句。
-    // TODO: 单链表基本操作，参见 ../problems/l04.md
-    todo("list_at");
+    if (position < 1) return nullptr;
+
+    ListNode* p = head;
+
+    //按次数循环 
+    // for (int i = 0; i < position - 1 && p != nullptr; i++){
+    //     p = p->next;
+    // }
+
+    for (int current_position = 1; p != nullptr && current_position < position; ++current_position)
+    {
+        p = p->next;
+    }
+    
+    return p;
 }
 
 void destroy_list(ListNode*& head) {
-    (void)head; // 实现后可移除这行占位语句。
-    // TODO: 单链表基本操作，参见 ../problems/l04.md
-    todo("destroy_list");
+    ListNode* p;
+    while (head !=nullptr)
+    {
+        p = head;
+        head = head->next;
+        delete p;
+    }
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

@@ -2,13 +2,57 @@
 #include "../../templates/test_support.hpp"
 
 std::vector<int> build_nextval(const std::string& pattern) {
-    (void)pattern;
-    todo("build_nextval");
+    std::vector<int> nextval(pattern.size() + 1, 0);
+    std::size_t i = 1;
+    std::size_t j = 0;
+    while (i < pattern.size())
+    {
+        if (j == 0 || pattern[i - 1] == pattern[j - 1])
+        {
+            ++i;
+            ++j;
+            
+            if (pattern[i - 1] != pattern[j - 1])
+            {
+                nextval[i] = static_cast<int>(j);
+            }
+            else
+            {
+                nextval[i] = nextval[j];
+            }
+        }
+        else
+        {
+            j = nextval[j];
+        }
+    }
+    return nextval;
 }
 int find_with_nextval(const std::string& text, const std::string& pattern) {
-    (void)text;
-    (void)pattern;
-    todo("find_with_nextval");
+    if (pattern.size() == 0)
+    {
+        return 0;
+    }
+    const std::vector<int> nextval = build_nextval(pattern);
+    std::size_t i = 0;
+    std::size_t j = 1;
+
+    while (i < text.size() && j <= pattern.size())
+    {
+        if (j == 0 || text[i] == pattern[j - 1])
+        {
+            ++i; ++j;
+        }
+        else
+        {
+            j = nextval[j];
+        }
+        if (j > pattern.size())
+        {
+            return static_cast<int>(i - pattern.size());
+        }
+    }
+    return -1;
 }
 
 int main() { return practice_test::run([] {

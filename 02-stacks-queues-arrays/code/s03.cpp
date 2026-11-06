@@ -4,23 +4,21 @@
 #include "../../templates/test_support.hpp"
 
 bool enqueue(RingQueue& queue, int value) {
-    (void)queue; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 循环队列，参见 ../problems/s03.md
-    todo("enqueue");
+    if (queue.front == (queue.rear + 1) % CAPACITY) return false;
+    queue.data[queue.rear] = value;
+    queue.rear = (queue.rear + 1) % CAPACITY;
+    return true;    
 }
 
 bool dequeue(RingQueue& queue, int& value) {
-    (void)queue; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 循环队列，参见 ../problems/s03.md
-    todo("dequeue");
+    if (queue.front == queue.rear) return false;
+    value = queue.data[queue.front];
+    queue.front = (queue.front + 1) % CAPACITY;
+    return true;    
 }
 
 int queue_size(const RingQueue& queue) {
-    (void)queue; // 实现后可移除这行占位语句。
-    // TODO: 循环队列，参见 ../problems/s03.md
-    todo("queue_size");
+    return (queue.rear - queue.front + CAPACITY) % CAPACITY;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

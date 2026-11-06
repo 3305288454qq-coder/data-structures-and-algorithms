@@ -4,23 +4,28 @@
 #include "../../templates/test_support.hpp"
 
 void push_linked(ListNode*& top, int value) {
-    (void)top; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 链栈，参见 ../problems/s02.md
-    todo("push_linked");
+    ListNode* new_node = new ListNode;
+    new_node->value = value;
+    new_node->next = top;
+    top = new_node;
 }
 
 bool pop_linked(ListNode*& top, int& value) {
-    (void)top; // 实现后可移除这行占位语句。
-    (void)value; // 实现后可移除这行占位语句。
-    // TODO: 链栈，参见 ../problems/s02.md
-    todo("pop_linked");
+    if (top == nullptr) return false;
+    ListNode* old_top = top;
+    value = old_top->value;
+    top = top->next;
+    delete old_top;    
+    return true;
 }
 
 void clear_stack(ListNode*& top) {
-    (void)top; // 实现后可移除这行占位语句。
-    // TODO: 链栈，参见 ../problems/s02.md
-    todo("clear_stack");
+    while (top != nullptr)
+    {
+        ListNode* clear_top = top;
+        top = top->next;
+        delete clear_top;
+    }
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。

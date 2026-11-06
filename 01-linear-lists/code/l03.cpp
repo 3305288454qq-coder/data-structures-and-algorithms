@@ -4,10 +4,35 @@
 #include "../../templates/test_support.hpp"
 
 std::vector<int> merge_sorted(const std::vector<int>& a, const std::vector<int>& b) {
-    (void)a; // 实现后可移除这行占位语句。
-    (void)b; // 实现后可移除这行占位语句。
-    // TODO: 合并有序顺序表，参见 ../problems/l03.md
-    todo("merge_sorted");
+
+    std::vector<int> result;  // result 才是容器变量，开始时为空
+    std::size_t i = 0;
+    std::size_t j = 0;
+
+    for (; i < a.size() && j < b.size(); )
+    {
+        if (a[i] < b[j])
+        {
+            result.push_back(a[i]);
+            i++;
+        }
+        else
+        {
+            result.push_back(b[j]);
+            j++;
+        }
+    }
+
+    for (; i < a.size(); i++)
+    {
+        result.push_back(a[i]);
+    }
+    for (; j < b.size(); j++)
+    {
+        result.push_back(b[j]);
+    }
+
+    return result;
 }
 
 // 自动比较普通与边界用例；目标函数仍由学习者实现。
