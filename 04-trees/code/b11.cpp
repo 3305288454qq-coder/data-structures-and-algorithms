@@ -3,6 +3,10 @@
 
 struct HuffNode { long long weight=0; int left=-1; int right=-1; int symbol=-1; };
 struct HuffTree { std::vector<HuffNode> nodes; int root=-1; };
+int take_min(std::vector<int>& pending, const HuffTree& tree)
+{
+    
+}
 HuffTree build_huffman(const std::vector<long long>& weights) {
     (void)weights;
     todo("build_huffman");

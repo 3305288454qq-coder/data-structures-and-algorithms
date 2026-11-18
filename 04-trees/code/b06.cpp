@@ -4,8 +4,8 @@
 #include "../../templates/test_support.hpp"
 long long take_min(std::vector<long long>& values)
 {
-    std::size_t min_index =0;
-    for (size_t i = 0; i < values.size(); ++i)
+    std::size_t min_index = 0;
+    for (size_t i = 1; i < values.size(); ++i)
     {
         if (values[i] < values[min_index])
         {

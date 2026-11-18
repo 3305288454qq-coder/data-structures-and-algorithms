@@ -2,12 +2,56 @@
 #include "../../templates/test_support.hpp"
 
 std::vector<int> iterative_preorder(const TreeNode* root) {
-    (void)root;
-    todo("iterative_preorder");
+    std::vector<int> preorder_values;
+    if (root == nullptr)
+    {
+        return preorder_values;
+    }
+    std::stack<const TreeNode*> pending;
+    pending.push(root);
+
+    while (!pending.empty())
+    {
+        const TreeNode* node = pending.top();
+        pending.pop();
+        preorder_values.push_back(node->value);
+
+        if (node->right != nullptr)
+        {
+            pending.push(node->right);
+        }
+        if (node->left != nullptr)
+        {
+            pending.push(node->left);
+        }
+    }
+
+    return preorder_values;
 }
 std::vector<int> iterative_inorder(const TreeNode* root) {
-    (void)root;
-    todo("iterative_inorder");
+    std::vector<int> inorder_values;
+    if (root == nullptr)
+    {
+        return inorder_values;
+    }
+    std::stack<const TreeNode*> pending;
+    const TreeNode* current = root;
+
+    while (current != nullptr || !pending.empty())
+    {
+        while (current != nullptr)
+        {
+            pending.push(current);
+            current = current->left;
+        }
+
+        current = pending.top();
+        inorder_values.push_back(current->value);
+        pending.pop();
+        current = current->right;
+    }
+    
+    return inorder_values;
 }
 
 int main() { return practice_test::run([] {

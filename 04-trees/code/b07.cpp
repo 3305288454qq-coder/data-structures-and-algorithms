@@ -4,20 +4,31 @@
 #include "../../templates/test_support.hpp"
 
 int find_root(std::vector<int>& parent, int node) {
-    (void)parent; // 实现后可移除这行占位语句。
-    (void)node; // 实现后可移除这行占位语句。
-    // TODO: 并查集，参见 ../problems/b07.md
-    todo("find_root");
+    int current = node;
+    while (parent[node] != node)
+    {
+        node = parent[node];
+    }
+    int root = node;
+    while (current != root)
+    {
+        int next = parent[current];
+        parent[current] = root;
+        current = next;
+    }
+    return root;
 }
 
-void unite(std::vector<int>& parent, int a, int b) {
-    (void)parent; // 实现后可移除这行占位语句。
-    (void)a; // 实现后可移除这行占位语句。
-    (void)b; // 实现后可移除这行占位语句。
-    // TODO: 并查集，参见 ../problems/b07.md
-    todo("unite");
+void unite(std::vector<int>& parent, int a, int b)
+{
+    int root_a = find_root(parent, a);
+    int root_b = find_root(parent, b);
+    if (root_a == root_b) return;
+    else
+    {
+        parent[root_b] = root_a;
+    }
 }
-
 // 自动比较普通与边界用例；目标函数仍由学习者实现。
 int main() {
     return practice_test::run([] {
@@ -37,7 +48,9 @@ int main() {
         const int root = find_root(parent,0);
         for (int i = 0; i < 5; ++i) practice_test::equal(find_root(parent,i),root,"connected");
         std::vector<int> chain{1,2,3,4,4};
+        const auto before_chain = chain;
         practice_test::equal(find_root(chain,0),4,"chain root");
         for (int p : chain) require(p >= 0 && p < 5,"parent remains valid");
+        require(chain != before_chain,"path compression updates the searched path");
     });
 }
